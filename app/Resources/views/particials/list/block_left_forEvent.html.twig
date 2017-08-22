@@ -1,0 +1,18 @@
+<div class="itemPart1"><a href="{{ path('home_'~section1~'_detail_'~app.request.locale, {'slug':section.translate.slug}) }}"
+><img src="{% if section.getImage %}
+                                    {{ asset(upload_web ~ section.getImage.url|default())|imagine_filter('thumb259x148') }}
+                                {% else %}
+                                    {{ asset(upload_web ~ section.getImageBackground.url|default())|imagine_filter('thumb259x148') }}
+                                {% endif %}" alt="" class="tsarZoom">
+{% if section.getEventType.translate.name %}
+	<div class="itemService">
+		<h3>{{ section.getEventType.translate.name }}</h3>
+		{% if section.getEventSchedule|length %}
+			<div class="itemServiceData">
+				{% for item in section.getEventSchedule %}
+					<span>{{ item.getDateStart|date('d/m/Y') }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endif %}</a></div>

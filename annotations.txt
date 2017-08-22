@@ -1,0 +1,96 @@
+****************************
+AppBundle\Entity\Destination
+
+SELECT n.nid, n.title, '' AS slug, fdftdd.field_type_de_destination_target_id, fdfmd.field_master_destination_value,
+fdfsil.field_selected_in_list_value, fdb.body_value, fdb.body_summary, fdfl.field_location_lid, 1 AS active
+FROM node n
+LEFT JOIN field_data_field_type_de_destination fdftdd ON fdftdd.entity_id = n.nid
+LEFT JOIN field_data_field_master_destination fdfmd ON fdfmd.entity_id = n.nid
+LEFT JOIN field_data_field_selected_in_list fdfsil ON fdfsil.entity_id = n.nid
+LEFT JOIN field_data_body fdb ON fdb.entity_id = n.nid
+LEFT JOIN field_data_field_location fdfl ON fdfl.entity_id = n.nid
+WHERE n.type = "destination"
+
+****************************
+AppBundle\Entity\Destination destination_domain
+
+SELECT n.nid, fdfd.field_domaine_tid
+FROM node n
+LEFT JOIN field_data_field_domaine fdfd ON fdfd.entity_id = n.nid
+WHERE n.type = "destination"
+
+****************************
+AppBundle\Entity\Destination destination_parent
+
+SELECT n.nid, fdfld.field_link_destinations_target_id
+FROM node n
+JOIN field_data_field_link_destinations fdfld ON fdfld.entity_id = n.nid
+WHERE n.type = "destination"
+
+****************************
+AppBundle\Entity\Files
+SELECT f.fid, '' AS uid, f.filename, f.uri, f.filemime, 1 AS active, f.type FROM file_managed f
+
+****************************
+AppBundle\Entity\FrontSlider
+
+SELECT n.nid, fdfpf.field_push_photo_fid, l1.field_push_title_line_1_value, l2.field_push_title_line_2_value, fdb.body_value, fdfmc.field_mobile_color_value,
+fdfpeh.field_position_en_home_value, fdfpl.field_push_link_url, 1 AS active
+FROM node n
+LEFT JOIN field_data_field_push_title_line_1 l1 ON l1.entity_id = n.nid
+LEFT JOIN field_data_field_push_title_line_2 l2 ON l2.entity_id = n.nid
+LEFT JOIN field_data_body fdb ON fdb.entity_id = n.nid
+LEFT JOIN field_data_field_mobile_color fdfmc ON fdfmc.entity_id = n.nid
+LEFT JOIN field_data_field_position_en_home fdfpeh ON fdfpeh.entity_id = n.nid
+LEFT JOIN field_data_field_push_link fdfpl ON fdfpl.entity_id = n.nid
+LEFT JOIN field_data_field_push_photo fdfpf ON fdfpf.entity_id = n.nid
+WHERE n.type = "push_home_page"
+
+SELECT n.nid, fdfd.field_domaine_tid
+FROM node n
+LEFT JOIN field_data_field_domaine fdfd ON fdfd.entity_id = n.nid
+WHERE n.type = "push_home_page"
+
+
+****************************
+AppBundle\Entity\Day
+SELECT n.nid, n.title, '' AS body, '' AS slug, '' AS placement
+FROM node n
+LEFT JOIN field_data_field_dayblock_photos fdfbp ON fdfbp.entity_id = n.nid
+LEFT JOIN field_data_body fdb ON fdb.entity_id = n.nid
+WHERE n.type = "dayblock"
+
+AppBundle\Entity\Day day_to_destination
+SELECT n.nid, fdfld.`field_link_destinations_target_id`
+FROM node n
+LEFT JOIN field_data_field_link_destinations fdfld ON fdfld.entity_id = n.nid
+WHERE n.type = "dayblock"
+
+AppBundle\Entity\Day day_to_file
+SELECT n.nid, fdfbp.field_dayblock_photos_fid
+FROM node n
+LEFT JOIN field_data_field_dayblock_photos fdfbp ON fdfbp.entity_id = n.nid
+WHERE n.type = "dayblock"
+
+
+
+
+****************************
+AppBundle\Entity\Article
+SELECT n.nid, 1 AS uid, n.title, '' AS slug, fdfbp.field_background_photo_fid, '' AS summary, fdb.body_value, 1 AS active, '' AS keywords, n.created, n.changed
+FROM node n
+LEFT JOIN field_data_field_background_photo fdfbp ON fdfbp.entity_id = n.nid
+LEFT JOIN field_data_body fdb ON fdb.entity_id = n.nid
+WHERE n.type = "static_page"
+
+
+****************************
+AppBundle\Entity\Partners
+SELECT n.nid, fdfpl.field_partner_logo_fid AS image, n.title, '' AS slug, fdfpu.field_partner_url_url AS link, 1 AS external, fdfpp.field_partner_priority_value AS reorder, '' AS keywords
+FROM node n
+LEFT JOIN field_data_body fdb ON fdb.entity_id = n.nid
+LEFT JOIN field_data_field_partner_url fdfpu ON fdfpu.entity_id = n.nid
+LEFT JOIN field_data_field_partner_logo fdfpl ON fdfpl.entity_id = n.nid
+LEFT JOIN field_data_field_partner_priority fdfpp ON fdfpp.entity_id = n.nid
+
+WHERE n.type = "partners"

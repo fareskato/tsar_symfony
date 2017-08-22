@@ -1,0 +1,18 @@
+<div class="panelPane service">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-service.png', 'paneTitle': 'front.service'|trans, 'check': filtered_services } %}
+    <div class="paneContent{% if filtered_services %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for service in filter_services %}
+                <div class="paneItem">
+	                <label>
+		                {% if service.entity.id in filtered_services|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,service.entity.id, section1 ),(section2)|trans : app.request.get((section2)|trans)}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ service.entity.translate.name }}</a>
+	                        {% else %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path ~ ((current_path == ''?'':'/')~section1~'/'~service.entity.id),(section2)|trans : app.request.get((section2)|trans)}) }}"><div class="checkPic service" data-service="{{ service.entity.translate.name }}"></div><input type="checkbox" name="checkboxForPaneItem">{{ service.entity.translate.name }}<span class="paneItemCount clear">{{ service.count }}</span></a>
+	                        {% endif %}
+	                </label>
+                </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

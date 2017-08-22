@@ -1,0 +1,19 @@
+<div class="panelPane etoiles">
+    {% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-etoiles.png', 'paneTitle': 'front.etoiles'|trans, 'check': filtered_stars } %}
+    <div class="paneContent {% if  filtered_stars %} hidden{% endif %}">
+		{# ALL STARS #}
+        <div class="paneList">
+			{% for star in filter_stars %}
+                <div class="paneItem">
+                    <label>
+						{% if star.entity.id in filtered_stars|keys %}
+                            <a href="{{ path('home_hebergement_filter_'~app.request.locale, {filters: exculde_path(current_path,star.entity.id,'url.hotel.stars'|trans)}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ star.entity.translate.name }}</a>
+						{% else %}
+                            <a href="{{ path('home_hebergement_filter_'~app.request.locale, {filters:current_path}) }}/{{'url.hotel.stars'|trans}}/{{  star.entity.id }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem"><span data-star="{{ star.entity.translate.name }}" class="itemStars">{{ star.entity.translate.name }}</span><span class="paneItemCount clear">{{ star.count }}</span></a>
+						{% endif %}
+                    </label>
+                </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

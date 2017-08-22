@@ -1,0 +1,13 @@
+{% if form.prefix|default('') %}
+    {{ form.prefix }}
+{% endif %}
+<form id="{{ form.id|default('') }}" method="{{ form.method|default('post') }}" action="{{ form.action|default('') }}" class="toCheck {{ form.class|default('') }}"
+	              {% if form.onsubmit|default('') %}onsubmit="{{ form.onsubmit }}"{% endif %}
+			        {% if form.multipart|default('') %}enctype="multipart/form-data"{% endif %}
+            >
+                <div class="formBlock">
+			        {% for field in form.fields %}
+				        {% include 'form/field_'~field.type~'.html.twig' with { 'field' : field } %}
+			        {% endfor %}
+                </div>
+            </form>

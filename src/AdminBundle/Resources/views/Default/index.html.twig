@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% set title = data_title|default('')|trans %}
+
+{% block title %}{{ title|default('') }} | {{ ('admin.title')|trans }} {% endblock %}
+
+
+    {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="{{ asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{ asset('admin/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="{{ asset('admin/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="{{ asset('admin/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="{{ asset('admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="{{ asset('admin/vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
+        <!-- bootstrap-daterangepicker -->
+        <link href="{{ asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
+        <!-- Custom styling plus plugins -->
+        <link href="{{ asset('admin/custom.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/jQuery.nestable/jQuery.nestable.css') }}" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+
+    {% endblock %}
+{% block body %}
+    <div class="container body">
+        <div class="main_container">
+            {# Start:: Left sidebar #}
+            {% include '@Admin/Default/partials/sidebar.html.twig' %}
+            {# End:: Left sidebar #}
+            {# Start:: top navigation #}
+            {% include '@Admin/Default/partials/topnav.html.twig' %}
+            {# End:: top navigation #}
+            {# Start:: Main content #}
+               <div class="right_col" role="main">
+                   {% block data %}{% endblock %}
+                   <div class="clearfix"></div>
+                   {% include '@Admin/Default/partials/paginator.html.twig' %}
+                   <div class="clearfix"></div>
+               </div>
+            {# End:: Main content #}
+        </div>
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                </div>
+            </footer>
+            <!-- /footer content -->
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <!-- jQuery -->
+    <script src="{{ asset('admin/vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ asset('admin/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('admin/vendors/fastclick/lib/fastclick.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{ asset('admin/vendors/nprogress/nprogress.js') }}"></script>
+    <!-- Chart.js -->
+    <script src="{{ asset('admin/vendors/Chart.js/dist/Chart.min.js') }}" ></script>
+    <!-- gauge.js -->
+    <script src="{{ asset('admin/vendors/gauge.js/dist/gauge.min.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/iCheck/icheck.min.js') }}" ></script>
+    <!-- Skycons -->
+    <script src="{{ asset('admin/vendors/skycons/skycons.js') }}" ></script>
+    <!-- Flot -->
+    <script src="{{ asset('admin/vendors/Flot/jquery.flot.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/Flot/jquery.flot.pie.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/Flot/jquery.flot.time.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/Flot/jquery.flot.stack.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/Flot/jquery.flot.resize.js') }}" ></script>
+    <!-- Flot plugins -->
+    <script src="{{ asset('admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/flot-spline/js/jquery.flot.spline.min.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/flot.curvedlines/curvedLines.js') }}" ></script>
+    <!-- DateJS -->
+    <script src="{{ asset('admin/vendors/DateJS/build/date.js') }}" ></script>
+    <!-- JQVMap -->
+    <script src="{{ asset('admin/vendors/jqvmap/dist/jquery.vmap.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/jqvmap/dist/jquery.vmap.js') }}" ></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ asset('admin/vendors/moment/min/moment.min.js') }}" ></script>
+    <script src="{{ asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.js') }}" ></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="{{ asset('admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
+    <script src="{{ asset('admin/vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+    <script src="{{ asset('admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('admin/custom.js') }}"></script>
+
+    <script src="{{ asset('//code.jquery.com/ui/1.12.1/jquery-ui.js') }}"></script>
+    <script src="{{ asset('admin/vendors/jQuery.nestable/jQuery.nestable.js') }}"></script>
+    <script src="{{ asset('admin/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.2/js/froala_editor.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

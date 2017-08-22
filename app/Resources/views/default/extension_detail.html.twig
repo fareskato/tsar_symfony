@@ -1,0 +1,183 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'extensionPage detail' %}
+
+{% set title = extension.translate.name %}
+
+{% if extension.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ extension.getImageBackground.url) %}
+{% endif %}
+
+{% if extension.getBodySummary %}
+    {% set description = extension.translate.getBodySummary %}
+{% else %}
+    {% set description = extension.translate.getBody %}
+{% endif %}
+
+{% if extension.keywords %}
+    {% set keywords = extension.translate.keywords %}
+{% endif %}
+
+{% if extension.image %}
+    {% set image = (upload_web ~ extension.image.url) %}
+{% endif %}
+
+
+{% set mapLocations = [] %}
+{% for item in extension.getExtension %}
+    {% if item.getLocation and item.getLocation.getLatitude and item.getLocation.getLongitude %}
+        {% set mapLocations = [{'lat':item.getLocation.getLatitude,'lng':item.getLocation.getLongitude}]|merge(mapLocations) %}
+    {% endif %}
+{% endfor %}
+{% if not mapLocations and (extension.getStartingPoint and extension.getStartingPoint.getLocation.getLatitude and extension.getStartingPoint.getLocation.getLongitude) %}
+    {% set mapLocations = [{'lat':extension.getStartingPoint.getLocation.getLatitude,'lng':extension.getStartingPoint.getLocation.getLongitude}]|merge(mapLocations) %}
+{% endif %}
+{% set defaultZoom = 10 %}
+
+
+{% block body %}
+
+    {# If the user logged in and authorized #}
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : extension, 'type' : 'extension' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage pageContent">
+        <div class="lBlock">
+            <div class="mainDayContent">
+	            {% include 'particials/detailPage/numberContainer.html.twig' with { 'section': extension } %}<div class="dayContent">
+                    <h2>{{ 'front.extension'|trans }}: </h2>
+		            <h1>{{ extension.translate.name }}</h1>
+                    <ul class="dayList">
+                        {% if extension.getStartingPoint %}
+                            <li>
+                                <span class="dayListLabel">{{ 'front.au_depart_de'|trans }}: </span>{{ extension.getStartingPoint.translate.name }}
+                            </li>
+                        {% endif %}
+	                    {% if extension.getExtension|length > 0 %}
+                            <li>
+                                <span class="dayListLabel">{{ 'front.vers'|trans }}:
+                                </span>{% for item in extension.getExtension %}
+                                    <span class="toCity">{{ item.translate.name }}</span>
+                                {% endfor %}
+                            </li>
+	                    {% endif %}
+	                    {% if extension.getAmountDays %}
+                            <li><span class="dayListLabel">{{ 'front.duree'|trans }}:
+                                </span>{{ extension.getAmountDays }} {{ 'front.jours'|trans }} - {{ extension.getAmountDays - 1  }} {{ 'front.nuit'|trans }}
+                            </li>
+	                    {% endif %}
+	                    {% if extension.getSeason|length > 0 %}
+                            <li>
+                                <span class="dayListLabel">{{ 'front.saison'|trans }}:</span>
+	                            {% for item in extension.getSeason %}
+		                            {{ item.translate.name }}
+	                            {% endfor %}
+                            </li>
+                        {% endif %}
+	                    {% if extension.getExtensionRecreation|length > 0 %}
+                            <li>
+                                <span class="dayListLabel">{{ 'front.type'|trans }}:</span>
+	                            {% for item in extension.getExtensionRecreation %}
+		                            {{ item.translate.name }}
+	                            {% endfor %}
+                            </li>
+	                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="daysTabsContainer">
+
+	            {% set curDay = 1 %}
+	            {% set hotelsAll = {} %}
+
+	            {% for item in extension.getDay %}
+                    <div class="day">
+                        <div class="dayTabbed">
+                            <div class="labelsTab">
+                                <div class="labelTab active" data-tab="1">
+	                                <span class="bold upperCase">{{ 'front.jours'|trans }} {{ curDay }}</span> -
+	                                {% if extension.getExtension[(curDay-1)] is defined %}
+	                                    {{ extension.getExtension[(curDay-1)].translate.name }}
+	                                {% else %}
+	                                    {{ item.translate.name }}
+	                                {% endif %}
+                                </div>{% include 'particials/detailPage/labelsTab_2_3.html.twig' %}
+                            </div>
+                            <div class="contentTabs">
+	                            {% include 'particials/detailPage/contentTab_1_2.html.twig' %}
+	                            {% if  item.getHotel|length %}
+                                    <div class="contentTab"  data-tab="3">
+			                            {% for hotel in item.getHotel %}
+                                            <div class="itemOfDataTab3">
+                                                {% include 'particials/detailPage/itemOfcontentTab_3.html.twig' %}
+                                                {% set hotelsAll = { ('_'~hotel.getId) : hotel }|merge(hotelsAll) %}
+                                            </div>
+			                            {% endfor %}
+                                    </div>
+	                            {% endif %}
+                            </div>
+                        </div>
+
+                        {% set curDay = curDay + 1 %}
+                    </div>
+	            {% endfor %}
+
+                <div class="separator"></div>
+                {% if (extension.getStartingPoint and extension.getExtension|length > 0)
+                    and extension.getStartingPoint.id != extension.getExtension[0].id %}
+                    <div class="wrapHotelsTable">
+                        <table class="hotelsTable">
+                            <tr>
+                                <td class="middle">{{ 'front.departs'|trans }}</td>
+                                <td class="last">
+                                    <ul class="daysHotelRate">
+                                            <li>{{ 'front.depart'|trans({'%city1%': extension.getStartingPoint.translate.name, '%city2%': extension.getExtension[0].translate.name}) }}
+                                            </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+	            {% if  hotelsAll|length %}
+                    <div class="wrapHotelsTable">
+                        <table class="hotelsTable">
+                            <tr>
+                                <td class="middle">{{ 'front.hebergements'|trans }}</td>
+                                <td class="last">
+                                    <ul class="daysHotelRate">
+							            {% for hotel in hotelsAll %}
+                                            <li>{{ hotel.translate.name }}
+									            {% if hotel.getHotelStars|length > 0 %}
+										            {% for item in hotel.getHotelStars  %}
+                                                        <span class="itemStars" data-star='{{ item.translate.name }}'> {{ item.translate.name }}</span>
+										            {% endfor %}
+									            {% endif %}
+                                            </li>
+							            {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        <span>*{{ 'front.double'|trans }}</span>
+                    </div>
+	            {% endif %}
+
+            </div>
+        </div><div class="rBlock">
+            <div class="topRBlock">
+	            {% include 'particials/pricePanel_rBlock.html.twig'  with { 'section': extension } %}
+                <div class="panelGroup">
+		            {% include 'particials/panelDefault_rBlock.html.twig' with { 'section': extension, 'idText': 'headingOneBooking', 'panelDefaultTitle': 'front.demander_un_devis'|trans, 'form' : extension_form  } %}
+		            {% include 'particials/panelDefaultTwoBooking_rBlock.html.twig' with { 'section': extension, 'idText': 'headingTwoBooking', 'panelDefaultTitle': 'front.conditions_de_vente'|trans   } %}
+                </div>
+	            {% include 'particials/panelDefault_rBlock_map.html.twig' with { 'mapLocations': mapLocations   } %}
+	            {% include 'particials/blockContacts.html.twig' %}
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

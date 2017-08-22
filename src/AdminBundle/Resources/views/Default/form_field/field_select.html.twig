@@ -1,0 +1,16 @@
+<div class="item form-group">
+
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">
+        {{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </label>
+        <div class="col-md-10 col-sm-10 col-xs-12">
+            <select class="form-control" name="{{ field.name }}" {% if field.required|default(0) %}required{% endif %}>
+                {% if field.value_zero|default(0) %}<option value="0">{{ field.value_default|default('adm.field.select')|trans }}</option>{% endif %}
+                {% for key,item in field.values %}
+                    {#<option value="{{ key }}" {% if key == entity.id %}disabled{% endif %} {% if key == field.value %}selected{% endif %}>{{ item|trans }}</option>#}
+                    <option value="{{ key }}" {% if field.all_select|default(0) %}{% if key == entity.id %}disabled{% endif %}{% endif %} {% if key == field.value %}selected{% endif %}>{{ item|trans }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+</div>

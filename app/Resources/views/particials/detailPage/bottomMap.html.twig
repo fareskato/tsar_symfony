@@ -1,0 +1,14 @@
+{% if section.location %}
+	{% set location = [] %}
+	{% if section.location.translate.city %}{% set location = location|merge([section.location.translate.city|transliteNames]) %}{% endif %}
+	{% if section.location.translate.getStreet %}{% set location = location|merge([section.location.translate.getStreet|transliteNames]) %}{% endif %}
+	{% if section.location.translate.name %}
+		{% set location = location|merge([section.location.translate.name|transliteNames]) %}
+	{% else %}
+        {% set location = location|merge([title|transliteNames]) %}
+	{% endif %}
+	<div class="bottomMap">
+		<div class="bottomMapShadow"></div>
+		<iframe sandbox="allow-same-origin allow-scripts allow-popups" style="pointer-events:none" src="https://www.google.com/maps/embed/v1/place?key={{ mapiFrameKey }}&q={{ location|join(',') }}" allowfullscreen></iframe>
+	</div>
+{% endif %}

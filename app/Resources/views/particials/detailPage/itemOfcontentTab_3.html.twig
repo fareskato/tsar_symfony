@@ -1,0 +1,7 @@
+<div class="tabImgs">{% include 'particials/imgWithTip.html.twig' with { 'img' : asset(upload_web ~ hotel.image.url|default())|imagine_filter('thumb210x168'), 'classImg': 'tabImg', 'imageTitle': hotel.image.translate.name|default(title), 'imgPopup' : asset(upload_web ~ hotel.image.url|default())|imagine_filter('thumb800x450') } %}
+</div><div class="tabBody"><a href="{{ path('home_hebergement_detail_'~app.request.locale, {'slug':hotel.translate.slug}) }}">
+		<div class="dayHotelTitle upperCase">{{ 'front.votre_hebergement_du_jour'|trans }}</div>
+		<div class="dayHotelName upperCase">{{ hotel.translate.name }}</div>
+		<div class="dayHotelDesc">{{ hotel.translate.getBodySummary|raw }}</div>
+	</a>
+</div>

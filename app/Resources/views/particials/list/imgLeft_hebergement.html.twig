@@ -1,0 +1,5 @@
+<img src="{% if item.getImageMiniature %}
+                                    {{ asset(upload_web ~ item.getImageMiniature.url|default())|imagine_filter('thumb259x148') }}
+                                {% else %}
+                                    {{ asset(upload_web ~ item.getImage.url|default())|imagine_filter('thumb259x148') }}
+                                {% endif %}" alt="" class="tsarZoom">

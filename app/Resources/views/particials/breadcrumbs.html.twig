@@ -1,0 +1,26 @@
+{% if breadcrumbs|default({}) %}
+    <div class="wrapPage top">
+        <div class="wrapBreadcrumb">
+            <div class="wrapBreadcrumbL">
+                <ul class="breadcrumbs">
+                    <li><a href="{{ app.request.headers.get('referer') ? app.request.headers.get('referer') : path('homepage') }}">{{ 'front.homepage2'|trans }}</a></li>
+                    {% for name,link in breadcrumbs %}
+                        {% if link %}
+                            <li><a href="{{ link }}">{{ name }}</a></li>
+                            {% else %}
+                            <li>{{ name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div><div class="wrapBreadcrumbR clear">
+                {% if showPrintBlock|default(1) %}<div class="printIcon">{#static block#}
+                    <span>{{ 'front.imprimer'|trans }}</span><span class="printIconImg"><img src="/images/print.png" alt=""></span>
+                </div>{% endif %}{% if showImageBlock|default(1) %}<div class="lightboxIcon" data-title="{{ title|default('') }}" {%  if addBackgroundImage|default('') %}data-img="{{ addBackgroundImage|imagine_filter('thumb800x450') }}" {% endif %}>
+                    <span>{{ 'front.voir'|trans }}</span><span class="printIconImg"><img src="/images/cart.png" alt=""></span>
+                </div>{% endif %}{% if showShareBlock|default(1) %}<div class="shareBlock"><span>{{ 'front.partager'|trans }}</span><div class="facebook-icon"><a onclick="return tsar.popitup('https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}')" href="#" title="Facebook" rel="nofollow"><img src="/images/sharefb.png" alt="">
+                        </a></div><div class="twitter-icon"><a onclick="return tsar.popitup('http://twitter.com/share?text={{ title|default('') }}{% if hashTag|default('') %}&hashtags={{ hashTag }}{% endif %}')" href="#" title="Twitter" rel="nofollow"><img src="/images/sharetw.png" alt="">
+                        </a></div></div>{% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,72 @@
+<div class="footer">
+    <div class="footerLevel1">
+        <div class="wrapPage">
+            <div class="tabbed">
+                    <input type="radio" name="tabs" id="tab-nav-1" checked>
+                    <label for="tab-nav-1" class="labelOne">
+                        <span>{{ 'front.social'|trans }}
+                        </span><div class="footerSocial">
+                            <a href="{{ settings.get('link_fb').translate.value }}" target="_blank" rel="nofollow"><i class="fa fa-facebook fa-fw fa-lg text-inverse"></i>
+                            </a><a href="{{ settings.get('link_tw').translate.value }}" target="_blank" rel="nofollow"><i class="fa fa-fw fa-lg fa-twitter text-inverse"></i>
+                            </a><a href="{{ settings.get('link_google').translate.value }}" target="_blank" rel="nofollow"><i class="fa fa-fw fa-google-plus fa-lg text-inverse"></i>
+                            </a><a href="{{ settings.get('link_linkedin').translate.value }}" target="_blank" rel="nofollow"><i class="fa fa-fw fa-lg fa-linkedin hub text-inverse"></i>
+                            </a><a href="{{ settings.get('link_blog').translate.value }}" target="_blank" rel="nofollow"><img alt="blog Tsar Voyages" id="chatimgicon" src="/images/blogicon.png"> </a>
+                        </div>
+                    </label>
+                    <input type="radio" name="tabs" id="tab-nav-2">
+                    <label for="tab-nav-2" class="labelTwo">{{ 'front.seeAllSites'|trans }}</label>
+                    <div class="tabs">
+                        <div>
+                            <div class="col">
+                                <div class="menuBlockName">{{ settings.get('site_address_paris').translate.value }}</div>
+	                            {% if app.session.get(domain_variable_name) == domain_russian_id %}
+                                    <p class="colText">{{ settings.get('site_address').translate.description|raw|nl2br }}</p>
+	                            {% else %}
+                                    <p class="colText">{{ settings.get('site_address_paris').translate.description|raw|nl2br }}</p>
+	                            {% endif %}
+                            </div><div class="col">
+                                <div class="menuBlockName">{{ menu.menubottomline1.name }}</div>
+		                        {% if app.session.get(domain_variable_name) == domain_russian_id %}
+                                    <p class="colText">{{ settings.get('site_info').translate.description|raw|nl2br }}</p>
+		                        {% else %}
+                                    <ul>
+                                        {% for item in menu.menubottomline1.children(true) %}
+                                            {% include 'particials/menu_item.html.twig' with { 'item' : item } %}
+                                        {% endfor %}
+                                    </ul>
+		                        {% endif %}
+                            </div><div class="col">
+                                <div class="menuBlockName">{{ menu.menubottomline2.name }}</div>
+                                <ul>
+			                            {% for item in menu.menubottomline2.children(true) %}
+				                            {% include 'particials/menu_item.html.twig' with { 'item' : item } %}
+			                            {% endfor %}
+                                    </ul>
+                            </div><div class="col">
+                                <div class="menuBlockName">{{ menu.menubottomline3.name }}</div>
+                                <ul>
+			                            {% for item in menu.menubottomline3.children(true) %}
+				                            {% include 'particials/menu_item.html.twig' with { 'item' : item } %}
+			                            {% endfor %}
+                                    </ul>
+                            </div>
+                        </div>
+                        <div class="tabAllSites">
+                            <h2>{{ settings.get('site_other_sites').translate.value }}</h2>
+                            <div>
+                                {{ settings.get('site_other_sites').translate.body|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="footerLevel2">
+        <div class="wrapPage">
+            <ul>
+                <li>{{ settings.get('site_name').translate.value }} © - {{ settings.get('site_slogan').translate.value }}</li>
+                <li>{{ settings.get('site_designed').translate.value }} <a href="{{ settings.get('site_altima').translate.description|raw }}" target="_blank" rel="nofollow">{{ settings.get('site_altima').translate.value }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

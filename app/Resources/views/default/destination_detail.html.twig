@@ -1,0 +1,176 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'destinationPage detail' %}
+
+{% set title = destination.translate.name %}
+
+{% if destination.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ destination.getImageBackground.url) %}
+{% endif %}
+
+{% if destination.getBodySummary %}
+    {% set description = destination.translate.getBodySummary %}
+{% else %}
+    {% set description = destination.translate.getBody %}
+{% endif %}
+
+{% if destination.keywords %}
+    {% set keywords = destination.translate.keywords %}
+{% endif %}
+
+{% if destination.image %}
+    {% set image = (upload_web ~ destination.image.url) %}
+{% endif %}
+
+{% block body %}
+    {# If the user logged in and authorized #}
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : destination, 'type' : 'destination' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage">
+        <div class="destinationTitle">
+	        {% for item in destination.getParent %}
+                <div class="smallDestinationHead">{{ item.translate.name }}</div>
+	        {% endfor %}
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="mainBlockForDetailPage">
+            <div class="lBlock">
+                <div class="clImg mainImg" data-title="{{ title|default('') }}">
+                    <img src="{{ asset(upload_web ~ destination.getImageHeader.url|default())|imagine_filter('thumb200x200') }}" data-img="{{ asset(upload_web ~ destination.getImageHeader.url|default())|imagine_filter('thumb800x450') }}">
+                </div>
+                <div class="destinationPageBody">
+	                {{ destination.translate.body|raw }}
+                </div>
+
+	            {% include 'particials/detailPage/blockMap.html.twig' with { 'section': destination } %}
+                {#Локация#}
+	            {#{% if destination.getLocation %}#}
+                    {#ширина - {{ destination.getLocation.getLatitude }}</br>#}
+                    {#долгота - {{ destination.getLocation.getLongitude }}</br>#}
+	            {#{% endif %}#}
+            </div><div class="rBlock">
+                <div class="blockImgs">
+	                {% if destination.image %}{% include 'particials/imgWithTip.html.twig' with { 'img' : asset(upload_web ~ destination.getImage.url|default())|imagine_filter('thumb378x271'), 'classImg': 'bigImg main','imageTitle': destination.getImage.translate.name|default(title), 'imgPopup' : asset(upload_web ~ destination.getImage.url|default())|imagine_filter('thumb800x450') } %}{% endif %}
+	                {% if destination.image %}{% include 'particials/imgWithTip.html.twig' with { 'img' : asset(upload_web ~ destination.getImagePanorama.url|default())|imagine_filter('thumb378x186'), 'classImg': 'bigImg', 'imageTitle': destination.getImagePanorama.translate.name|default(title), 'imgPopup' : asset(upload_web ~  destination.getImagePanorama.url|default())|imagine_filter('thumb800x450') } %}{% endif %}
+			        {% if destination.getImageOther|length > 0 %}
+                        <div class="smallImgs">
+					        {% for item in destination.getImageOther %}{% include 'particials/imgWithTip.html.twig' with { 'img' : asset( upload_web ~ item.url|default())|imagine_filter('thumb185x149'), 'classImg': 'smallImg', 'imageTitle': item.translate.name|default(title), 'imgPopup' : asset(upload_web ~  item.url|default())|imagine_filter('thumb800x450')} %}{% endfor %}
+                        </div>
+			        {% endif %}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+	{% include 'particials/detailPage/bottomMap.html.twig'  with { 'section': destination } %}
+
+	{% if destination_extensions|length %}
+        <div class="destinationProducts">
+            <div class="destinationHeaderWrapper">
+                <div class="wrapPage">
+                    <h3 class="destinationHeader"><span>{{ title }}</span> {{ 'front.a_travers_nos_circuits'|trans }}</h3>
+                </div>
+            </div>
+            <div class="containerProductsWrapper">
+                <div class="wrapPage position">
+                    <div class="destinationProdSlider noSelect">
+                        <div class="slLeft destinationProdSliderLeft" style="display: block;"></div>
+                        <div class="slRight destinationProdSliderRight" style="display: block;"></div>
+                        <div class="destinationProdSliderItems">
+							{% for item in destination_extensions %}
+                                <div class="destinationProdSliderItem">
+                                    <a href="{{ path('home_'~item.getClass|lower~'_detail_'~app.request.locale,{slug:item.translate.slug}) }}">
+                                        <div class="destinationProdImg">
+                                            <img src="{{ asset(upload_web ~ item.getImageBackground.url|default())|imagine_filter('thumb320x210') }}" alt="" class="tsarZoom">
+                                            <div class="destinationProdTitle">
+												{% if item.getExtensionRecreation|length > 0 %}
+													{% for item1 in item.getExtensionRecreation %}
+                                                        <h6>{{ item1.translate.name }}</h6>
+													{% endfor %}
+												{% endif %}
+												{% if item.getRecreation|length %}
+													{% for item1 in item.getRecreation %}
+                                                        <h6>{{ item1.translate.name }}</h6>
+													{% endfor %}
+												{% endif %}
+												{% if item.getStartingPoint %}
+                                                    <h6>{{ 'front.au_depart_de'|trans }} {{item.getStartingPoint.translate.name }}</h6>
+												{% endif %}
+                                                <h4>{{ item.translate.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="destinationProdDesc">
+											{{ item.translate.body|striptags|slice(0, 470)|raw }}...
+                                        </div>
+                                        <div class="destinationProdBottom">
+                                            <div class="destinationProdBottomLeft">
+                                                <h4 class="distType">{{ item.getClass }}</h4>
+												{% if item.getAmountDays %}
+                                                    <h4 class="distDate">{{ item.getAmountDays }} {{ 'front.jours'|trans }}</h4>
+												{% endif %}
+												{% if item.getNumberHoursVisit %}
+                                                    <h4 class="distDate">{{item.getNumberHoursVisit }} {{ 'front.heures'|trans }}</h4>
+												{% endif %}
+                                            </div><div class="destinationProdBottomRight">
+												{% include 'particials/detailPage/getPrice.html.twig' with { 'section': item } %}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+							{% endfor %}
+                        </div>
+                        <div class="slPagination destinationPodSliderPagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+
+	{% if destination_events|length %}
+        <div class="destinationProducts">
+            <div class="destinationHeaderWrapper">
+                <div class="wrapPage">
+                    <h3 class="destinationHeader"><span>{{ 'front.evenements'|trans }}</span> {{ 'front.lies_a'|trans }} {{ title }}</h3>
+                </div>
+            </div>
+            <div class="containerProductsWrapper">
+                <div class="wrapPage position">
+                    <div class="eventsProdSlider noSelect">
+                        <div class="slLeft eventsProdSliderLeft" style="display: block;"></div>
+                        <div class="slRight eventsProdSliderRight" style="display: block;"></div>
+                        <div class="eventsProdSliderItems">
+							{% for item in destination_events %}
+								{% include 'particials/detailPage/eventsProdSliderItem.html.twig' %}
+							{% endfor %}
+                        </div>
+                        <div class="slPagination eventsPodSliderPagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+
+    <div class="destinationComments">
+        <div class="destinationHeaderWrapper">
+            <div class="wrapPage">
+                <h3 class="destinationHeader"><span>{{ 'front.raconte'|trans }}</span> {{ 'font.par_nos_voyageurs'|trans }}</h3>
+            </div>
+        </div>
+        <div class="containerProductsWrapper">
+            <div class="wrapPage">
+                fdgdghfg sds
+            </div>
+        </div>
+    </div>
+
+    <script>
+		$(document).ready(function(){
+			tsar.Init.destinationProdSlider();
+			tsar.Init.eventsProdSlider();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,146 @@
+<div class="item form-group">
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+            var $minigroup = 0;
+			$(document).on('click', '.minigroupsTable .button_delete' ,function(){
+				if (confirm('{{ 'adm.action.delete.confirm'|trans }}')) {
+					$(this).closest('tr').remove();
+				} else {
+					return false;
+				}
+			});
+
+			$(document).on('click', '.minigroupsTable .addMiniGroup' ,function(){
+				var $row = $(this).closest('tr');
+				var $rowClone = $row.clone();
+				$rowClone.find('input').each(function(i,item){
+					$(item).attr( 'name', $(this).attr('name').replace('[]','[new-'+$minigroup+']') );
+                });
+				$rowClone.find('button').replaceWith('<button type="button" class="btn btn-danger btn-xs button_delete"><i class="fa fa-close"></i></button>');
+                doDatePicker($rowClone.find('.date_time'));
+                $(this).closest('table').find('tbody').append($rowClone);
+
+				$row.find('input').val('');
+				$minigroup++;
+
+			});
+
+
+            $('.minigroupsTable .date_time').each(function(i,item){
+				doDatePicker($(item));
+            });
+
+            function doDatePicker ($obj){console.log(1);
+				$($obj).datetimepicker({
+					format: 'DD.MM.YYYY HH:mm',
+					stepping: 15,
+					sideBySide: true,
+					toolbarPlacement: 'top'
+				});
+            }
+		});
+    </script>
+
+
+    <table class="col-md-12 col-sm-12 col-xs-12 table table-hover minigroupsTable">
+        <thead>
+            <tr>
+                <th colspan="5">{{ ('adm.field.minigroup_data')|trans  }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in field.values %}
+                <tr>
+                    <td class="col-md-3 col-sm-3 col-xs-12">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.start_date_time'|trans }}</label><br>
+                        <div class="col-md-12 col-sm-12 input-group date">
+                            <input type="text" class="form-control date_time" name="{{ field.name }}[{{ item.id }}][start_date]" value="{{ item.getStart }}"  />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="col-md-3 col-sm-3 col-xs-12">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.end_date_time'|trans }}</label><br>
+                        <div class="col-md-12 col-sm-12 input-group date">
+                            <input type="text" class="form-control date_time" name="{{ field.name }}[{{ item.id }}][end_date]" value="{{ item.getEnd }}"  />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.price_euro'|trans }}</label><br>
+                        <div class="col-md-12 col-sm-12">
+                            <input type="text" name="{{ field.name }}[{{ item.id }}][price_euro]" value="{{ item.getPrixEur }}"  />
+                        </div>
+                    </td>
+                    <td class="col-md-2 col-sm-2 col-xs-12">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.price_rub'|trans }}</label><br>
+                        <div class="col-md-12 col-sm-12">
+                            <input type="text" name="{{ field.name }}[{{ item.id }}][price_rub]" value="{{ item.getPrixRub }}"  />
+                        </div>
+                    </td>
+                    <td class="col-md-1 col-sm-1 col-xs-12">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12">&nbsp;</label><br>
+                        <div class="col-md-12 col-sm-12">
+                            <button type="button" class="btn btn-danger btn-xs button_delete"><i class="fa fa-close"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="col-md-3 col-sm-3 col-xs-12">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.start_date_time'|trans }}</label><br>
+                    <div class="col-md-12 col-sm-12 input-group date">
+                        <input type="text" class="form-control date_time" name="{{ field.name }}[][start_date]" value=""  />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+                <td class="col-md-3 col-sm-3 col-xs-12">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.end_date_time'|trans }}</label><br>
+                    <div class="col-md-12 col-sm-12 input-group date">
+                        <input type="text" class="form-control date_time" name="{{ field.name }}[][end_date]" value=""  />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-12">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.price_euro'|trans }}</label><br>
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" name="{{ field.name }}[][price_euro]" value=""  />
+                    </div>
+                </td>
+                <td class="col-md-2 col-sm-2 col-xs-12">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">{{ 'adm.field.minigroup.price_rub'|trans }}</label><br>
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" name="{{ field.name }}[][price_rub]" value=""  />
+                    </div>
+                </td>
+                <td class="col-md-1 col-sm-1 col-xs-12">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">&nbsp;</label><br>
+                    <div class="col-md-12 col-sm-12">
+                        <button type="button" class="btn btn-info btn-xs addMiniGroup">{{ 'adm.button.add'|trans }}</button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+
+
+
+
+
+
+
+</div>
+

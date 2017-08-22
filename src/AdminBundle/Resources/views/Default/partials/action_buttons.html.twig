@@ -1,0 +1,48 @@
+{% if data_buttons|default({}) %}
+    <script type="text/javascript">
+        var $checkSearchForm = function(){
+        	var $so = $('#adminSearch input[name="search"]');
+        	console.log($so.val().length);
+            if ($so.val().length < 3) {
+            	alert('{{ 'adm.search.min'|trans }}');
+            	return false;
+            } else {
+            	return true;
+            }
+        }
+    </script>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        {% if currentFilters is defined %}
+            <form method="get" id="adminSearch" action="{{ app.request.uri }}" class="form-horizontal form-label-left col-md-4" style="float: right;"
+            onsubmit="return $checkSearchForm();"
+            >
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" name="search" value="{{ app.request.get('search') }}" class="form-control">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">{{ 'adm.search.go'|trans }}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+
+        {% for item in data_buttons %}
+            {% if item.button|default(0) %}
+                <button type="{{ item.button_type}}" class="btn btn-{{ item.class|default('default') }}"
+                >{{ ('adm.button.'~item.name)|trans }}</button>
+            {% else %}
+                <a href="{{ item.link }}" class="btn btn-{{ item.class|default('default') }}"
+                        {%  if item.confirm|default('') %}
+                            onclick=" if (confirm('{{ item.confirm|trans }}')) { return true } else { return false}"
+                        {% endif %}
+                >{{ ('adm.button.'~item.name)|trans }}</a>
+            {% endif %}
+        {% endfor %}
+
+        </div>
+    </div>
+{% endif %}

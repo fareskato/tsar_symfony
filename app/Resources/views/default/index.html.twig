@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'mainPage' %}
+{#  {{ item.getTranslation('name',app.request.locale) }}  --  ONLY WHEN YOU NEED SPECIAL LANGUAGE #}
+{% block body %}
+
+	    {% if app.session.get(domain_variable_name) == domain_russian_id %}
+            <div class="wrapPage">
+                russian version
+            </div>
+        {% else %}
+            <div class="wrapPage international">
+                <div class="lBlock">
+                    <div class="sliderDesktop">
+                        {% for item in slider.desktop %}
+                            {% include 'particials/slider_item.html.twig' with { 'item' : item } %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="sliderMobile">
+                        <div class="sliderMobileItemLeft" style="display: block;"></div>
+                        <div class="sliderMobileItemRight" style="display: block;"></div>
+                        <div class="sliderMobileItems">
+                            {% for item in slider.mobile %}
+                                {% include 'particials/slider_item.html.twig' with { 'item' : item } %}
+                            {% endfor %}
+                        </div>
+                        <div class="sliderMobilePagination"></div>
+                    </div>
+                </div><div class="rBlock">
+		            {% include 'particials/heartSlider.html.twig' %}
+		            {% include 'particials/bockMinigroups.html.twig' %}
+
+                    <div class="blockBanners">
+                      {% include 'particials/frontBannerLeft.html.twig' with { 'banner': 'site_front_banner_left', 'href': 'switch_ru_'} %}{% include 'particials/frontBannerRight.html.twig' with { 'banner': 'site_front_banner_right', 'img': 'plane.png'  } %}
+                    </div>
+                </div>
+            </div>
+
+	    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

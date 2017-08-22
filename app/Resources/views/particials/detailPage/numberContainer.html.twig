@@ -1,0 +1,10 @@
+{% if section.getAmountDays %}<div class="numberContainer">
+	<div class="dayInt">{{ section.getAmountDays }}</div><div class="dayString">{{ 'front.jours'|trans }}</div>
+	</div>{% endif %}
+{% if section.getNumberHoursVisit %}<div class="numberContainer">{#for visit#}
+	<div class="dayInt">{{ section.getNumberHoursVisit }}</div><div class="dayString">{{ 'front.heures'|trans }}</div>
+	</div>{% endif %}
+{% if  section.getEventSchedule %}{#for event#}
+	{% set hours = ((section.getEventSchedule[0].getStop - section.getEventSchedule[0].getStart) / 60)|round(0,'floor') %}
+	<div class="numberContainer"><div class="dayInt">{{ hours }}</div><div class="dayString">{{ 'front.heures'|trans }}</div>
+	</div>{% endif %}

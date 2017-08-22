@@ -1,0 +1,8 @@
+<div class="blockImgs">
+	{% if section.image %}{% include 'particials/imgWithTip.html.twig' with { 'img' : asset(upload_web ~ section.image.url|default())|imagine_filter('thumb'~size1), 'classImg': 'bigImg', 'imageTitle': section.image.translate.name|default(title), 'imgPopup' : asset(upload_web ~ section.image.url|default())|imagine_filter('thumb800x450') } %}{% endif %}
+	{% if section.getImageOther|length > 0 %}
+		<div class="smallImgs">
+			{% for item in section.getImageOther %}{% include 'particials/imgWithTip.html.twig' with { 'img' : asset( upload_web ~ item.url|default())|imagine_filter('thumb'~size2), 'classImg': 'smallImg', 'imageTitle': item.translate.name|default(title), 'imgPopup' : asset(upload_web ~ item.url|default())|imagine_filter('thumb800x450') } %}{% endfor %}
+		</div>
+	{% endif %}
+</div>

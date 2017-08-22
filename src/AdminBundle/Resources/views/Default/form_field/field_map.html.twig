@@ -1,0 +1,145 @@
+<div class="item form-group">
+    <h4 class="col-md-12 col-sm-12 col-xs-12">
+        {{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </h4>
+
+    <div class="item form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name_latitude|trans }}">{{ field.label_latitude|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+        </label>
+        <div class="col-md-10 col-sm-10 col-xs-12">
+            <input type="text" id="latitude" class="form-control col-md-7 col-xs-12" name="{{ field.name_latitude }}" value="{{ field.value_latitude }}" {% if field.required %}required="required"{% endif %}/>
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name_longitude|trans }}">{{ field.label_longitude|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+        </label>
+        <div class="col-md-10 col-sm-10 col-xs-12">
+            <input type="text" id="longitude" class="form-control col-md-7 col-xs-12" name="{{ field.name_longitude }}" value="{{ field.value_longitude }}" {% if field.required %}required="required"{% endif %}/>
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <div class="control-label col-md-2 col-sm-2 col-xs-12">&nbsp;</div>
+        <div class="col-md-10 col-sm-10 col-xs-12">
+            <style>
+                #map {
+                    width: 100%;
+                    height: 300px;
+                    background-color: grey;
+                }
+            </style>
+            {% set add = 0 %}
+            {% if 'add' in app.request.get('_route') %}
+                {% set add = 1 %}
+            {% endif %}
+            <script type="text/javascript">
+				function initMap() {
+					var uluru = {lat: {{ field.value_latitude|default(0) }}, lng: {{ field.value_longitude|default(0) }}};
+					var map = new google.maps.Map(document.getElementById('map'), {
+						zoom: {% if add %}2{% else %}12{% endif %},
+						center: uluru
+					});
+					var marker = new google.maps.Marker({
+						position: uluru,
+						map: map,
+						draggable:true,
+						animation: google.maps.Animation.DROP
+					});
+
+					google.maps.event.addListener(marker, 'dragend', function(marker){
+						var latLng = marker.latLng;
+						$('input[name="{{ field.name_latitude }}"]').val(latLng.lat());
+						$('input[name="{{ field.name_longitude }}"]').val(latLng.lng());
+					});
+                    google.maps.event.addListener(map, 'click', function(event) {
+                        marker.setPosition(event.latLng);
+                        map.setCenter(event.latLng);
+						$('input[name="{{ field.name_latitude }}"]').val(event.latLng.lat());
+						$('input[name="{{ field.name_longitude }}"]').val(event.latLng.lng());
+                    });
+
+                    google.maps.event.addListener(map, 'center_changed', function(event) {
+						var $position = marker.getPosition();
+						$('input[name="{{ field.name_latitude }}"]').val($position.lat());
+						$('input[name="{{ field.name_longitude }}"]').val($position.lng());
+                    });
+
+
+                    // Create the search box and link it to the UI element.
+                    var input = document.getElementById('mapsearch');
+                    var searchBox = new google.maps.places.SearchBox(input);
+                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                    // Bias the SearchBox results towards current map's viewport.
+                    map.addListener('bounds_changed', function() {
+                        searchBox.setBounds(map.getBounds());
+                    });
+
+                    searchBox.addListener('places_changed', function() {
+                        var places = searchBox.getPlaces();
+                        if (places.length == 0) {
+                            return;
+                        }
+
+                        // Clear out the old markers.
+                        marker.setMap(null);
+
+
+                        // For each place, get the icon, name and location.
+                        var bounds = new google.maps.LatLngBounds();
+                        places.forEach(function(place) {
+                            if (!place.geometry) {
+                                console.log("Returned place contains no geometry");
+                                return;
+                            }
+                            var icon = {
+                                url: place.icon,
+                                size: new google.maps.Size(71, 71),
+                                origin: new google.maps.Point(0, 0),
+                                anchor: new google.maps.Point(17, 34),
+                                scaledSize: new google.maps.Size(25, 25)
+                            };
+
+                            // Create a marker for each place.
+                            marker = new google.maps.Marker({
+                                map: map,
+                                icon: icon,
+                                title: place.name,
+                                position: place.geometry.location
+                            });
+
+                            if (place.geometry.viewport) {
+                                // Only geocodes have viewport.
+                                bounds.union(place.geometry.viewport);
+                            } else {
+                                bounds.extend(place.geometry.location);
+                            }
+                        });
+                        map.fitBounds(bounds);
+                    });
+
+
+
+                    $('.mapsearch').blur(function(){
+                    	var $val = $(this).val();
+                    	console.log($val);
+                    });
+				}
+
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key={{ mapkey }}&libraries=places&callback=initMap">
+            </script>
+            <div id="map"></div>
+
+        </div>
+    </div>
+    <div class="col-md-10 col-sm-10 col-xs-12">
+        <input type="text" id="mapsearch" class="" style="padding: 5px 10px; margin-top: 10px;" value="" placeholder="{{ 'adm.map.search'|trans }}" />
+    </div>
+
+
+
+
+</div>

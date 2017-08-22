@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'extensionPage' %}
+
+{% set title = 'front.extension'|trans %}
+
+{% block body %}
+
+    <div class="wrapPage">
+        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+            {% include 'particials/front_admin_config_list.html.twig' with { 'type' : 'extension' } %}
+        {% endif %}
+        <div class="mainLBlock">
+            {% if filters_active_count %}
+                <div class="panelPane filters">
+		            {% include 'particials/panelPane/filters/paneTitleFilters.html.twig' %}
+                    <div class="paneContent">
+	                    {% for destination in filtered_destinations %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,destination.id,'url.extension.destination'|trans)}) }}">{{ destination.translate.name }}</a><br>
+	                    {% endfor %}
+	                    {% for key,category in filtered_categories %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,key,'url.extension.category'|trans)}) }}">{{ ('front.'~category.name)|trans }}</a><br>
+	                    {% endfor %}
+	                    {% for recreation in filtered_recreations %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,recreation.id,'url.extension.recreation'|trans)}) }}">{{ recreation.translate.name }}</a><br>
+	                    {% endfor %}
+	                    {% for season in filtered_seasons %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,season.id,'url.extension.season'|trans)}) }}">{{ season.translate.name }}</a><br>
+	                    {% endfor %}
+	                    {% for key,day in filtered_days %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,key,'url.extension.days'|trans)}) }}">{{ key }} {{ 'front.jours'|trans }}</a><br>
+	                    {% endfor %}
+	                    {% for from in filtered_destinations_from %}
+                            <a href="{{ path('home_extension_filter_'~app.request.locale, {filters:exculde_path(current_path,from.id,'url.extension.from'|trans)}) }}">{{ from.translate.name }}</a><br>
+	                    {% endfor %}
+                    </div>
+		            {% include 'particials/panelPane/filters/btnClearFilter.html.twig' with { 'section': 'extension'}%}
+                </div>
+            {% endif %}
+
+	        {% include 'particials/panelPane/ville_zone.html.twig' with { 'section': 'extension', 'section1': 'url.extension.destination'|trans }%}
+	        {% include 'particials/panelPane/categorie.html.twig' with { 'section': 'extension', 'section1': 'url.extension.category'|trans }%}
+	        {% include 'particials/panelPane/type_descapade.html.twig' with { 'section': 'extension', 'section1': 'url.extension.recreation'|trans }%}
+	        {% include 'particials/panelPane/saison.html.twig' with { 'section': 'extension', 'section1': 'url.extension.season'|trans }%}
+	        {% include 'particials/panelPane/duree.html.twig' with { 'section': 'extension', 'section1': 'url.extension.days'|trans }%}
+	        {% include 'particials/panelPane/au_depart_de.html.twig' with { 'section': 'extension', 'section1': 'url.extension.from'|trans }%}
+        </div><div class="mainRBlock">
+		    {% include 'particials/list/block_totalCount.html.twig' with { 'count': extensions_count_total }%}
+
+            <div class="blockList">
+                {% for item in extensions %}
+	                {% include 'particials/list/itemExtension.html.twig' %}
+                {% endfor %}
+            </div>
+            {% include '@Admin/Default/partials/paginator.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

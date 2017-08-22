@@ -1,0 +1,16 @@
+<div class="itemPart1"><a href="{{ path('home_'~section1~'_detail_'~app.request.locale, {'slug':section.translate.slug}) }}"
+>{% if section.isMiniGroupe|default(0) %}<div class="mingrbanner"><img src="/images/mingrbanner.png" alt="">
+</div>{% endif %}<img src="{% if section.getImageThumbnail %}
+                                    {{ asset(upload_web ~ section.getImageThumbnail.url|default())|imagine_filter('thumb259x148') }}
+                                {% else %}
+                                    {{ asset(upload_web ~ section.getImageBackground.url|default())|imagine_filter('thumb259x148') }}
+                                {% endif %}" alt="" class="tsarZoom">
+{% if section.translate.getHeadlineListe %}
+	<div class="itemCity">{{ section.translate.getHeadlineListe }}</div>
+{% elseif section.getRelatedContent[0]|default({}) and section.getRelatedContent[0] is defined %}
+	<div class="itemCity">{{ section.getRelatedContent[0].translate.name }}</div>
+{% elseif section.getTravelPoints[0]|default({}) and section.getTravelPoints[0] is defined %}{#for visit#}
+	<div class="itemCity">{{ section.getTravelPoints[0].translate.name }}</div>{#end for visit#}
+{% else %}
+	<div class="itemCity">{{ section.translate.name }}</div>
+{% endif %}</a></div>

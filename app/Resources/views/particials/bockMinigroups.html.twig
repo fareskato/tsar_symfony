@@ -1,0 +1,39 @@
+{% if minigroup_slider|length %}
+	<div class="bockMinigroups">
+		<div class="mingroupheader">
+			<h3>{{ 'front.mini_groupes'|trans }}</h3>
+			<hr>
+			<p>{{ 'front.mini_groupes_text'|trans }}</p>
+		</div>
+		<div class="minigroupSlider">
+			<div class="minigroupSliderItems">
+				{% for item in minigroup_slider %}
+					<div class="minigroupSliderItem">
+						<a href="{{ path('home_voyage_detail_'~app.request.locale, {'slug':item.translate.slug}) }}">
+							<div class="minigroupName">
+								{% if item.translate.getMinigroupName %}
+									{{ item.translate.getMinigroupName }}
+								{% else %}
+									{{ item.translate.name }}
+								{% endif %}
+							</div>
+
+							{% if item.getMinigroupPrixEuros|default(0) %}
+								<div class="minigroupPrix">
+									<div class="groupprix">{{ item.getMinigroupPrixEuros|default(0)|number_format(0, '.', ' ') }} <span class="euroH"><i class="fa fa-eur"></i></span></div>
+								</div>
+							{% endif %}
+
+							{% if item.getAmountDays %}
+								<div class="minigroupAmountDays">
+									<div class="amountDays">{{ item.getAmountDays }} {{ 'front.jours'|trans }}</div>
+								</div>
+							{% endif %}
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<a href="{{ path('home_voyage_filter_'~app.request.locale, {filters:''}) }}/{{ 'url.voyage.category'|trans }}/1"><div class="sliderItemReadmore red-extended"><span>{{ 'front.voir_tous'|trans }}</span></div></a>
+	</div>
+{% endif %}

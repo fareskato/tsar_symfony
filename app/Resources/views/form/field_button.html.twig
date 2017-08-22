@@ -1,0 +1,10 @@
+<div class="formItem {{ field.field_class|default('') }}">
+    <div class="formKey">
+        {% if field.label|default('') %}{{ field.label|trans }}{% endif %}
+    </div><div class="formValue">
+        <button type="{{ field.button_type|default('submit') }}" class="{{ field.class|default('') }}">
+            {% if field.prefix|default('') %}<span class="formPrefix">{{ field.prefix }}</span>{% endif %}{% if field.value|default('') %}<span>{{ field.value|default('') }}
+                </span>{% else %}>{% endif %}</button>
+        {% if field.description|default('') %}<div class="formDescription">{{ field.description }}</div>{% endif %}
+    </div>
+</div>

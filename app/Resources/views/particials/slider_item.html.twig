@@ -1,0 +1,19 @@
+<div class="sliderItem">
+	{% if item.external %}
+        <a href="{{ item.translate.slug }}" rel="nofollow" target="_blank">
+    {% else %}
+        <a href="/{{ app.request.locale }}/{{ item.translate.slug }}">
+    {% endif %}
+    <div class="sliderItemImage">{% if item.position == 'desktop' %}<img src="{{ asset(upload_web ~ item.image.url)|imagine_filter('thumb485x305') }}" class="tsarZoom"
+            >{% else %}<img src="{{ asset(upload_web ~ item.image.url)|imagine_filter('thumb290x267') }}">{% endif %}</div>
+    <div class="sliderItemInfo">
+        <div class="sliderItemName {{ item.color }}">{{ item.translate.name1 }} {% if item.translate.name2 %}
+                <div class="sliderItemName2">{{ item.translate.name2 }}</div>
+            {% endif %}</div>
+
+        {% if  item.translate.body %}
+            <div class="sliderItemDescription">{{ item.translate.body|raw }}</div>
+        {% endif %}
+    </div><div class="sliderItemReadmore {{ item.color }}"><span>{{ 'front.readmore'|trans }}</span></div>
+        </a>
+</div>

@@ -1,0 +1,175 @@
+{% extends '@Admin/Default/index.html.twig' %}
+
+{% block data %}
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{ data_type|default('')|trans }}: {{ data_title|default('') }}</h2>
+                {% if data_toolbox|default(0) %}
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <script type="text/javascript">
+                    $(document).ready(function(){
+						$(document).on('keyup keypress', 'form.admin-form input[type="text"]', function(e) {
+							if(e.which == 13) {
+								e.preventDefault();
+								$(this).blur();
+								return false;
+							}
+						});
+                    });
+                </script>
+                <form method="post" action="{{ form.action }}" class="form-horizontal form-label-left admin-form" enctype="multipart/form-data">
+
+                    {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+
+                    {% include '@Admin/Default/form_field/field_hidden.html.twig' with { 'name': 'id', 'value' : form.id|default(0) } %}
+
+                    {#<div class="col-md-{% if form.separator|default(0) %}12{% else %}8{% endif %} col-sm-6 col-xs-12">#}
+                    <div class="col-md-12 col-sm-6 col-xs-12">
+                        <div class="x_panel" role="tabpanel">
+                    {% for i,item in form.default %}
+                            <div class="x_title"><span class="section">{{ ('int.'~i)|trans }}</span></div>
+
+                            <ul class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active" data-toggle="tab"><a href="#tab_{{ i }}_0" role="tab" data-toggle="tab">{{ 'adm.field.main'|trans }}</a></li>
+                                {% set it = 1 %}
+                                {% for field in item %}
+                                    {% if field.type == 'separator' %}
+                                        <li role="presentation"><a href="#tab_{{ i }}_{{ it }}" role="tab" data-toggle="tab">{{ field.label|trans }}</a></li>
+                                        {% set it = it+1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="tab_{{ i }}_0">
+                            {% set it = 1 %}
+                        {% for field in item %}
+                            {% if field.type == 'separator' %}
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_{{ i }}_{{ it }}">
+                                {#<h4>{{ field.label|trans }}</h4>#}
+                                {% set it = it+1 %}
+                            {% elseif field.type == 'text' %}
+                                {% include '@Admin/Default/form_field/field_text.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'textarea' %}
+                                {% include '@Admin/Default/form_field/field_textarea.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'texteditor' %}
+                                {% include '@Admin/Default/form_field/field_texteditor.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'checkbox' %}
+                                {% include '@Admin/Default/form_field/field_checkbox.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'checkbox_multiple' %}
+                                {% include '@Admin/Default/form_field/field_checkbox_multiple.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'radio' %}
+                                {% include '@Admin/Default/form_field/field_radio.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'select' %}
+                                {% include '@Admin/Default/form_field/field_select.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'file' %}
+                                {% include '@Admin/Default/form_field/field_file.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'image' %}
+                                {% include '@Admin/Default/form_field/field_image.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'images' %}
+                                {% include '@Admin/Default/form_field/field_images.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'relation_one' %}
+                                {% include '@Admin/Default/form_field/field_relation_one.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'relation_one_entity' %}
+                                {% include '@Admin/Default/form_field/field_relation_one_entity.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'relation_many_entity' %}
+                                {% include '@Admin/Default/form_field/field_relation_many_entity.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'relation_many' %}
+                                {% include '@Admin/Default/form_field/field_relation_many.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'map' %}
+                                {% include '@Admin/Default/form_field/field_map.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'minigroup' %}
+                                {% include '@Admin/Default/form_field/field_minigroup.html.twig' with { 'field' : field } %}
+                            {% elseif field.type == 'date' %}
+                                {% include '@Admin/Default/form_field/field_date.html.twig' with { 'field' : field } %}
+                            {% endif %}
+                        {% endfor %}
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                        </div>
+                    </div>
+
+                    {#{% if form.separator|default(0) %}#}
+                        <div class="clearfix"></div>
+                    {#{% endif %}#}
+
+                    {#<div class="col-md-{% if form.separator|default(0) %}12{% else %}4{% endif %} col-sm-6 col-xs-12">#}
+                    <div class="col-md-12 col-sm-6 col-xs-12">
+                    {% for i,item in form.translate|default({}) %}
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>{{ ('int.'~i)|trans }}</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div class="x_content collapse">
+                                {% for field in item %}
+                                    {% if field.translate %}
+                                        {% if field.type == 'separator' %}
+                                            <h4>{{ field.label|trans }}</h4>
+                                        {% elseif field.type == 'text' %}
+                                            {% include '@Admin/Default/form_field/field_text.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'textarea' %}
+                                            {% include '@Admin/Default/form_field/field_textarea.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'texteditor' %}
+                                            {% include '@Admin/Default/form_field/field_texteditor.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'checkbox' %}
+                                            {% include '@Admin/Default/form_field/field_checkbox.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'checkbox_multiple' %}
+                                            {% include '@Admin/Default/form_field/field_checkbox_multiple.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'radio' %}
+                                            {% include '@Admin/Default/form_field/field_radio.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'select' %}
+                                            {% include '@Admin/Default/form_field/field_select.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'file' %}
+                                            {% include '@Admin/Default/form_field/field_file.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'image' %}
+                                            {% include '@Admin/Default/form_field/field_image.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'images' %}
+                                            {% include '@Admin/Default/form_field/field_images.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'relation_one' %}
+                                            {% include '@Admin/Default/form_field/field_relation_one.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'relation_one_entity' %}
+                                            {% include '@Admin/Default/form_field/field_relation_one_entity.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'relation_many_entity' %}
+                                            {% include '@Admin/Default/form_field/field_relation_many_entity.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'relation_many' %}
+                                            {% include '@Admin/Default/form_field/field_relation_many.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'map' %}
+                                            {% include '@Admin/Default/form_field/field_map.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'minigroup' %}
+                                            {% include '@Admin/Default/form_field/field_minigroup.html.twig' with { 'field' : field } %}
+                                        {% elseif field.type == 'date' %}
+                                            {% include '@Admin/Default/form_field/field_date.html.twig' with { 'field' : field } %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="clearfix"></div>
+
+    {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

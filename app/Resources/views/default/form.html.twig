@@ -1,0 +1,26 @@
+<form method="post" autocomplete="off">
+    {% for lang,item in form %}
+        <div class="form_language" style="float: {% if lang == locales.getDefaultLocale %}left{% else %}right{% endif %};">
+            <div class="lang_name">{{ lang }}</div>
+            {% for name,field in item %}
+                {% if field.translate %}
+                    <div class="form-item">
+                        <div class="form-key">{{ field.label }}</div>
+                        <div class="form-value">
+                            {% if field.type == 'text' %}
+                                <input type="text" name="{{ lang }}[{{ name }}]" value="{{ field.value }}">
+                            {% elseif field.type == 'textarea' %}
+                                <textarea type="text" name="{{ lang }}[{{ name }}]">{{ field.value }}</textarea>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <div style="clear:both;"></div>
+    <div class="form-item">
+        <div class="form-key">Save</div>
+        <div class="form-value"><button type="submit">GO!</button></div>
+    </div>
+</form>

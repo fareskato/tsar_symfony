@@ -1,0 +1,88 @@
+<li class="dd-item clearfix" data-id="{{ item.id }}">
+    <div class="dd-handle dd3-handle"></div>
+        <div class="dd3-content">
+            <table class="tree_table"><tr>
+    {% for field in data_fields %}
+
+        {% if field == 'id' %}
+            <td class="tree_id">
+                {{ translate(item,field,app.request.locale) }}
+            </td>
+        {% else %}
+            <td class="tree_field">
+                {% if field == 'active_lang' %}
+                    <table class="active_lang"><tr>
+                        {% for lng in locales.locales %}
+                            <td>{{ lng|upper }}<br>
+                                {% if translate(item,'active',lng,false) %}
+                                    <i class="fa fa-check-circle"></i>
+                                {% else %}
+                                    <i class="fa fa-circle-o"></i>
+                                {% endif %}
+                            <td>
+                        {% endfor %}
+                    </tr></table>
+                {% elseif field == 'active_domain' %}
+                    <table class="active_domain"><tr>
+                        {% for dom in locales.domains %}
+                            <td>{{ translate(dom,'name',app.request.locale)|slice(0,3) }}<br>
+                                {% set has = 0 %}
+                                {% for itemDomain in item.getTypeDomain %}
+                                    {% if itemDomain.id == dom.id %}{% set has = 1 %}{% endif %}
+                                {% endfor %}
+                                {% if has %}
+                                    <i class="fa fa-check-circle"></i>
+                                {% else %}
+                                    <i class="fa fa-circle-o"></i>
+                                {% endif %}
+                            <td>
+                        {% endfor %}
+                    </tr></table>
+                {% else %}
+                    {{ translate(item,field,app.request.locale) }}
+                {% endif %}
+            </td>
+        {% endif %}
+
+
+    {% endfor %}
+
+    <td class="tree_actions">
+        {% for action in data_actions %}
+            <a class="btn btn-{{ action.class|default('default') }} btn-xs {% if (item.active is defined and not item.active) and action.name == 'activate' %}btn-success{% endif %}" href="{{ path(action.link,
+            action.prefix|default({})|merge({'id' : item.id}) ) }}"
+                    {%  if action.confirm|default('') %}
+                        onclick=" if (confirm('{{ action.confirm|trans }}')) { return true } else { return false}"
+                    {% endif %}
+            >
+                {% if action.name == 'activate' %}
+                    {% if item.active %}
+                        {{ ('adm.action.de'~action.name)|trans }}
+                    {% else %}
+                        {{ ('adm.action.'~action.name)|trans }}
+                    {% endif %}
+                {% else %}
+                    {{ ('adm.action.'~action.name)|trans }}
+                {% endif %}
+
+            </a>
+        {% endfor %}
+
+            </td>
+        </tr></table>
+    </div>
+
+    {% if item.children is defined %}
+        {% if item.children|length > 0 %}
+            <ol class="dd-list">
+            {% for i in item.children %}
+                {% set level = level + 1 %}
+                {% include '@Admin/Default/partials/tree_item.html.twig' with { 'item' : i, 'level' : level } %}
+            {% endfor %}
+            </ol>
+        {% endif %}
+    {% endif %}
+
+</li>
+
+

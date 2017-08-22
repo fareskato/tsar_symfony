@@ -1,0 +1,7 @@
+<div class="item form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">{{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </label>
+    <div class="col-md-10 col-sm-10 col-xs-12">
+        <input type="text" class="form-control col-md-7 col-xs-12" name="{{ field.name }}" value="{{ field.value }}" placeholder="{{ field.placeholder|default('') }}" {% if field.required %}required="required"{% endif %} {% if field.disabled|default(FALSE) %}disabled{% endif %} />
+    </div>
+</div>

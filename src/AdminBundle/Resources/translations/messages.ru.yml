@@ -1,0 +1,438 @@
+admin.title: Административная панель
+adm.book.book_name: Название справочника
+adm.books: Справочники
+adm.location: Места
+adm.article: Статья
+adm.slider: Слайдер
+adm.yes: Да
+adm.no: Нет
+adm.settings: Настройки
+adm.shopsettings: Shop settings
+adm.field.value: Значение
+adm.extension: Путешевствие
+adm.voyage: Путешествие
+adm.user: Пользователи
+adm.event: События
+adm.visa: Visa
+adm.train: Train
+adm.search: Search
+adm.search.min: Minimum 3 letters
+adm.search.go: Go!
+
+adm.field.type_extension: Тип поездки
+adm.field.extension_season: Сезон
+adm.field.extension: Voyage
+adm.field.extension.vers: Voyage vers
+adm.field.extension_recreation: Recreation
+adm.field.book_type_extension: Extension
+
+adm.field.id: Id
+adm.field.name: Название
+adm.field.name1: Название 1
+adm.field.name2: Название 2
+adm.field.settings.name.disclaimer: Изменить это значение будет не возможно
+adm.field.position: Позиция
+adm.field.description: Описание
+adm.field.image: Изображение
+adm.field.images: Изображения
+adm.field.image.header: Изображение в шапке
+adm.field.image.background: Изображение в фоне
+adm.field.image.miniature: Миниотюра для списка
+adm.field.image.panorama: Панорама
+adm.field.image.others: Другие изображения
+adm.field.image_miniature: Изображение
+adm.field.slug: Url адрес
+adm.field.external: Открыть в новом окне
+adm.field.parent: Родитель
+adm.field.select.parent: Верхний уровень
+adm.field.select.toplevel: Верхний уровень
+adm.field.select: Выберите
+adm.field.active: Активно
+adm.field.type: Тип
+adm.field.category: Категория
+adm.field.separator: Разделитель
+adm.field.column: Column
+adm.field.separator.other: Остальное
+adm.field.other: Остальное
+adm.field.city: city
+adm.field.type: type
+adm.field.event: event
+adm.field.url: Url
+adm.field.class: Класс для CSS
+adm.field.country: Страна
+adm.field.getCountryName: Страна
+adm.field.city: Город
+adm.field.street: Улица
+adm.field.additional: Дополнительно
+adm.field.select.country: Выберите страну
+adm.field.select.metro: Выбирите станцию метро
+adm.field.map: Карта
+adm.field.map.latitude: Широта
+adm.field.map.longitude: Долгота
+adm.map.search: Поиск по карте
+adm.field.body_summary: Врез
+adm.field.body: Тело
+adm.field.keywords: Ключевые слова
+adm.field.domains: Домены
+adm.field.color: Цвет
+adm.field.desktop: Десктоп
+adm.field.mobile: Мобильный
+adm.field.link: Ссылка
+adm.field.type_destination: Тип пункта назначения
+adm.field.master_destination: Главый пункт назначения
+adm.field.present_in_list: Наличие в списках
+adm.field.maximum: максимум
+adm.field.maximum.items: Максимальное количество
+adm.field.location: Локация
+adm.field.locations: Локации
+adm.field.destination: Пункта назначения
+adm.field.hotel: Гостиница / отель
+adm.field.ville: Уточнение города
+adm.field.adress: Адресс
+adm.field.hotel_stars: Уровень сервиса
+adm.field.headline: Заголовок
+adm.field.hotel_stars: Звезды отеля
+adm.field.hotel_internet: Интернет
+adm.field.metro: Метро
+adm.field.seo: СЕО
+adm.field.places: Местоположение
+adm.field.type_of_hotel: Тип отеля
+adm.field.hotel_internet: Доступ в интернет
+adm.field.number_of_rooms: Количество номеров
+adm.field.none: Нет
+adm.field.etiquette: Название
+adm.field.book_services: Сервис отеля
+adm.field.hotel_service: Дополнительные услуги
+adm.field.tarifs: Тариф
+adm.field.tarif.has_price: Есть цена
+adm.field.tarif.description: Описание трифа
+adm.field.tarif.currency: Валюта тарифа
+adm.field.tarif.product_365_linked: Ключ продукта
+adm.field.tarif.details: Детальное описание тарифа
+adm.field.tarif.price_euro: Стоимость евро
+adm.field.tarif.price_ruble: Стоимость рубли
+adm.field.tarif.auto_pricing_update: Автообновление
+adm.field.book_etiquette: Этикет
+adm.field.title: Тайтл
+adm.field.tarif.tarif_fixe: Фиксированная цена
+adm.field.tarif.text_under_price: Текст по цене
+adm.field.tarif.external_booking: Внешнее бронирование
+adm.field.tarif.conditions_sale: Продажа условий
+adm.field.tarif.tariffed_product: Тарифные продукты
+adm.field.tarif.amount_days: Количество дней
+adm.field.tarif.extra_days: Дополнительные дни
+adm.field.voyage: Вояж
+adm.field.tarif.tarif_use_external_booking_link: Использовать внешнюю ссылку бронирования
+adm.field.tarif.external_booking_link: Внешняя ссылка
+adm.field.tarif.external_booking_link_label: Описание ссылки
+adm.field.type_voyage: Тип вояжа
+adm.field.starting_point: Начальная точка
+adm.field.season: Seasons
+adm.field.voyage_season: Сезоны
+adm.field.voyage_recreation: Отдых
+adm.field.related_content: Соответствующее содержание
+adm.field.voyage_related_content: Содержание
+adm.field.block_days: Блок дней
+adm.field.day: Дни
+adm.button.add.setting: Добавить настройки
+adm.field.settings.name.disclaimer: Название настройки
+adm.field.active_lang: Активно на языках
+adm.field.active_domain: Домен
+adm.field.main: Главное
+adm.field.services: Сервисы
+separator_trip_lies: Путь пролегает
+adm.field.days: Дни
+adm.field.trip_lies: Путь пролегает
+adm.field.travel_points: Обьекты
+adm.field.visit_duration: Продолжительность
+adm.field.recreation: Тип путешевствия
+adm.field.tariffed_product: Продукт с ценой
+adm.field.price_flexibility: Цена не фиксирована
+adm.field.text_under_price: Текст под ценой
+adm.field.product_365: Связанный продукт 365
+adm.field.service_details: Детали услуги
+adm.field.external_booking: Использовать сторонний сайт для бронирования
+adm.field.external_booking_link: Сылка
+adm.field.external_booking_link_label: Имя
+adm.field.conditions_sale: Условия продажи
+adm.field.price_displayed: Рекламируемая цена
+adm.field.prix_euro: Цена в евро
+adm.field.prix_rouble: Цена в рублях
+adm.field.auto_update_price: Автоматически обновлять цены
+adm.field.entity: Объект
+adm.field.exclude_dates: Исключить даты
+adm.field.include_dates: Добавить даты
+adm.field.supp_service: Дополнительные сервисы
+adm.field.do_nothing: Ничего не делать
+
+adm.field.label: Label
+adm.field.ajouter_produit: Ajouter Produit
+adm.field.product: Product
+adm.field.transfer: Transfer
+adm.field.transfer_one: Ajouter un transfert
+adm.field.transfer_two: Transfert 3-7 pax
+adm.field.transfer_three: Transfert 8-20 pax
+adm.productpacks: Product Packs
+adm.productpacks.productpacks_name: Product Packs Name
+adm.ticketsdemusee: Ticket Musee
+adm.field.assurance: Страховка
+adm.field.extra_days: Дополнительные дни
+
+
+
+
+
+adm.field.type_visa: Type Visa
+adm.field.urgence: Urgence
+adm.field.visa_period: visa Period
+adm.field.commentaires: Commentaries
+adm.field.informations_supplementaires: Informations Supplementaires
+adm.field.information_utile: Information Utile
+adm.field.type_group: Type Group
+adm.field.custom_id: Customer Id
+adm.field.excel_title: Excel Title
+adm.field.excel_description: Excel Description
+adm.field.additional_information: Additional Information
+adm.field.excel: Excel
+adm.field.information_supplémentaire: Information Supplémentaire
+adm.visa.visa_name: Visa Name
+adm.field.departure_city: Departure City
+adm.field.city_arrival: City Arrival
+adm.field.period: Period
+adm.field.categorie: Categorie
+adm.field.type_customer: Type Customer
+adm.chauffeur: Водила
+adm.field.book_vehicle_types: Тип авто
+adm.field.book_currency: Валюта
+adm.field.book_group_type: Тип группы
+adm.field.book_visa_urgence: Срочность визы
+adm.field.book_type_visa: Тип визы
+adm.field.book_visa_period: Период визы
+adm.field.book_train_categorie: "Поезд: Категория"
+adm.field.book_train_type_customer: "Поезд: Клиент"
+adm.field.book_train_period: "Поезд: Период"
+adm.field.type_de_vehicle: Тип машины
+adm.field.duree: Длительность
+adm.field.nom_en_latin: Имя на латинице
+adm.field.nom_en_cyrillique: Имя на русском
+adm.field.supp_info: Сопроводительная информация
+adm.field.info_utile: Дополнительная информация
+adm.field.currency: Валюта
+adm.field.group_type: Тип группы
+adm.field.excel_custom_id: Excel ID
+adm.field.favorite: Favorite
+adm.field.file_name: File name
+adm.field.file_url: Image
+adm.field.mime: Mime type
+adm.file.file_name: File name
+adm.field.file_type: File type
+adm.files: Files
+adm.field.file: File
+adm.field.comments: Комментарии
+adm.autre_product: Другой продукт
+adm.field.musee: Билеты в музей
+adm.field.client_type: Тип клиента
+
+adm.field.book_supp_services: Дополнительные сервисы
+adm.field.booking: Резервация
+adm.field.book_offer_options: Дополнительные опции
+adm.field.book_civilite: Пол
+adm.field.book_send_docs: Отправить документы на
+adm.field.booking_to_related_product: Резервация связанный продукт
+
+adm.booking: Резервация
+adm.field.date: Дата
+adm.field.booked_product: Контент
+adm.field.assigned_user: Член
+adm.field.offer_options: Рекрутер
+adm.field.send_docs: Отправить документы при сохранении на
+adm.field.key: Ключ
+adm.field.website_version: Версия сайта
+adm.field.comment: Комментарии
+adm.field.devis_booking_id: Devis id резервации
+adm.field.excel_link: Devis ссылка на excel
+adm.field.separator_booking_details: Детали резервации
+adm.field.amount_of_people: Количество людей
+adm.field.suppliment_single: Суплемент сингл
+adm.field.numbre_de_jours: Дни
+adm.field.numbre_de_nuits: Ночи
+adm.field.numbre_de_chambers: Количество комнат
+adm.field.pdf_link: Ссылка на PDF
+adm.field.blockjour_order: Порядок блокжуров
+adm.field.visa: Визы
+adm.field.flight_from: Город отправки
+adm.field.clarification: Комментарии клиента
+adm.field.separator_personal_details: Детали клиента
+adm.field.civilite: Обращение
+adm.field.nom: Фамилия
+adm.field.premon: Имя
+adm.field.phone: Мобилка
+adm.field.separator_booking_prices: Цены
+adm.field.prix: Цена
+adm.field.supplement_single_price: Цена суплимент сингл
+adm.visit.visit_name: Экскурсия
+adm.visit: Экскурсия
+
+adm.field.separator_minigroup: Минигруппы
+adm.field.mini_groupe: Минигруппа
+adm.field.minigroup_name: Название минигруппы
+adm.field.minigroup_promotion_weight: Порядок
+adm.field.minigroup_prix_euros: Цена в евро
+adm.field.minigroup_prix_rubles: Цена в рублях
+adm.field.headline_liste: Заголовок в списке
+adm.field.minigroup.start_date: С (дата)
+adm.field.minigroup.start_time: С (время)
+adm.field.minigroup.end_date: По (дата)
+adm.field.minigroup.end_time: По (время)
+adm.field.minigroup.price_euro: Цена в евро
+adm.field.minigroup.price_rub: Цена в рублях
+adm.field.minigroup_data: Минигруппы
+adm.field.number_hours_visit: Время посещения
+
+adm.field.related_product: похожий продукт
+adm.field.date_start: Дата начала
+adm.field.date_end: Дата окончания
+adm.field.date_repeat: Повтор
+adm.field.event_type: Тип события
+adm.field.show_times: Время строкой
+adm.field.introduction: Введение
+adm.field.titre: Название
+
+adm.transferts.transferts_name: Транспорт
+adm.train.train_name: Train
+
+adm.combinationhotels.combinationhotels_name: Название подборки
+adm.combinationhotels: Подборка отелей
+adm.field.special_offer: Специальное предложение
+adm.field.combination_hotel: Комбинации отелей
+adm.field.day_produit: Набор продуктов
+adm.field.alternative_day: Альтернативные дни
+
+
+
+adm.field.title_insurance: Название страхования
+adm.field.title_insurance: Title of insurance
+adm.field.book_total_price_stay: Prix total du séjour
+adm.field.book_duration_insurance: Durée de l'assurance
+adm.field.book_type_dassurance: Type d'assurance
+adm.field.book_client_type: Client Type
+adm.field.book_vehicle:  Véhicule
+adm.field.book_type_transfert: Type de transfert
+
+
+adm.field.type_dassurance: Type d'assurance
+adm.field.duration_insurance: Durée de l'assurance
+adm.field.total_price_stay: Prix total du séjour
+
+adm.assurance.assurance_name: Страховка
+adm.assurance: Страховка
+adm.field.number_passengers: Количество пассажиров
+adm.field.type_transfert: Тип трансферта
+adm.field.vehicle: Машина
+
+
+adm.button.add: Добавить
+adm.button.add.setting: Добавить настройку
+adm.shop.settings: Shop settings
+adm.button.add.shop.setting: Добавить настройку
+adm.button.create: Создать новый
+adm.action.actions: Действия
+adm.action.edit: Редактировать
+adm.action.delete: Удалить
+adm.action.delete.confirm: Вы уверены, что хотите удалить?
+adm.action.new: Создать
+adm.button.save: Сохранить
+adm.button.cancel: Отменить
+adm.button.delete: Удалить
+adm.button.addchange: Добавить/изменить
+adm.button.edit: Edit
+adm.action.activate: Активировать
+adm.action.deactivate: Деактивировать
+adm.action.preview: Preview
+adm.content_type: Тип контента
+adm.article: Статичные статьи
+adm.field.body_summary: Врез
+##########################################
+###########    Left sidebar   ############
+##########################################
+###### Books
+adm.field.book_access_internet: Доступ в Интернет
+adm.field.book_banner_list: Баннеры
+adm.field.book_domain: Версии сайта
+adm.field.book_duration: Длительность
+adm.field.book_hotel_stars: Рейтинги отелей
+adm.field.book_metro: Метро
+adm.field.book_newsletter: Email подписка
+adm.field.book_offices: Офисы
+adm.field.book_season: Сезон
+adm.field.book_type_destination: Места
+adm.field.book_type_event: События
+adm.field.book_type_recreation: Тип путешевствия
+adm.field.book_type_voyage: Путушевствия
+adm.field.hotel_list: Отели
+
+
+adm.menu: Меню
+adm.menu.menu_name: Меню
+
+adm.location: Места
+
+adm.slider.slider_name: Слайдер
+
+adm.partners: Партнеры
+adm.partners.partner_name: Партнеры
+
+adm.destination: Пункт назначения
+adm.destination.destination_name: Пункт назначения
+
+adm.day: День
+adm.day.day_name: День
+
+adm.hotel: Отель
+adm.hotel.hotel_name: Отель
+
+
+adm.button.add.user: Добавить пользователя
+
+###### Frontend configuration menu for login admin
+front.adm.edit: Редактировать
+front.adm.list: Список
+front.adm.add: Добавить
+
+
+#######  Backend admin left menu list items
+adm.menu.tours: Tours
+adm.menu.books: Books
+adm.menu.location: Location
+adm.menu.destination: Destination
+adm.menu.article: Article
+adm.menu.menu: Menu
+adm.menu.menutop: Menutop
+adm.menu.slider: Slider
+adm.menu.partners: Partners
+adm.menu.voyage: Voyage
+adm.menu.hotel: Hotels
+adm.menu.event: Event
+adm.menu.visit: Visit
+adm.menu.extension: Extension
+adm.menu.booking: Booking
+adm.menu.configurations: Configurations
+adm.menu.user: User
+adm.menu.settings: Settings
+adm.menu.content: Content
+adm.menu.day: Day (bloc-jour)
+adm.menu.visa: Visa
+adm.menu.transfers: Transfers
+adm.menu.train: Train
+adm.menu.museumtickets: Museum Tickets
+adm.menu.tourguide: Tour Guide
+adm.menu.assurance: Assurance
+adm.menu.otherproducts: Other products
+adm.menu.products: products
+adm.menu.shopsettings: Shop Settings
+adm.menu.files: Files
+adm.menu.productpacks: Product Packs
+adm.menu.autre: Extra product
+adm.menu.chauffeur: Driver
+adm.menu.combination_hotels: Подборка Отелей
+adm.menu.shop_settings: Shop settings

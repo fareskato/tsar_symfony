@@ -1,0 +1,85 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'eventPage detail' %}
+
+{% set title = event.translate.name %}
+
+{% if event.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ event.getImageBackground.url) %}
+{% endif %}
+
+{% if event.getBodySummary %}
+    {% set description = event.translate.getBodySummary %}
+{% else %}
+    {% set description = event.translate.getBody %}
+{% endif %}
+
+{% if event.keywords %}
+    {% set keywords = event.translate.keywords %}
+{% endif %}
+
+{% if event.image %}
+    {% set image = (upload_web ~ event.image.url) %}
+{% endif %}
+
+{% block body %}
+    {# If the user logged in and authorized #}
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : event, 'type' : 'event' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage pageContent">
+        <div class="lBlock">
+            <div class="mainDayContent">
+	            {% include 'particials/detailPage/numberContainer.html.twig' with { 'section': event } %}<div class="dayContent">
+                    <h2>{{ 'front.agenda_detail'|trans }}: </h2>
+		            <h1>{{ event.translate.name }}</h1>
+                    <ul class="dayList">
+	                    {% if  event.getEventSchedule|length %}
+                            <li><span class="dayListLabel">{{ 'front.date'|trans }}:</span>{% for item in event.getEventSchedule %}
+                                    {{ item.getDateStart()|date('d/m/Y') }}
+	                            {% endfor %}
+                            </li>
+	                    {% endif %}
+	                    {% if event.translate.getShowTimes %}
+                            <li><span class="dayListLabel">{{ 'front.horaires'|trans }}: </span>{{ event.translate.getShowTimes }}
+                            </li>
+	                    {% endif %}
+	                    {% if event.translate.getIntroduction() %}
+                            <li class="textIntroduction">{{ event.translate.getIntroduction()|default('')|raw }}</li>
+	                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="contentVisit">
+                <div class="contentVisitBody">
+	                {{ event.translate.body|contentImages|raw }}
+                </div>
+                <div class="aboutVisit">
+                    <span class="hotelLabel">{{ 'front.plus_dinformations_sur'|trans }}:</span>
+                    {% if event.getRelatedProduct %}
+                        <a href="{{ path('home_visit_detail_'~app.request.locale, {'slug':event.getRelatedProduct.translate.slug}) }}"> #{{ event.getRelatedProduct.translate.name }}</a>
+	                {% endif %}
+	                {% if event.destination|length >0 %}
+		                {% for item in event.destination %}
+                            <a href="{{ path('home_destination_detail_'~app.request.locale, {'slug':item.translate.slug}) }}"> #{{ item.translate.name }}</a>
+		                {% endfor %}
+	                {% endif %}
+                </div>
+            </div>
+        </div><div class="rBlock">
+            <div class="topRBlock">
+	            {% include 'particials/pricePanel_rBlock.html.twig' with { 'section': event } %}
+                <div class="panelGroup">
+		            {% include 'particials/panelDefault_rBlock.html.twig' with { 'section': event, 'idText': 'headingOneBooking', 'panelDefaultTitle': 'front.reserver'|trans, 'form' : event_form   } %}
+		            {% include 'particials/panelDefaultTwoBooking_rBlock.html.twig' with { 'section': event, 'idText': 'headingTwoBooking', 'panelDefaultTitle': 'front.conditions_de_vente'|trans   } %}
+                </div>
+                {% include 'particials/detailPage/blockImgs_rBlock.html.twig'  with { 'section': event, 'size1': '390x277', 'size2': '191x153' } %}
+                {% include 'particials/detailPage/bottomMapEvent.html.twig'  with { 'section': event } %}
+	            {% include 'particials/blockContacts.html.twig' %}
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

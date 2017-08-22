@@ -1,0 +1,7 @@
+<div class="item" data-service="{{ item.getEventType.translate.name }}">
+	<div class="itemContent">
+		{% include 'particials/list/block_left_forEvent.html.twig' with { 'section': item,'section1': 'agenda' } %}{% include 'particials/list/block_middle.html.twig' with { 'section': item,
+		'section1': 'agenda' } %}{% include 'particials/list/block_right.html.twig' with { 'section': item, 'section1': 'agenda' } %}
+	</div>
+	{% include 'particials/list/block_bottom.html.twig' with { 'section': item,'section1': 'agenda' } %}
+</div>

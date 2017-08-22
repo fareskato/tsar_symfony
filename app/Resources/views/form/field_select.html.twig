@@ -1,0 +1,13 @@
+<div class="formItem {{ field.field_class|default('') }}">
+    <div class="formKey">
+        {% if field.label|default('') %}{{ field.label|trans }}{% endif %}{% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </div><div class="formValue">
+        <select class="{{ field.class|default('') }}" name="{{ field.name|default('') }}" {% if field.onchange|default('') %}onchange="{{ field.onchange }}"{% endif %}>
+            {% if field.show_zero is defined %}<option value="0" {% if field.value == 0 %}selected{% endif %}>{{ field.show_zero|default('front.please.select'|trans) }}</option>{% endif %}
+            {% for value,text in field.values %}
+                <option value="{{ value }}" {% if value == field.value|default('') %}selected{% endif %}>{{ text }}</option>
+            {% endfor %}
+        </select>
+        {% if field.description|default('') %}<div class="formDescription">{{ field.description }}</div>{% endif %}
+    </div>
+</div>

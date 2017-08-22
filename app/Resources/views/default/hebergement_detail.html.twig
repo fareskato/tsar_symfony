@@ -1,0 +1,118 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'hebergementPage detail' %}
+
+{% set title = hotel.translate.name %}
+
+{% if hotel.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ hotel.getImageBackground.url) %}
+{% endif %}
+
+{% if hotel.getBodySummary %}
+    {% set description = hotel.translate.getBodySummary %}
+{% else %}
+    {% set description = hotel.translate.getBody %}
+{% endif %}
+
+{% if hotel.keywords %}
+    {% set keywords = hotel.translate.keywords %}
+{% endif %}
+
+{% if hotel.image %}
+    {% set image = (upload_web ~ hotel.image.url) %}
+{% endif %}
+
+{% block body %}
+    {# If the user logged in and authorized #}
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : hotel, 'type' : 'hotel' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage">
+       <div class="mainBlockForDetailPage">
+           <div class="lBlock">
+               <h1 class="hotelName">{{ title }}</h1>
+
+	           {% if hotel.destination|length > 0 %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.ville'|trans }}: </span>
+                       {% for item in hotel.destination  %}
+                            {{ item.translate.name }}
+                       {% endfor %}
+                   </div>
+	           {% endif %}
+
+	           {% if hotel.getHotelStars|length > 0 %}
+                   <div class="aboutHotel detailStar">
+                       <span class="hotelLabel">{{ 'front.etoiles_type'|trans }}: </span>
+                       {% for item in hotel.getHotelStars  %}
+                           <span class="itemStars" data-star='{{ item.translate.name }}'>{{ item.translate.name }}</span>
+                       {% endfor %}
+                   </div>
+	           {% endif %}
+
+
+	           {% if hotel.translate.getTypeOfHotel %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.type'|trans }}: </span>{{ hotel.translate.getTypeOfHotel }}
+                   </div>
+	           {% endif %}
+
+
+	           {% if hotel.getHotelInternet %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.internet'|trans }}: </span>{{ hotel.getHotelInternet.translate.name }}
+                   </div>
+	           {% endif %}
+
+	           {% if hotel.getNumberOfRooms %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.nombre_de_chambres'|trans }}: </span>{{ hotel.getNumberOfRooms }}
+                   </div>
+	           {% endif %}
+
+	           {% if hotel.metro|length > 0 %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.мetro'|trans }}: </span>
+                       {% for item in hotel.metro  %}
+                            {{ item.translate.name }}
+                       {% endfor %}
+                   </div>
+	           {% endif %}
+
+	           {% if hotel.translate.getBody %}
+                   <div class="aboutHotel desc">
+                       <span class="hotelLabel">{{ 'front.description'|trans }}: </span>{{ hotel.translate.getBody|raw }}
+                   </div>
+	           {% endif %}
+
+	           {% if hotel.getHotelService %}
+                   <div class="aboutHotel">
+                       <span class="hotelLabel">{{ 'front.services'|trans }}:</span>
+                       {% for item in hotel.getHotelService  %}
+                           {{ item.translate.name }}
+                       {% endfor %}
+                   </div>
+	           {% endif %}
+
+	           {% include 'particials/detailPage/blockMap.html.twig' with { 'section': hotel } %}
+
+           </div><div class="rBlock">
+               <div class="topRBlock">
+	               {% include 'particials/pricePanel_rBlock.html.twig' with { 'section': hotel } %}
+                   <div class="panelGroup">
+	                   {% include 'particials/panelDefault_rBlock.html.twig' with { 'section': hotel, 'idText': 'headingOneBooking', 'panelDefaultTitle': 'front.demander_un_devis'|trans, 'form' : hotel_form   } %}
+                   </div>
+               </div>
+
+		       {% include 'particials/detailPage/blockImgs_rBlock.html.twig'  with { 'section': hotel, 'size1': '478x338', 'size2': '235x187' } %}
+
+           </div>
+           <div class="clear"></div>
+       </div>
+    </div>
+
+	{% include 'particials/detailPage/bottomMap.html.twig'  with { 'section': hotel } %}
+
+{% endblock %}

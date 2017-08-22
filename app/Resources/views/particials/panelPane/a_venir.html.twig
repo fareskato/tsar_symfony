@@ -1,0 +1,23 @@
+<div class="panelPane a_venir">
+	{#{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-calendar.png', 'paneTitle': 'front.a_venir'|trans, 'check': filtered_months } %}#}
+	<div class="paneTitle">
+		<span class="paneIcon"><img src="/images/search-filters/title-calendar.png" alt=""></span>
+		<span class="paneText">{{ 'front.a_venir'|trans }}</span>
+		<span class="expandReduce clear"><i class="fa {#{% if check %}#}fa-plus{#{% else %}fa-minus{% endif %}#}"></i></span>
+	</div>
+	<div class="paneContent{#{% if filtered_months %}#} hidden{#{% endif %}#}">
+        <div class="paneList">
+	        {% for month,number in filter_months %}
+                <div class="paneItem">
+                        <label>
+	                        {% if month in filtered_months|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,month, section1 ),(section2)|trans : app.request.get((section2)|trans)} ) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ month|translateMonth }}</a>
+	                        {% else %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path~ ((current_path == ''?'':'/')~section1~'/'~month),(section2)|trans : app.request.get((section2)|trans)} ) }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ month|translateMonth }}<span class="paneItemCount clear">{{ number }}</span></a>
+	                        {% endif %}
+                        </label>
+                    </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

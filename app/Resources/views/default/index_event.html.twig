@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'event' %}
+
+{% set title = 'front.event'|trans %}
+
+{% block body %}
+
+    <div class="wrapPage list1">
+        <div class="mainLBlock">
+
+            {% include 'particials/panelPane/calendar.html.twig' %}
+	        {% include 'particials/panelPane/service.html.twig' with { 'section': 'agenda', 'section1': 'url.agenda.service'|trans, 'section2': 'url.agenda.calendar' }%}
+	        {% include 'particials/panelPane/a_venir.html.twig' with { 'section': 'agenda', 'section1': 'url.agenda.month'|trans, 'section2': 'url.agenda.calendar' }%}
+	        {% include 'particials/panelPane/subscribe.html.twig' %}
+        </div><div class="mainRBlock">
+            <div class="blockTopEvent">
+                <div class="titleEventTop"><div class="iconTopEven"><img src="/images/search-filters/bg-agenda-title.png" alt=""></div><h1>{{ 'front.title_pageListEvent'|trans }} <span class="smallItalic">- {{ 'front.special_expatries'|trans }}</span></h1></div>
+                <div class="textEventTop">{{ 'front.textTop_pageListEvent'|trans }}</div>
+            </div>
+
+            <div class="blockList">
+	            {% for event in events1 %}
+                    <div class="item" data-service="{{ event.getEventType.translate.name }}">
+	                    <div class="itemContent">
+		                    {% include 'particials/list/block_left_forEvent.html.twig' with { 'section': event,'section1': 'agenda' } %}{% include 'particials/list/block_middle.html.twig' with { 'section': event,
+		                    'section1': 'agenda' } %}{% include 'particials/list/block_right.html.twig' with { 'section': event, 'section1': 'agenda' } %}
+	                    </div>
+	                    {% include 'particials/list/block_bottom.html.twig' with { 'section': event,'section1': 'agenda' } %}
+                    </div>
+			    {% endfor %}
+            </div>
+            <div class="btnListAgenda">
+                <a href="{{ path('home_agenda_'~app.request.locale) }}">{{ 'front.agenda_index'|trans }}</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="wrapPage list2">
+        <div class="lBlock">
+            {% include 'particials/heartSlider.html.twig' %}
+        </div><div class="rBlock">
+
+            <div class="blockTopBanner">
+                <a href="{{ path('home_destination_'~app.request.locale) }}">
+	                {% include 'particials/frontBannerTop.html.twig' with {'size': 'thumb485x108',option:'site_front_banner_top_rus'} %}
+                </a>
+            </div>
+
+		    {% if events2|length %}
+                <div class="eventsItems">
+				    {% for item in events2 %}
+					    {% include 'particials/detailPage/eventsProdSliderItem.html.twig' %}
+				    {% endfor %}
+                </div>
+		    {% endif %}
+
+            <div class="blockBanners">
+	            {% include 'particials/frontBannerLeft.html.twig' with { 'banner': 'site_front_banner_left_rus', 'href': 'switch_int_'} %}{% include 'particials/frontBannerRight.html.twig' with { 'banner': 'site_front_banner_right_rus', 'img': 'peugeotopeneurope.jpg'  } %}
+            </div>
+
+            </div>
+
+    </div>
+{% endblock %}

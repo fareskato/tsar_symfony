@@ -1,0 +1,121 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'voyagePage detail' %}
+
+{% set title = voyage.translate.name %}
+
+{% if voyage.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ voyage.getImageBackground.url) %}
+{% endif %}
+
+{% if voyage.getBodySummary %}
+    {% set description = voyage.translate.getBodySummary %}
+{% else %}
+    {% set description = voyage.translate.getBody %}
+{% endif %}
+
+{% if voyage.keywords %}
+    {% set keywords = voyage.translate.keywords %}
+{% endif %}
+
+{% if voyage.image %}
+    {% set image = (upload_web ~ voyage.image.url) %}
+{% endif %}
+
+{% set mapLocations = [] %}
+{% for item in voyage.getVoyage %}
+    {% if item.getLocation and item.getLocation.getLatitude and item.getLocation.getLongitude %}
+        {% set mapLocations = [{'lat':item.getLocation.getLatitude,'lng':item.getLocation.getLongitude}]|merge(mapLocations) %}
+    {% endif %}
+{% endfor %}
+{% if not mapLocations and (voyage.getStartingPoint and voyage.getStartingPoint.getLocation.getLatitude and voyage.getStartingPoint.getLocation.getLongitude) %}
+        {% set mapLocations = [{'lat':voyage.getStartingPoint.getLocation.getLatitude,'lng':voyage.getStartingPoint.getLocation.getLongitude}]|merge(mapLocations) %}
+{% endif %}
+{% set defaultZoom = 10 %}
+
+
+{% block body %}
+
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : voyage, 'type' : 'voyage' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage pageContent">
+        <div class="lBlock">
+            <div class="mainDayContent">
+	            {% include 'particials/detailPage/numberContainer.html.twig' with { 'section': voyage } %}<div class="dayContent">
+		            <h1>{{ voyage.translate.name }}</h1>
+                    <ul class="dayList">
+                        <li>
+	                        {% for item in voyage.getRelatedContent %}
+                                <span class="widthDaw">{{ item.translate.name }}</span>
+	                        {% endfor %}
+                        </li>
+                        <li>
+	                        {{ voyage.translate.body|raw }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="daysTabsContainer">
+
+	            {% set curDay = 1 %}
+	            {% for item in voyage.getDay %}
+                    {% if getDay|default(0) %}
+                    <div class="day">
+                        <div class="dayTabbed">
+                            <div class="labelsTab">
+                                <div class="labelTab active" data-tab="1">
+	                                <span class="bold upperCase">{{ 'front.jours'|trans }} {{ curDay }}</span> -
+	                                {% if item.translate.title %}
+	                                    {{ item.translate.title }}
+                                    {% elseif item.getDestination|length > 0 %}
+                                        {{ item.getDestination[0].translate.name }}
+                                        {#{% set n = [] %}
+                                        {% for i in item.getDestination %}
+                                            {% set n = ([i.translate.name])|merge(n) %}
+                                        {% endfor %}
+	                                    {{ n|join(' - ') }}#}
+	                                {% else %}
+	                                    {{ item.translate.name }}
+	                                {% endif %}
+                                </div>{% include 'particials/detailPage/labelsTab_2_3.html.twig' %}
+                            </div>
+                            <div class="contentTabs">
+	                            {% include 'particials/detailPage/contentTab_1_2.html.twig' %}
+	                            {% if  item.getHotel|length %}
+                                    <div class="contentTab"  data-tab="3">
+			                            {% for hotel in item.getHotel %}
+                                            <div class="itemOfDataTab3">
+				                                {% include 'particials/detailPage/itemOfcontentTab_3.html.twig' %}
+                                            </div>
+			                            {% endfor %}
+                                    </div>
+	                            {% endif %}
+                            </div>
+                        </div>
+
+                        {% set curDay = curDay + 1 %}
+                    </div>
+                    {% endif %}
+	            {% endfor %}
+
+                <div class="separator"></div>
+
+            </div>
+        </div><div class="rBlock">
+            <div class="topRBlock">
+	            {% include 'particials/pricePanel_rBlock.html.twig' with { 'section': voyage } %}
+                <div class="panelGroup">
+		            {% include 'particials/panelDefault_rBlock.html.twig' with { 'section': voyage, 'idText': 'headingOneBooking', 'panelDefaultTitle': 'front.demander_un_devis'|trans, 'form' : voyage_form   } %}
+		            {% include 'particials/panelDefaultTwoBooking_rBlock.html.twig' with { 'section': voyage, 'idText': 'headingTwoBooking', 'panelDefaultTitle': 'front.conditions_de_vente'|trans   } %}
+                </div>
+	            {% include 'particials/panelDefault_rBlock_map.html.twig' with { 'mapLocations': mapLocations   } %}
+	            {% include 'particials/blockContacts.html.twig' %}
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

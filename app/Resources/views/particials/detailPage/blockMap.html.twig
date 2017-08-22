@@ -1,0 +1,3 @@
+{% if section.location %}
+	<div class="aboutHotel loction showMap" data-latitude="{{ section.location.getLatitude }}" data-long="{{ section.location.getLongitude }}" data-street="{{ section.location.translate.getStreet|transliteNames }}" data-city="{{ section.location.translate.city|transliteNames }}" data-title="{{ section.location.translate.name|default(title)|transliteNames }}">{{ 'front.location'|trans }} {{ section.location.translate.city }} {{ 'front.onmap'|trans }}</div>
+{% endif %}

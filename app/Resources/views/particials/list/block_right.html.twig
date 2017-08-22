@@ -1,0 +1,9 @@
+<div class="itemPart3"><div class="line">
+</div><div class="itemPart3Info">
+	<a href="{{ path('home_'~section1~'_detail_'~app.request.locale, {'slug': section.translate.slug}) }}" class="btnViewAll">{{ "front.voir_loffre"|trans }}</a>
+	<div class="itemBody">{% if section.translate.getBodySummary %}{{ section.translate.getBodySummary|striptags|slice(0, 70)|raw }}...{% else %}{{ section.translate.getBody|striptags|slice(0, 70)|raw }}...{% endif %}</div>
+	{% if section.translate.getServiceDetails|default('') %}
+		<div class="services">{{ section.translate.getServiceDetails }}</div>
+	{% endif %}
+	<div class="viewmore">{{ 'front.en_savoir_plus'|trans }}</div>
+</div></div>

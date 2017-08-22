@@ -1,0 +1,119 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="{{ url('homepage') }}" class="site_title"><img src="{{ asset('images/logo.png') }}" alt="" style="max-width: 50px"><span>Tsarvoyages</span></a>
+        </div>
+        <div class="clearfix"></div>
+        <br>
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-suitcase"></i> {{ 'adm.menu.tours'|trans }} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu " style="">
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_voyage') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_voyage') }}"><i class="fa fa-bus"></i>{{ 'adm.menu.voyage'|trans }}</a>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_visit') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_visit') }}"><i class="fa fa-suitcase"></i>{{ 'adm.menu.visit'|trans }}</a>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_hotel') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_hotel') }}"><i class="fa fa-bed"></i>{{ 'adm.menu.hotel'|trans }}</a>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_extension') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_extension') }}"><i class="fa fa-expand"></i>{{ 'adm.menu.extension'|trans }}</a>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_event') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_event') }}"><i class="fa fa-calendar"></i>{{ 'adm.menu.event'|trans }}</a>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_booking') in path(app.request.get('_route'))  %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_booking') }}"><i class="fa fa-book"></i>{{ 'adm.menu.booking'|trans }}</a>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <ul class="nav side-menu " style="">
+                        <li>
+                            <a><i class="fa fa-globe"></i> {{ 'adm.menu.location'|trans }} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_destination') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_destination') }}"><i class="fa fa-compass"></i> {{ 'adm.menu.destination'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_location') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_location') }}"><i class="fa fa-map-marker"></i> {{ 'adm.menu.location'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_day') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_day') }}"><i class="fa fa-calendar-o"></i> {{ 'adm.menu.day'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <ul class="nav side-menu">
+                        <li>
+                            <a><i class="fa fa-folder"></i> {{ 'adm.menu.content'|trans }} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu " style="">
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_article') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_article') }}"><i class="fa fa-newspaper-o"></i>{{ 'adm.menu.article'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_slider') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_slider') }}"><i class="fa fa-sliders"></i>{{ 'adm.menu.slider'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_menu') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_menu') }}"><i class="fa fa-bars"></i>{{ 'adm.menu.menu'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_menutop') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_menutop') }}"><i class="fa fa-bars"></i>{{ 'adm.menu.menutop'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_partners') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_partners') }}"><i class="fa fa-users"></i>{{ 'adm.menu.partners'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <ul class="nav side-menu " style="">
+                        <li>
+                            <a><i class="fa fa-shopping-cart"></i> {{ 'adm.menu.products'|trans }} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_productpacks') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_productpacks') }}"><i class="fa fa-cart-plus"></i> {{ 'adm.menu.productpacks'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_visa') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_visa') }}"><i class="fa fa-cc-visa"></i> {{ 'adm.menu.visa'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_transferts') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_transferts') }}"><i class="fa fa-share"></i> {{ 'adm.menu.transfers'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_train') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_train') }}"><i class="fa fa-train"></i> {{ 'adm.menu.train'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_ticketsdemusee') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_ticketsdemusee') }}"><i class="fa fa-ticket"></i> {{ 'adm.menu.museumtickets'|trans }}</a></li>
+                                <li class=""><a href="{{ path('admin_train') }}"><i class="fa fa-map"></i> {{ 'adm.menu.tourguide'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_chauffeur') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_chauffeur') }}"><i class="fa fa-map"></i> {{ 'adm.menu.chauffeur'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_autre_product') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_autre_product') }}"><i class="fa fa-map"></i> {{ 'adm.menu.autre'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_assurance') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_assurance') }}"><i class="fa fa-thumbs-o-up"></i> {{ 'adm.menu.assurance'|trans }}</a></li>
+                                <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_combinationhotels') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_combinationhotels') }}"><i class="fa fa-thumbs-o-up"></i> {{ 'adm.menu.combination_hotels'|trans }}</a></li>
+                                <li class=""><a href="#"><i class="fa fa-cart-plus"></i> {{ 'adm.menu.otherproducts'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% if  is_granted('ROLE_MANAGER')%}
+                <ul class="nav side-menu" style="">
+                    <li class=""><a><i class="fa fa-book"></i> {{ 'adm.menu.books'|trans }} <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu {% if app.request.get('_route') == "admin_book" %} visible-item {% endif %} "  >
+                            {% set books = adminmenu.getBooks() %}
+                            {% for item in books %}
+                                <li class="{% if ('book_name' in app.request.attributes.get("_route_params")|keys) and ( item in app.request.attributes.get("_route_params")) %} current-page {% endif %}"><a href="{{ path('admin_default_index') }}book/{{ item }}">{{ ('adm.field.'~item)|trans  }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <ul class="nav side-menu">
+                    <li>
+                        <a><i class="fa fa-cog"></i> {{ 'adm.menu.configurations'|trans }} <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu " style="">
+                            <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_user') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_user') }}"><i class="fa fa-user"></i>{{ 'adm.menu.user'|trans }}</a>
+                            <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_settings') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_settings') }}"><i class="fa fa-wrench"></i>{{ 'adm.menu.settings'|trans }}</a>
+                            <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_settings') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_shop_settings') }}"><i class="fa fa-wrench"></i>{{ 'adm.menu.shop_settings'|trans }}</a>
+                            {#<li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_shop_settings') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_shop_settings') }}"><i class="fa fa-shopping-bag"></i>{{ 'adm.menu.shopsettings'|trans }}</a>#}
+                            <li class="{% if 'book_name' not in app.request.attributes.get("_route_params")|keys %}{% if path('admin_files') in path(app.request.get('_route')) %} current-page {% endif %}{% endif %}"><a href="{{ path('admin_files') }}"><i class="fa fa-files-o"></i>{{ 'adm.menu.files'|trans }}</a>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        <!-- /sidebar menu -->
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" href="login.html" data-original-title="Logout">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+    </div>
+</div>
+

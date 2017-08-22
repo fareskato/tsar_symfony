@@ -1,0 +1,26 @@
+<div class="eventsProdSliderItem" data-service="{{ item.getEventType.translate.name }}">
+	<a href="{{ path('home_agenda_detail_'~app.request.locale, {'slug':item.translate.slug}) }}">
+		<div class="eventsProdImg">
+			<img src="{{ asset(upload_web ~ item.getImageBackground.url|default())|imagine_filter('thumb235x149') }}" alt="" class="tsarZoom">
+		</div>
+		<div class="eventsProdInfo">
+			<div class="eventsProdInfoDesc">
+				<h4>{{ item.getEventType.translate.name }} |
+					{% if  item.getEventSchedule|length %}
+					<span class="itemServiceData">
+						{% for item in item.getEventSchedule %}
+							<span>{{ item.getDateStart|date('d/m/Y') }}</span>
+						{% endfor %}
+					</span>
+					{% endif %},
+					{% if  item.getEventSchedule %}
+						{% set hours = ((item.getEventSchedule[0].getStop - item.getEventSchedule[0].getStart) / 60)|round(0,'floor') %}
+						{{ hours }} {{ 'front.heures'|trans }}
+					{% endif %}
+				</h4></div>
+			<div class="eventsProdInfoTitle" >
+				<h3>{{ item.translate.name }}</h3>
+			</div>
+		</div>
+	</a>
+</div>

@@ -1,0 +1,92 @@
+<div class="item form-group">
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$(document).on('click', 'div[data-field="{{ field.name }}"] .button_delete' ,function(){
+				if (confirm('{{ 'adm.action.delete.confirm'|trans }}')) {
+					$(this).closest('.image_preview_multiple').remove();
+				} else {
+					return false;
+				}
+			});
+			$(document).on('click','div[data-field="{{ field.name }}"] .button_add', function(){
+                {% if field.maximum|default(0) %}
+				if ( $('.image_preview_multiple').not('.add').size() >= {{ field.maximum }} ) {
+					alert('{{ 'adm.field.maximum.items'|trans }}: {{ field.maximum }}');
+					return false;
+				}
+                {% endif %}
+				$(this).siblings('input[type="file"]').click();
+			});
+			$('div[data-field="{{ field.name }}"]').find('input[type="file"]').change('change',function(){
+				var $this = $(this);
+				var $val = $this.val();
+				if ($val == '') {
+					return false;
+				}
+				var formData = new FormData();
+				formData.append('file', $(this)[0].files[0]);
+				$.ajax({
+					url: "{{ upload_path }}",
+					type: 'POST',
+					dataType: 'json',
+					beforeSend: function () {
+					},
+					success: function ($data) {
+						var $add = $('.image_preview_multiple.add');
+						var $obj = $add.clone(false);
+						var $thumb = $data.thumbnail_100;
+						var $id = $data.id;
+						$obj.removeClass('add');
+						$obj.find('input[type="file"]').remove();
+						$obj.find('input[type="hidden"]').val($id);
+						$obj.find('.button_edit').css('display','inline-block');
+						$obj.find('.button_delete').show();
+						$obj.find('.button_add').remove();
+						$obj.find('img').attr('src', $thumb);
+						var $path = '{{ path('admin_files_edit', {id : 0 }) }}';
+						$obj.find('.button_edit').attr('href', $path+'/'+$id).show();
+
+						$obj.insertBefore($add);
+						$this.val('');
+					},
+					error: function ($data) {
+					},
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false
+				});
+			});
+		});
+    </script>
+
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">
+        {{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+        {% if field.maximum|default(0) %}<br><i>({{ 'adm.field.maximum'|trans }}: {{ field.maximum }})</i>{% endif %}
+    </label>
+    <div class="col-md-10 col-sm-10 col-xs-12 control-image" data-field="{{ field.name }}">
+
+        {% for image in  field.values %}
+            <div class="col-sm-2 col-xs-12 image_preview_multiple" data-default="{{ asset(upload_default)|imagine_filter('thumb100x100') }}">
+                <input type="hidden" class="form-control col-md-7 col-xs-12" name="{{ field.name }}" value="{{ image.value }}" />
+                <img src="{{ asset(upload_web ~ image.path)|imagine_filter('thumb100x100') }}" width="100" height="100"><br>
+                <a href="{{ path('admin_files_edit', {id : image.value|default(0) }) }}" type="button" class="btn btn-default btn-xs button_edit" target="_blank">{{ 'adm.button.edit'|trans }}</a>
+                <button type="button" class="btn btn-danger btn-xs button_delete">{{ 'adm.button.delete'|trans }}</button>
+            </div>
+        {% endfor %}
+
+            <div class="col-sm-2 col-xs-12 image_preview_multiple add" data-default="{{ asset(upload_default)|imagine_filter('thumb100x100') }}">
+                <input type="hidden" class="form-control col-md-7 col-xs-12" name="{{ field.name }}" value="" />
+                <img src="{{ asset(upload_default)|imagine_filter('thumb100x100') }}" width="100" height="100"><br>
+
+                <button type="button" class="btn btn-primary btn-xs button_add">{{ 'adm.button.add'|trans }}</button>
+
+                <a href="{{ path('admin_files_edit', {id : image.value|default(0) }) }}" type="button" class="btn btn-default btn-xs button_edit" target="_blank" style="display: none;">{{ 'adm.button.edit'|trans }}</a>
+
+                <button type="button" class="btn btn-danger btn-xs button_delete" style="display: none;">{{ 'adm.button.delete'|trans }}</button>
+                <input type="file" name="file_{{ field.name }}" style="display: none;" accept="image/*">
+            </div>
+
+    </div>
+</div>

@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% set title = article.translate.name %}
+{% set description = article.translate.getBodySummary %}
+{% if description == '' %}
+    {% set description = article.translate.body|striptags %}
+    {% set description = description|length > 100 ? description|slice(0, 100) ~ '...' : description %}
+{% endif %}
+
+{% if article.image %}
+    {% set image = upload_web ~ article.image.url %}
+    {% set addBackgroundImage = upload_web ~ article.image.url %}
+{% endif %}
+
+{% set keywords = article.keywords %}
+
+{% set addClass = 'articlePage' %}
+
+{% block body %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+			tsar.Article.initTabs();
+			tsar.Article.initCarousels();
+        });
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ mapkey }}">
+    </script>
+    <div class="articleWrap">
+        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+            {% include 'particials/front_admin_config.html.twig' with { 'entity' : article, 'type' : 'article' } %}
+        {% endif %}
+        <div class="articleImage">
+            {% include 'particials/breadcrumbs.html.twig' %}
+        </div>
+
+        <div class="articleContent">
+            <div class="articleHead">
+                <div class="wrapPage">
+                    <h1>{{ title }}</h1>
+                </div>
+            </div>
+            <div class="articleBody">
+
+                {{ article.translate.body|raw }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="itemContentBottom">
+	<div class="itemContentBottomInfo"><div class="hAlign_257">
+	</div><div class="itemInfo">
+		<div class="itemBody"> {{ section.translate.getBody|striptags|slice(0, 470)|raw }}...</div>
+		<div class="itemContentBottomBtn">{% if section.getNumberOfRooms|default(0) %}<div class="rooms"><span class="roomsLabel">{{ 'front.nombre_de_chambres'|trans }}</span><span class="roomsNumber">{{ section.getNumberOfRooms }}</span>
+			</div>{% endif %}<a href="{{ path('home_'~section1~'_detail_'~app.request.locale, {'slug':section.translate.slug}) }}" class="link clear">{{ 'front.decouvrir_la_fiche_complete'|trans }}</a></div></div>
+</div>{% if section.getImageOther|length %}<div class="itemContentBottomImg clear"><div class="closeBottom">{{ 'front.fermer'|trans }} x</div><img src="{{ asset(upload_web ~ section.getImageOther[0].url|default())|imagine_filter('thumb260x257') }}" alt="" class="tsarZoom"></div>{% endif %}
+</div>

@@ -1,0 +1,63 @@
+{% if mapLocations %}
+	<div id="map" style="height: 500px; width: 100%; background: #CCC"></div>
+	<script type="text/javascript">
+		var mapOptions = {
+			scrollwheel: false,
+			streetViewControl: false,
+			mapTypeControl: false,
+			panControl: false,
+			zoomControl: false,
+			scaleControl: false,
+			draggable: false,
+			disableDoubleClickZoom: true,
+			zoom: 17,
+			center : {
+				lat: 46.94271992645916,
+				lng: -3.3886318124999715
+			}
+
+			//center: null
+		};
+		function initRoute() {
+			var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+			var markers = [];
+			var $paths = [];
+			{% for item in mapLocations %}
+			var $coords = {
+					'lat': {{ item.lat }},
+					'lng': {{ item.lng }}
+				};
+				$paths.push($coords);
+				var addMarker = new google.maps.Marker({ // on definit le marker pour chaque point
+					position: $coords,
+					map: map
+				});
+				markers.push(addMarker);
+			{% endfor %}
+
+			{% if mapLocations|length == 1 %}
+				map.setCenter($paths[0]);
+				map.setZoom({{ defaultZoom|default(10) }});
+			{% elseif mapLocations|length > 1 %}
+				var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < markers.length; i++) {
+					bounds.extend(markers[i].getPosition());
+				}
+				map.fitBounds(bounds);
+				var flightPath = new google.maps.Polyline({
+					path: $paths,
+					geodesic: true,
+					strokeColor: '#FF0000',
+					strokeOpacity: 1.0,
+					strokeWeight: 2
+				});
+				flightPath.setMap(map);
+			{% endif %}
+
+
+		}
+	</script>
+	<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key={{ mapkey }}&libraries=places&callback=initRoute">
+	</script>
+{% endif %}

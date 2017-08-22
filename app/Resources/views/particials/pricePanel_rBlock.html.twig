@@ -1,0 +1,19 @@
+<div class="priceBlock">
+	{% if app.session.get(domain_variable_name) == domain_international_id and  section.getPrixEuro or section.getPrixRouble%}
+		<p class="priceBlockTitle">{{ 'front.a_partir_de'|trans }}</p>
+
+		{% if app.session.get(domain_variable_name) == domain_international_id and  section.getPrixEuro %}
+			<div class="priceValue">{{ section.getPrixEuro|default(0)|number_format(0, '.', ' ') }} <span class="euro"><i class="fa fa-eur"></i></span></div>
+		{% elseif section.getPrixRouble %}
+			<div class="priceValue">{{ section.getPrixRouble|default(0)|number_format(0, '.', ' ') }} <span class="rub">RUB</span></div>
+		{% endif %}
+
+		<p class="tarifnotice">{{ 'front.par_personne'|trans }}*</p>
+		{% if section.translate.getTextUnderPrice %}
+			<p class="legalinfo">{{ section.translate.getTextUnderPrice }}</p>
+		{% endif %}
+
+	{% else %}
+		{{ 'front.tarif_sur_demande'|trans }}
+	{% endif %}
+</div>

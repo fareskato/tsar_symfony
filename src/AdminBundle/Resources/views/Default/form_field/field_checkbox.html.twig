@@ -1,0 +1,13 @@
+<div class="item form-group">
+
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">
+        {{ field.label|trans }}
+    </label>
+        <div class="col-md-10 col-sm-10 col-xs-12 checkbox">
+            <div class="icheckbox_flat-green {% if field.value > 0 %}checked{% endif %}">
+                <input type="hidden" name="{{ field.name }}" value="0" />
+                <input type="checkbox" class="flat" id="{{ field.name|trans }}" name="{{ field.name }}" value="{{ field.value|default(1) }}" {% if field.checked %}checked{% endif %}/>
+            </div>
+        </div>
+
+</div>

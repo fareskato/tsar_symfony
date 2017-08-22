@@ -1,0 +1,21 @@
+<div class="itemPart2">
+	<div class="hAlign_148">
+</div><div class="itemPart2Info">
+	<a href="{{ path('home_'~section1~'_detail_'~app.request.locale, {'slug': section.translate.slug}) }}" class="itemName">{{ section.translate.name }}</a>
+	<div class="itemType">
+		{% if section.getAmountDays %}
+			{{ section.getAmountDays }} {{ 'front.jours'|trans }}
+		{% elseif section.getNumberHoursVisit is defined %}{#for visit#}
+			{{ section.getNumberHoursVisit }} {{ 'front.heures'|trans }}{#end for visit#}
+		{% endif %}
+		{% if section.getExtensionRecreation|length > 0 %}
+			{% for item in section.getExtensionRecreation %} - {{ item.translate.name }}{% endfor %}
+		{% endif %}
+		{% if section.getStartingPoint %} - {{ 'front.au_depart_de'|trans }} {{ section.getStartingPoint.translate.name }}
+		{% endif %}
+		{% if section.translate.getShowTimes is defined %}{#for event#}
+			{{ section.translate.getShowTimes }}{#end for event#}
+		{% endif %}
+	</div>
+		{% include 'particials/detailPage/getPrice.html.twig'%}
+</div></div>

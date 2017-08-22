@@ -1,0 +1,450 @@
+admin.title: Admin panel
+adm.book.book_name: Book name
+adm.books: Books
+adm.location: Locations
+adm.article: Article
+adm.slider: Slider
+adm.yes: Yes
+adm.no: No
+adm.settings: Settings
+adm.shopsettings: Shop settings
+adm.voyage: Voyage
+adm.extension: Extension
+adm.field.value: Value
+adm.user: Users
+adm.event: Event
+adm.visa: Visa
+adm.train: Train
+adm.search: Search
+adm.search.min: Minimum 3 letters
+adm.search.go: Go!
+
+adm.field.type_extension: Voyage type
+adm.field.extension_season: Season
+adm.field.extension: Voyage
+adm.field.extension.vers: Voyage vers
+adm.field.extension_recreation: Recreation
+adm.field.book_type_extension: Extension
+
+adm.field.id: Id
+adm.field.name: Name
+adm.field.name1: Name 1
+adm.field.name2: Name 2
+adm.field.settings.name.disclaimer: You will not be able to change this value
+adm.field.position: Position
+adm.field.description: Description
+adm.field.image: Image
+adm.field.images: Images
+adm.field.image.header: Header image
+adm.field.image.background: Background image
+adm.field.image.miniature: List thumbnail
+adm.field.image.panorama: Panorama
+adm.field.image_miniature: Image
+adm.field.image.others: Other images
+adm.field.slug: Url path
+adm.field.external: Open in a new window
+adm.field.parent: Parent
+adm.field.select.parent: Top level
+adm.field.select.toplevel: Top level
+adm.field.select: Please select
+adm.field.active: Active
+adm.field.type: Type
+adm.field.category: Category
+adm.field.separator: Separator
+adm.field.column: Column
+adm.field.separator.other: Other
+adm.field.other: Other
+adm.field.city: city
+adm.field.type: type
+adm.field.event: event
+adm.field.url: Link
+adm.field.class: CSS class
+adm.field.country: Сountry
+adm.field.getCountryName: Сountry
+adm.field.city: Сity
+adm.field.street: Street
+adm.field.additional: Additional
+adm.field.select.country: Select country
+adm.field.select.metro: Select metro
+adm.field.map: Map
+adm.field.map.latitude: Latitude
+adm.field.map.longitude: Longitude
+adm.map.search: MAp search
+adm.field.body_summary: Summary
+adm.field.body: Body
+adm.field.keywords: Keywords
+adm.field.domains: Domains
+adm.field.color: Color
+adm.field.desktop: Desktop
+adm.field.mobile: Mobile
+adm.field.link: Link
+adm.field.type_destination: Type of destination
+adm.field.master_destination: Master destination
+adm.field.present_in_list: Present in list
+adm.field.maximum: maximum
+adm.field.maximum.items: Maximum items
+adm.field.location: Location
+adm.field.locations: Locations
+adm.field.destination: Destination
+adm.field.hotel: Hotel
+adm.field.ville: City
+adm.field.adress: Address
+adm.field.headline: Headline Liste
+adm.field.hotel_stars: Hotel stars
+adm.field.hotel_internet: Internet
+adm.field.metro: Subway
+adm.field.seo: SEO
+adm.field.places: Places
+adm.field.type_of_hotel: Type of hotel
+adm.field.hotel_internet: Internet access
+adm.field.number_of_rooms: Number of rooms
+adm.field.none: None
+adm.field.etiquette: Etiquette
+adm.field.adress: address
+adm.field.hotel_stars: Service Level
+adm.field.book_services: Hotel Services
+adm.field.hotel_service: Additional services
+adm.field.tarifs: Tarif
+adm.field.tarif.has_price: Has price
+adm.field.tarif.description: Threefold description
+adm.field.tarif.currency: Tariff currency
+adm.field.tarif.product_365_linked: Product key
+adm.field.tarif.details: Details of service
+adm.field.tarif.price_euro: Price in Euros
+adm.field.tarif.price_ruble: Price in rubles
+adm.field.tarif.auto_pricing_update: Automatically update prices
+adm.field.book_etiquette: Etiquette
+adm.field.title: Title
+adm.field.tarif.tarif_fixe: Fixed price
+adm.field.tarif.text_under_price: Text under the price
+adm.field.tarif.external_booking: Use external booking link
+adm.field.tarif.conditions_sale: Conditions de Vente
+adm.field.tarif.tariffed_product: Produit has price
+adm.field.tarif.amount_days: Amount of days
+adm.field.tarif.extra_days: Extra Days
+adm.field.voyage: Voyage
+adm.field.tarif.tarif_use_external_booking_link: Use external booking link
+adm.field.tarif.external_booking_link: external booking link
+adm.field.tarif.external_booking_link_label: external booking link label
+adm.field.type_voyage: Type voyage
+adm.field.starting_point: Starting Point
+adm.field.season: Seasons
+adm.field.ville: Ville
+adm.field.voyage_season: Seasons
+adm.field.voyage_recreation: Recreation
+adm.field.related_content: Related Content
+adm.field.voyage_related_content: Content
+adm.field.block_days: Block-days
+adm.field.day: Day
+adm.field.active_domain: Domain
+adm.field.main: Main
+adm.field.services: Services
+adm.field.separator_trip_lies: Trip lies
+adm.field.days: Days
+adm.field.trip_lies: Trip lies
+adm.field.travel_points: Destinations
+adm.field.visit_duration: Duration
+adm.field.season: Season
+adm.field.recreation: Travel type
+adm.field.tariffed_product: Produit has price
+adm.field.price_flexibility: Tarif is flexible
+adm.field.text_under_price: Text uder the price
+adm.field.product_365: Linked 365 product
+adm.field.service_details: Details of service
+adm.field.external_booking: Use external booking link
+adm.field.external_booking_link: External booking link
+adm.field.external_booking_link_label: External booking link label
+adm.field.conditions_sale: Terms of sale
+adm.field.price_displayed: Advertised price
+adm.field.prix_euro: Prix en euro
+adm.field.prix_rouble: Prix en rouble
+adm.field.auto_update_price: Automatically update prices
+adm.field.related_product: related product
+adm.field.date_start: Start Date
+adm.field.date_end: Stop Date
+adm.field.date_repeat: Repeat
+adm.field.event_type: Event Type
+adm.field.show_times: Show Times
+adm.field.introduction: Introduction
+adm.field.entity: entity
+adm.field.exclude_dates: Exclude dates
+adm.field.include_dates: Add dates
+adm.field.supp_service: Supplimentary Services
+adm.field.do_nothing: Do nothing
+adm.field.label: Label
+adm.field.type_visa: Type Visa
+adm.field.urgence: Urgence
+adm.field.visa_period: visa Period
+adm.field.commentaires: Commentaries
+adm.field.informations_supplementaires: Informations Supplementaires
+adm.field.information_utile: Information Utile
+adm.field.type_group: Type Group
+adm.field.custom_id: Customer Id
+adm.field.excel_title: Excel Title
+adm.field.excel_description: Excel Description
+adm.field.additional_information: Additional Information
+adm.field.excel: Excel
+adm.field.information_supplémentaire: Information Supplémentaire
+adm.visa.visa_name: Visa Name
+adm.field.departure_city: Departure City
+adm.field.city_arrival: City Arrival
+adm.field.period: Period
+adm.field.categorie: Categorie
+adm.field.type_customer: Type Customer
+adm.chauffeur: Driver
+adm.field.book_vehicle_types: Vehicle types
+adm.field.book_currency: Currency
+adm.field.book_group_type: Group type
+adm.field.book_visa_urgence: Visa urgency
+adm.field.book_type_visa: Visa type
+adm.field.book_visa_period: Visa period
+adm.field.book_train_categorie: Train category
+adm.field.book_train_type_customer: Train customer
+adm.field.book_train_period: Period
+adm.field.type_de_vehicle: Vehicle type
+adm.field.duree: Duration
+adm.field.nom_en_latin: Name in latin
+adm.field.nom_en_cyrillique: Name in cyrillic
+adm.field.supp_info: Supplementary info
+adm.field.info_utile: Extra info
+adm.field.currency: Currency
+adm.field.group_type: Group type
+adm.field.excel_custom_id: Excel ID
+adm.field.favorite: Favorite
+adm.field.file_name: File name
+adm.field.file_url: Image
+adm.field.mime: Mime type
+adm.file.file_name: File name
+adm.field.file_type: File type
+adm.files: Files
+adm.field.file: File
+adm.field.comments: Commentaries
+adm.field.musee: Museum
+adm.field.client_type: Client type
+adm.field.titre: Label
+adm.field.ajouter_produit: Ajouter Produit
+adm.field.product: Product
+adm.field.transfer: Transfer
+adm.field.transfer_one: Ajouter un transfert
+adm.field.transfer_two: Transfert 3-7 pax
+adm.field.transfer_three: Transfert 8-20 pax
+adm.productpacks: Product Packs
+adm.productpacks.productpacks_name: Product Packs Name
+adm.ticketsdemusee: Ticket Musee
+adm.field.assurance: Assurance
+adm.field.extra_days: Extra Days
+
+
+adm.field.title_insurance: Title of insurance
+adm.field.book_total_price_stay: Prix total du séjour
+adm.field.book_duration_insurance: Durée de l'assurance
+adm.field.book_type_dassurance: Type d'assurance
+adm.field.book_client_type: Client Type
+adm.field.book_vehicle:  Véhicule
+adm.field.book_type_transfert: Type de transfert
+
+adm.field.type_dassurance: Type d'assurance
+adm.field.duration_insurance: Durée de l'assurance
+adm.field.total_price_stay: Prix total du séjour
+
+adm.assurance.assurance_name: Assurance
+adm.assurance: Assurance
+adm.field.number_passengers: number passengers
+adm.field.type_transfert: Type transfert
+adm.field.vehicle: Vehicle
+
+
+adm.transferts.transferts_name: Transfer
+adm.train.train_name: Train
+adm.autre_product: Extra product
+adm.tickets_de_musee: Museum tickets
+
+adm.combinationhotels.combinationhotels_name: Combination Hotels
+adm.combinationhotels: Combination Hotels
+adm.field.special_offer: Special Offer
+adm.field.combination_hotel: Combination Hotel
+adm.field.day_produit: Ajouter un produit
+adm.field.alternative_day: Alternative Day
+
+
+
+
+
+adm.field.book_supp_services: Supplimentary Services
+adm.field.booking: Booking
+adm.field.book_offer_options: Offer options
+adm.field.book_civilite: Title
+adm.field.book_send_docs: Send documents to
+adm.field.booking_to_related_product: Related Product
+
+adm.booking: Booking
+adm.field.date: Date
+adm.field.booked_product: Linked content
+adm.field.assigned_user: Attributed user
+adm.field.offer_options: Offer options
+adm.field.send_docs: Email documents
+adm.field.key: Key
+adm.field.website_version: Tsar website version
+adm.field.comment: Comments
+adm.field.devis_booking_id: Devis booking id
+adm.field.excel_link: Devis excel link
+adm.field.separator_booking_details: Booking Details
+adm.field.amount_of_people: Amount of people
+adm.field.suppliment_single: Supplément single
+adm.field.numbre_de_jours: Days
+adm.field.numbre_de_nuits: Nights
+adm.field.numbre_de_chambers: Amout of rooms
+adm.field.pdf_link: PDF link
+adm.field.blockjour_order: Blockjours order
+adm.field.visa: Visas
+adm.field.flight_from: Origin city
+adm.field.clarification: Client comments
+adm.field.separator_personal_details: Client details
+adm.field.civilite: Title
+adm.field.nom: Second name
+adm.field.premon: First name
+adm.field.phone: Phone
+adm.field.separator_booking_prices: Price details
+adm.field.prix: Price
+adm.field.supplement_single_price: Supplément single price
+
+adm.visit.visit_name: Visit
+adm.visit: Visit
+
+adm.field.separator_minigroup: Minigroups
+adm.field.mini_groupe: Mini groupe
+adm.field.minigroup_name: Minigroup name
+adm.field.minigroup_promotion_weight: Minigroup promotion weight
+adm.field.minigroup_prix_euros: Minigroup price in euros
+adm.field.minigroup_prix_rubles: Minigroup price in rubles
+adm.field.headline_liste: List headline
+adm.field.minigroup.start_date: Start date
+adm.field.minigroup.start_time: Start time
+adm.field.minigroup.end_date: End date
+adm.field.minigroup.end_time: End time
+adm.field.minigroup.price_euro: Price in Eur
+adm.field.minigroup.price_rub: Price in Rub
+adm.field.minigroup_data: Manage minigroups
+adm.field.promoted_fronpage: Promoted Frontpage
+adm.field.number_hours_visit: Number of hours of the visit
+
+
+
+
+adm.button.add.setting: Add settings
+adm.field.settings.name.disclaimer: Enter setting name
+adm.field.active_lang: Active languages
+
+adm.button.add: Add
+adm.button.add.setting: Add a setting
+adm.button.add.shop.setting: Add shop setting
+adm.shop.settings: Shop settings
+adm.button.create: Create new
+adm.action.actions: Actions
+adm.action.edit: Edit
+adm.action.delete: Delete
+adm.action.delete.confirm: Are you sure you want to delete it?
+adm.action.new: Add new
+adm.button.save: Save
+adm.button.cancel: Cancel
+adm.button.delete: Delete
+adm.button.addchange: Add/change
+adm.button.edit: Edit
+adm.action.activate: Activate
+adm.action.deactivate: Deactivate
+adm.content_type: Content type
+adm.article: Static articles
+adm.field.body_summary: Summary
+adm.action.preview: Preview
+##########################################
+###########    Left sidebar   ############
+##########################################
+###### Books
+adm.field.book_access_internet: Internet access
+adm.field.book_banner_list: Banner list
+adm.field.book_domain: Domain
+adm.field.book_duration: Duration
+adm.field.book_hotel_stars: Hotel stars
+adm.field.book_metro: Metro
+adm.field.book_newsletter: Newsletter
+adm.field.book_offices: Offices
+adm.field.book_season: Season
+adm.field.book_type_destination: Destination
+adm.field.book_type_event: Event
+adm.field.book_type_recreation: Recreation
+adm.field.book_type_voyage: Voyage
+adm.field.hotel_list: Hotel
+
+adm.menu: Menu
+adm.menu.menu_name: Menu
+
+adm.location: Location
+
+adm.slider.slider_name: Slider
+
+adm.partners: Partners
+adm.partners.partner_name: Partners
+
+adm.destination: Destination
+adm.destination.destination_name: Destination
+
+adm.day: Day
+adm.day.day_name: Day
+
+adm.hotel: Hotel
+adm.hotel.hotel_name: Hotel
+
+
+###### users
+adm.button.add.user: Add user
+adm.field.username: Name
+adm.field.email:  Email
+adm.action.enabled: Activate
+adm.field.password: Password
+adm.field.roles: Roles
+
+###### Frontend configuration menu for login admin
+
+front.adm.edit: Edit
+front.adm.list: List
+front.adm.add: Add
+
+
+#######  Backend admin left menu list items
+adm.menu.tours: Tours
+adm.menu.books: Books
+adm.menu.location: Location
+adm.menu.destination: Destination
+adm.menu.article: Article
+adm.menu.menu: Menu
+adm.menu.menutop: Menutop
+adm.menu.slider: Slider
+adm.menu.partners: Partners
+adm.menu.voyage: Voyage
+adm.menu.hotel: Hotels
+adm.menu.event: Event
+adm.menu.visit: Visit
+adm.menu.extension: Extension
+adm.menu.booking: Booking
+adm.menu.configurations: Configurations
+adm.menu.user: User
+adm.menu.settings: Settings
+adm.menu.content: Content
+adm.menu.day: Day (bloc-jour)
+adm.menu.visa: Visa
+adm.menu.transfers: Transfers
+adm.menu.train: Train
+adm.menu.museumtickets: Museum Tickets
+adm.menu.tourguide: Tour Guide
+adm.menu.assurance: Assurance
+adm.menu.otherproducts: Other products
+adm.menu.products: products
+adm.menu.shopsettings: Shop Settings
+adm.menu.files: Files
+adm.menu.productpacks: Product Packs
+adm.menu.autre: Extra product
+adm.menu.chauffeur: Driver
+adm.menu.combination_hotels: Combination Hotels
+adm.menu.shop_settings: Shop settings
+
+

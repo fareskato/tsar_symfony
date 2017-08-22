@@ -1,0 +1,10 @@
+<div class="formItem {{ field.field_class|default('') }}">
+    <div class="formKey">
+        {% if field.label|default('') %}{{ field.label|trans }}{% endif %}{% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </div><div class="formValue">
+        <input type="text" name="{{ field.name|default('') }}" value="{{ field.value|default('') }}" placeholder="{{ field.placeholder|default('') }}" {% if field.maxlength|default(0) %}maxlength="{{ field.maxlength }}"{% endif %} data-error="{{ field.error|default('') }}"
+        {% if field.onchange|default('') %}onchange="{{ field.onchange }}"{% endif %}
+        >
+        {% if field.description|default('') %}<div class="formDescription">{{ field.description }}</div>{% endif %}
+    </div>
+</div>

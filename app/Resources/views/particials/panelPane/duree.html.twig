@@ -1,0 +1,18 @@
+<div class="panelPane duree">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-duree.png', 'paneTitle': 'front.duree'|trans, 'check': filtered_days } %}
+    <div class="paneContent{% if filtered_days %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for day,number in filter_days %}
+                <div class="paneItem">
+                        <label>
+	                        {% if day in filtered_days|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path, day, section1)}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ day }} {{ 'front.jours'|trans }}</a>
+	                        {% else %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{section1}}/{{  day }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ day }} {{ 'front.jours'|trans }}<span class="paneItemCount clear">{{ number }}</span></a>
+	                        {% endif %}
+                        </label>
+                    </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

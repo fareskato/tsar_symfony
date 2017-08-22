@@ -1,0 +1,17 @@
+<div class="item form-group">
+
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">
+        {{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </label>
+    <div class="col-md-10 col-sm-10 col-xs-12 control-image" data-field="{{ field.name }}">
+
+        <div class="image_preview" data-default="{{ asset(upload_default)|imagine_filter('thumb100x100') }}">
+            {% if field.value|default('') and field.file_type == 'image' %}
+                <img src="{{ asset(upload_web ~ field.url)|imagine_filter('thumb100x100') }}" width="100" height="100">
+            {% else %}
+                {{ field.url }}<br>
+            {% endif %}
+            <input type="file" name="{{ field.name }}" accept="*">
+        </div>
+    </div>
+</div>

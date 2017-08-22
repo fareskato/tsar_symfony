@@ -1,0 +1,23 @@
+<div class="item form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">{{ field.label|default('')|trans }} {% if field.required %}<span class="required">*</span>{% endif %}
+    </label>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+        	$('textarea[name="{{ field.name }}"]').froalaEditor({
+				imageUploadParams: { type: 'editorial' },
+				imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+				imageUploadURL: "{{ upload_path }}",
+				toolbarButtons : ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript','|',
+                    'fontFamily','fontSize','color','inlineStyle','|',
+                    'paragraphStyle','paragraphFormat','align','formatOL','formatUL','quote', 'outdent', 'indent','-',
+                    'insertLink','insertImage','insertTable','insertHR','selectAll','|',
+                    'specialCharacters','clearFormatting', 'insertTable', 'html'],
+				spellcheck: false
+			});
+        });
+    </script>
+    <div class="col-md-10 col-sm-10 col-xs-12">
+        <textarea id="textarea" {% if field.required %}required="required"{% endif %} name="{{ field.name }}" class="form-control col-md-7 col-xs-12">{{ field.value|default('')|raw }}</textarea>
+    </div>
+</div>

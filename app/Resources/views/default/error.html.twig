@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'errorPage' %}
+{% set title = 'front.errorpage.name'|trans %}
+
+{% block body %}
+
+<div class="articleWrap">
+    <div class="articleImage">
+        {% include 'particials/breadcrumbs.html.twig' %}
+    </div>
+    <div class="articleContent">
+        <div class="articleHead">
+            <div class="wrapPage">
+                <h1>{{ 'front.errorpage.name'|trans }}</h1>
+            </div>
+        </div>
+        <div class="articleBody">
+            <div class="container">
+                {{ 'front.errorpage.message'|trans({'%error_url%': error_url}) }}
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

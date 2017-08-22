@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'hebergementPage' %}
+
+{% set title = 'front.hebergement'|trans %}
+
+{% block body %}
+    <div class="wrapPage">
+        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+            {% include 'particials/front_admin_config_list.html.twig' with { 'type' : 'hotel' } %}
+        {% endif %}
+        <div class="mainLBlock">
+	        {% if  filters_active_count %}
+                <div class="panelPane filters">
+                    {% include 'particials/panelPane/filters/paneTitleFilters.html.twig' %}
+                    <div class="paneContent">
+	                    {% for destination in filtered_destinations %}
+                            <a href="{{ path('home_hebergement_filter_'~app.request.locale, {filters:exculde_path(current_path,destination.id,'url.hotel.destination'|trans)}) }}">{{ destination.translate.name }}</a>
+	                    {% endfor %}
+	                    {% for star in filtered_stars %}
+                            <a href="{{ path('home_hebergement_filter_'~app.request.locale, {filters:exculde_path(current_path,star.id,'url.hotel.stars'|trans)}) }}">{{ star.translate.name }}</a>
+	                    {% endfor %}
+                    </div>
+	                {% include 'particials/panelPane/filters/btnClearFilter.html.twig' with { 'section': 'hebergement'} %}
+                </div>
+	        {% endif %}
+
+            {% include 'particials/panelPane/ville_zone.html.twig' with { 'section': 'hebergement', 'section1': 'url.hotel.destination'|trans }%}
+            {% include 'particials/panelPane/etoiles.html.twig' %}
+        </div><div class="mainRBlock">
+		    {% include 'particials/list/block_totalCount.html.twig' with { 'count': hotels_count_total }%}
+
+            <div class="blockList">
+                {% for item in hotels %}
+	                {% include 'particials/list/itemHotel.html.twig' %}
+                {% endfor %}
+            </div>
+	        {% include '@Admin/Default/partials/paginator.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

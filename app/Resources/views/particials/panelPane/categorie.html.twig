@@ -1,0 +1,20 @@
+<div class="panelPane categorie">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-prix-flexibility.png', 'paneTitle': 'front.categorie'|trans, 'check': filtered_categories } %}
+    <div class="paneContent{% if filtered_categories %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for key,category in filter_categories %}
+	            {% if category.count > 0 %}
+                    <div class="paneItem">
+                        <label>
+	                        {% if key in filtered_categories|keys %}
+                                <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,key, section1 )}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ ('front.'~category.name)|trans }}</a>
+                            {% else %}
+                                <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{ section1 }}/{{  key }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ ('front.'~category.name)|trans }} <span class="paneItemCount clear">{{ category.count }}</span></a>
+                            {% endif %}
+                        </label>
+                    </div>
+	            {% endif %}
+			{% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,382 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    ##  Import config file for admin
+    - { resource: "@AdminBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+    app.locales: fr|en|ru|it|de|es
+    clean_url: media|_wdt|file|_profiler
+    map.key: AIzaSyDis3ePUe4UXYAb7waID5uX7k5_1S1G6ow
+    map.iframeKey: AIzaSyDmQexhzBSOcC4SU7u6LZYBvUy5iahhkPc
+    upload.dir: '%kernel.project_dir%/web/sites/default/files'
+    upload.web: '/sites/default/files'
+    upload.default: '/images/logo_new.png'
+    domain.variable.name: 'domain'
+    domain.international: 85
+    domain.russian: 86
+
+framework:
+    #esi: ~
+    translator:
+      fallbacks: [fr]
+      paths:
+        - '%kernel.project_dir%/app/Resources/translations'
+        - '%kernel.project_dir%/src/AdminBundle/Resources/translations'
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: snc_redis.session.handler
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        cookie_lifetime: 7776000 #3 months
+        gc_maxlifetime: 7776000 #3 months
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: false
+
+# Twig Configuration
+twig:
+    # exception_controller: 'AppBundle:Default:error'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    cache: false
+    debug: false
+    globals:
+        mapkey: '%map.key%'
+        mapiFrameKey: '%map.iframeKey%'
+        locales: '@AppBundle\Service\Locales'
+        menu: '@AppBundle\Service\Menu'
+        settings: '@AppBundle\Service\Settings'
+        slider: '@AppBundle\Service\Slider'
+        adminmenu: '@AdminBundle\Service\Adminmenu'
+        upload_path: '/file/upload'
+        upload_web: '%upload.web%'
+        upload_default: '%upload.default%'
+        domain_variable_name: '%domain.variable.name%'
+        domain_international_id: '%domain.international%'
+        domain_russian_id: '%domain.russian%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        mapping_types:
+          enum: string
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.project_dir%/var/data/data.sqlite"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+                mappings:
+                #######  Gedmo translation mapper
+                    #gedmo_translatable:
+                        #type: annotation
+                        #prefix: Gedmo\Translatable\Entity
+                        #dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        #alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
+                        #is_bundle: false
+                    gedmo_tree:
+                        type: annotation
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                #metadata_cache_driver:
+                    #type: service
+                    #id: snc_second_level_cache
+                #result_cache_driver:
+                    #type: service
+                    #id: snc_second_level_cache
+                #query_cache_driver:
+                    #type: service
+                    #id: snc_second_level_cache
+                #second_level_cache:
+                    #region_cache_driver:
+                        #type: service
+                        #id: snc_second_level_cache
+                    #enabled: true
+                    #log_enabled: false
+                    #regions:
+                        #default:
+                            #cache_driver:
+                                #type: service
+                                #id: snc_second_level_cache
+                            #lifetime: 3600
+#                    gedmo_translator:
+#                        type: annotation
+#                        prefix: Gedmo\Translator\Entity
+#                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+#                        alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+#                        is_bundle: false
+
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+
+###### Assetic bundle
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+
+
+###########  Sonata Admin
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+####### Sonata admin layout
+sonata_admin:
+    title: Tsarvoyages
+    title_logo: /images/logo.png
+    templates:
+        layout: admin/layout.html.twig
+
+
+###########################################
+##############   Translations #############
+###########################################
+
+####### Sonata Translation with gedmo and knplabs
+sonata_translation:
+    locales: [fr,en,ru,it,de,es]
+    default_locale: fr
+    # here enable the types you need
+    #gedmo:
+        #enabled: true
+
+# Doctrine extensions (uses for translation)
+stof_doctrine_extensions:
+    default_locale: en_EN
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
+            tree: true
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+
+sphinxsearch:
+    searchd:
+        # Host name for your Sphinx daemon
+        host: 127.0.0.1
+        # Port number for your Sphinx daemon
+        port: 9312
+        # If you want to connect via scoket
+        # socket: /path/to/socket.file
+    indexes:
+        # List of sphinx index names (key) and entity names (value)
+        # to use it in searchEx() method
+        # IndexName: "Bundle:Entity"
+
+liip_imagine :
+    resolvers :
+        default :
+            web_path : ~
+    filter_sets :
+        cache : ~
+        # the name of the "filter set"
+        default300 :
+            quality : 80
+            filters :
+                #thumbnail  : { size : [1000, 90], mode : outbound }
+                relative_resize:
+                  widen: 300
+        thumb1920x1080 :
+            quality : 80
+            filters :
+              thumbnail  : { size : [1920, 1080], mode : outbound }
+        thumb100x100 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [100, 100], mode : outbound }
+        thumb100x50 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [100, 50], mode : outbound }
+        thumb485x305 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [485, 305], mode : outbound }
+        thumb290x267 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [290, 267], mode : outbound }
+        thumb259x148 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [259, 148], mode : outbound }
+        thumb260x257 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [260, 257], mode : outbound }
+        thumb478x338 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [478, 338], mode : outbound }
+        thumb235x187 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [235, 187], mode : outbound }
+        thumb800x450 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [800, 450], mode : outbound }
+        thumb210x168 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [210, 168], mode : outbound }
+        thumb390x277 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [390, 277], mode : outbound }
+        thumb191x153 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [191, 153], mode : outbound }
+        thumb200x200 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [200, 200], mode : outbound }
+        thumb378x186 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [378, 186], mode : outbound }
+        thumb179x143 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [179, 143], mode : outbound }
+        thumb185x149 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [185, 149], mode : outbound }
+        thumb378x271 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [378, 271], mode : outbound }
+        thumb485x252 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [485, 252], mode : outbound }
+        thumb227x306 :
+            quality : 80
+            filters :
+                thumbnail  : { size : [227, 306], mode : outbound }
+        thumb320x210 :
+            quality : 80
+            filters :
+              thumbnail  : { size : [320, 210], mode : outbound }
+        thumb195x195 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [195, 195], mode : outbound }
+        thumb235x149 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [235, 149], mode : outbound }
+        thumb198x22 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [198, 22], mode : outbound }
+        thumb52x29 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [52, 29], mode : outbound }
+        thumb485x108 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [485, 108], mode : outbound }
+        thumb970x123 :
+              quality : 80
+              filters :
+                thumbnail  : { size : [970, 123], mode : outbound }
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: redis://127.0.0.1
+            logging: '%kernel.debug%'
+        #doctrine:
+            #type: predis
+            #alias: doctrine
+            #dsn: redis://localhost
+            #logging: '%kernel.debug%'
+        session:
+            dsn: redis://127.0.0.1
+            logging: false # https://github.com/snc/SncRedisBundle/issues/161
+            type: phpredis
+            alias: session
+
+    #doctrine:
+        #metadata_cache:
+            #client: doctrine
+            #entity_manager: default
+            #namespace: 'dmc:'
+        #result_cache:
+            #client: doctrine
+            #entity_manager: default
+            #namespace: 'drc:'
+        #query_cache:
+            #client: doctrine
+            #entity_manager: default
+            #namespace: 'dqc:'
+        #second_level_cache:
+            #client: doctrine
+            #entity_manager: default
+            #namespace: 'dslc:'
+    session:
+        client: session
+        locking: false
+        prefix: tsar_
+        ttl: 7776000
+
+knp_doctrine_behaviors:
+    translatable: true

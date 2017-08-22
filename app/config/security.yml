@@ -1,0 +1,43 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_MANAGER:     ROLE_USER
+        ROLE_SELLER:      ROLE_USER
+        ROLE_ADMIN:       [ROLE_MANAGER, ROLE_SELLER]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                check_path: fos_user_security_check
+                always_use_default_target_path: true
+                default_target_path: admin_default_index
+                # if you are using Symfony < 2.8, use the following config instead:
+                # csrf_provider: form.csrf_provider
+
+            logout:
+              path: fos_user_security_logout
+              target: homepage
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(.*)/admin/article, role: [ROLE_SELLER] }
+
+        # This should be the last route
+        - { path: ^/(.*)/admin, role: [ROLE_MANAGER, ROLE_SELLER] }

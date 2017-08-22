@@ -1,0 +1,64 @@
+{%  set allMonths = filter_months|keys %}
+
+<div class="panelPane calendar noSelect">
+    <div class="paneTitle noClose">
+        <span class="paneIcon"><img src="/images/search-filters/title-calendar.png" alt=""></span>
+        <span class="paneText">{{ 'front.periode'|trans }}</span>
+    </div>
+    <div class="paneContent">
+        <div class="paneList">
+            <div class="filterCalendar">
+    <div class="filterCalendarNav">
+
+        {% if today_month|date('Ym') < selected_month|date('Ym') %}
+            <div class="filterCalendarPrev clear"><a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:current_path,('url.agenda.calendar')|trans : selected_month|date_modify("-1 month")|date('Y-m')}) }}">« {{ ('front.weekday.prev')|trans }}</a></div>
+        {% else %}
+            <div class="filterCalendarPrev noHref clear">« {{ ('front.weekday.prev')|trans }}</div>
+        {% endif %}
+        <div class="filterCalendarName">{{ ('front.month.'~selected_month|date('m'))|trans }} {{ selected_month|date('Y') }}</div>
+        {% if allMonths|length > 0 and allMonths[allMonths|length-1]|date('Ym') > selected_month|date('Ym') %}
+            <div class="filterCalendarNext clear"><a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:current_path, ('url.agenda.calendar')|trans : selected_month|date_modify("+1 month")|date('Y-m')}) }}">{{ ('front.weekday.next')|trans }} »</a></div>
+        {% else %}
+            <div class="filterCalendarNext noHref clear">{{ ('front.weekday.next')|trans }} »</div>
+        {% endif %}
+    </div>
+
+    <div class="filterCalendarTable">
+        <table>
+            <thead>
+                <tr>
+                    {% for i in 1..7 %}
+                        <th>{{ ('front.weekday.'~i~'.short')|trans }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for item in calendar_month_days %}
+                        <td class="{% if not item.active %}inActive{% endif %} {% if item.today %}today{% endif %} {% if item.active and item.hasEvent %}hasEvent{% endif %}">
+                            {% if item.active and item.hasEvent %}
+
+                                {% if item.date|date('Y-m-d')  in filtered_dates|keys %}
+                                    <a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:exculde_path(current_path,item.date|date('Y-m-d') , 'url.agenda.date'|trans ),('url.agenda.calendar')|trans : app.request.get(('url.agenda.calendar')|trans)} ) }}" class="active">{{ item.day }}</a>
+                                {% else %}
+                                    <a href="{{ path('home_agenda_filter_'~app.request.locale, {filters: current_path ~ ((current_path == ''?'':'/')~'url.agenda.date'|trans~'/'~item.date|date('Y-m-d')),('url.agenda.calendar')|trans : app.request.get(('url.agenda.calendar')|trans) }) }}" data-service="{{ item.hasEventTypes|join(' ')|lower }}">{{ item.day }}</a>
+                                {% endif %}
+
+
+                            {% else %}
+                                {{ item.day }}
+                            {% endif %}
+                        </td>
+                        {% if loop.index % 7 == 0 %}
+                            </tr><tr>
+                        {% endif %}
+                    {% endfor %}
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="frontBannerLeft">
+	<a href="{{ path(''~href~''~app.request.locale) }}">
+		<div class="imgFrontBannerLeft"><img src="{{ asset(upload_web ~ settings.get(''~banner~'').getImage.url|default())|imagine_filter('thumb227x306') }}" class="tsarZoom"></div>
+		<div class="textForBanner">
+			<h3>{{ settings.get(''~banner~'').translate.value }}</h3>
+			<div class="lline"></div>
+			<p>{{ settings.get(''~banner~'').translate.description }}</p>
+		</div>
+		<div class="sliderItemReadmore more-orange"><span>{{ 'front.readmore'|trans }}</span></div>
+	</a>
+</div>

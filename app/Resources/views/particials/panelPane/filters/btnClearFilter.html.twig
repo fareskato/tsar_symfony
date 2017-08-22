@@ -1,0 +1,5 @@
+<div class="btnClearFilter">
+	{%  if filters_active_count > 0 %}
+		<a href="{{ path('home_'~section~'_'~app.request.locale, currentFilters|default('')) }}">{{ 'front.effacer_les_filtres'|trans }}</a>
+	{% endif %}
+</div>

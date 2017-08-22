@@ -1,0 +1,62 @@
+{% extends '@Admin/Default/index.html.twig' %}
+
+{% block data %}
+    <script type="text/javascript">
+        {#
+            https://dbushell.com/Nestable/
+            https://github.com/dbushell/Nestable
+        #}
+        $(document).ready(function(){
+			$('#nestable').nestable('serialize').on('change', function(e) {
+				var list   = e.length ? e : $(e.target);
+				var $data = window.JSON.stringify(list.nestable('serialize'));
+				var $array = [];
+				$('.dd-item').each(function(i,item){
+					$array.push( {
+                        'id' : $(item).attr('data-id'),
+                        'order' : i
+                        }
+                    )
+				});
+				$.ajax({
+                    url : '{{ data_ajax_nested|default('') }}',
+					type: 'post',
+                    dataType : 'json',
+                    data : {'new_order' : $data, 'order_by' : $array}
+
+                });
+			});
+
+        });
+
+    </script>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{ 'adm.content_type'|trans }}: {{ data_title|default('')|trans }}</h2>
+                {% if data_toolbox|default(0) %}
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content dd" id="nestable">
+
+                {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+
+                <ol class="dd-list">
+                {% for item in data_list %}
+                    {% set level = 1 %}
+                    {% include '@Admin/Default/partials/tree_item.html.twig' with { 'item' : item, 'level' : level } %}
+                {% endfor %}
+                </ol>
+
+
+                {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

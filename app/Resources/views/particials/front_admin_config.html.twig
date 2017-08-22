@@ -1,0 +1,7 @@
+<div class="wrapPage">
+    <ul class="front-admin-config">
+        <li><a href="{{ path('admin_'~type) }}">{{ 'front.adm.list'|trans }}</a></li>
+        <li><a href="{{ path('admin_'~type~'_add') }}">{{ 'front.adm.add'|trans }}</a></li>
+        <li><a href="{{ path('admin_'~type~'_edit', {id:entity.id}) }}" >{{ 'front.adm.edit'|trans }}</a></li>
+    </ul>
+</div>

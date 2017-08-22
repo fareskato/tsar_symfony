@@ -1,0 +1,117 @@
+<div class="item form-group">
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+    		var $d_div = 'input[name="autocomplete_{{ field.name }}"]';
+
+			$(document).on('click', 'div[data-field="{{ field.name }}"] .button_delete' ,function(){
+				if (confirm('{{ 'adm.action.delete.confirm'|trans }}')) {
+					$($d_div).siblings('input[type="hidden"]').val('');
+					$($d_div).closest('table').find('input[type="text"]').val('');
+					$(this).closest('tr').remove();
+				} else {
+					return false;
+				}
+			});
+
+
+			$($d_div).autocomplete({
+				source: function( request, response ) {
+					$.ajax( {
+						url: "{{ path(field.autocomplete_path) }}",
+						dataType: "json",
+                        type: 'post',
+						data: {
+							search: request.term,
+							type: '{{ field.autocomplete }}',
+                            fields : {{ field.field_rel|json_encode()|raw }}
+						},
+						success: function( data ) {
+							response( data );
+						}
+					} );
+				},
+				minLength: 3,
+				select: function( event, ui ) {
+					var $divElements = JSON.parse(ui.item.data);
+					var $html = '<tr>';
+					for (var i in $divElements) {
+						$html += '<td>'+$divElements[i]+'</td>';
+					}
+					$html += '<td>';
+					$html += '<input type="hidden" name="{{ field.name }}[entity]" value="'+ui.item.entity+'">';
+					$html += '<input type="hidden" name="{{ field.name }}[id]" value="'+ui.item.id+'">';
+					if (ui.item.link) {
+						$html += '<a class="btn btn-default btn-xs " href="'+ui.item.link+'" target="_blank">Edit</a>'
+					}
+					$html += '<button type="button" class="btn btn-danger btn-xs button_delete"><i class="fa fa-close"></i></button>';
+					$html += '</td>';
+					$html += '</tr>';
+					$($d_div).closest('table').find('tbody').html($($html));
+					setTimeout(function(){
+						$($d_div).val('');
+                    },500);
+
+				}
+			} );
+        });
+    </script>
+
+
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">{{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}<br><i>({{ 'adm.field.maximum'|trans }} 1)</i>
+    </label>
+    <div class="col-md-10 col-sm-10 col-xs-12" data-field="{{ field.name }}">
+        <table class="col-md-12 col-sm-12 col-xs-12 table table-hover">
+            <thead>
+                <tr>
+                    {% for field_rel in field.field_rel %}
+                        <th>{{ ('adm.field.'~field_rel)|trans  }}</th>
+                    {% endfor %}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if field.values %}
+                    <tr>
+                        {% for field_rel in field.field_rel %}
+                            <td>
+                                {% if field_rel == 'image' %}
+                                    {% if value.image %}
+                                        <img src="{{ asset(upload_web ~ value.image.url)|imagine_filter('thumb100x50') }}" />
+                                    {% else%}
+                                        <img src="{{ asset(upload_default)|imagine_filter('thumb100x50') }}" />
+                                    {% endif %}
+                                {% elseif field_rel == 'entity'  %}
+                                    {{ field.values.getClass }}
+                                {% else %}
+                                    {{ translate(field.values,field_rel,app.request.locale) }}
+                                    {#{{ attribute(field.values, field_rel) }}#}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            <input type="hidden" name="{{ field.name }}[entity]" value="{{ field.values.getClass()|default('') }}">
+                            <input type="hidden" name="{{ field.name }}[id]" value="{{ field.values.id|default(0) }}">
+                            {% if field.editLink|default({}) %}
+                                <a class="btn btn-default btn-xs " href="{{ path('admin_'~field.editLink.type|lower~'_edit',field.editLink.path) }}" target="_blank">Edit</a>
+                            {% endif %}
+
+                            <button type="button" class="btn btn-danger btn-xs button_delete"><i class="fa fa-close"></i></button>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="{{ (field.field_rel|length) + 1 }}">
+                        <input class="col-md-6 col-sm-6 col-xs-12" type="text" name="autocomplete_{{ field.name }}" value="">
+                    &nbsp;
+                        {% if field.add %}<a href="{{ path(field.add) }}" type="button" class="btn btn-info btn-xs" target="_blank">{{ 'adm.button.create'|trans }}</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

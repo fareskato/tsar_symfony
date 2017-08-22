@@ -1,0 +1,230 @@
+int.hi: Hello
+int.en: English
+int.fr: Français
+int.ru: Русский
+int.it: Italiano
+int.de: Deutsche
+int.es: Español
+
+front.readmore: More info
+front.profite: j'en profite
+front.search: Search
+front.social: Social networks
+front.seeAllSites: See all sites
+
+front.homepage: Homepage
+front.homepage2: Retour
+front.errorpage: Page non trouvée
+front.errorpage.name: PAGE NON TROUVÉE
+front.errorpage.message: La page demandée "%error_url%" n'a pas pu être trouvée.
+front.hebergement: Hotels
+front.venir_en_russie: International
+front.vivre_en_russie: Expat
+front.ville_zone: City / Area
+front.etoiles: Stars
+front.placeholder_ville_zone: Search points of interest
+front.filtres_actifs: Filtres actifs
+front.effacer_les_filtres: Effacer les filtres
+front.votre_selection: Votre sélection
+front.offres: offres
+front.voir_loffre: Voir l'offre
+front.en_savoir_plus: en savoir plus
+front.nombre_de_chambres: Nombre de chambres
+front.decouvrir_la_fiche_complete: Découvrir la fiche complète
+front.fermer: fermer
+front.imprimer: Imprimer
+front.voir: Voir
+front.partager: Partager
+front.ville: Ville
+front.etoiles_type: Etoiles/Type
+front.type: Type
+front.internet: Internet
+front.nombre_de_chambres: Nombre de chambres
+front.мetro: Métro
+front.description: Description
+front.services: Services
+front.location: Location
+front.onmap: on map
+front.extension: Extension
+front.mini_groupe: Mini groupe
+front.individual: Individual
+
+front.tarif_sur_demande: Tarif sur demande
+front.demander_un_devis: Demander un devis
+front.jours: jours
+front.au_depart_de: Au départ de
+front.vers: Vers
+front.duree: Durée
+front.nuit: nuit
+front.saison: Saison
+front.votre_hebergement_du_jour: Votre hébergement du jour
+front.conditions_de_vente: Conditions de vente
+front.categorie: Catégorie
+front.voyage: Voyage
+front.type_descapade: Type d'escapade
+front.type_de_voyage: Type de voyage
+front.visit: Visits
+front.heures: Heures
+front.visite: Visite
+front.type_de_visite: Type de visite
+front.depart: Le départ se fait la veille depuis %city1% jusqu'à %city2%
+front.hebergements: Hebergements
+front.departs: Departs
+front.double: en base chambre double
+front.plus_dinformations_sur: Plus d’informations sur
+front.event: Events
+front.agenda: Events
+front.agenda_index: Voir tout l'agenda Tsar Voyages
+front.agenda_detail: Événement
+front.switch_ru: Switch vers Expatrié
+front.switch_int: Switch vers international
+front.a_travers_nos_circuits: à travers nos circuits
+front.raconte: raconté
+font.par_nos_voyageurs:  par nos voyageurs
+front.a_venir: A venir
+front.service: Service
+front.periode: Période
+front.title_pageListEvent: L'agenda de Tsar
+front.textTop_pageListEvent: L’agenda de TSAR, ce sont des visites, des excursions et des voyages exclusifs spécialement créés pour notre communauté de résidents passionnés par la découverte de la Russie et de ses richesses.
+front.special_expatries: spécial expatriés
+front.date: date
+front.horaires: Horaires
+front.a_partir_de: a partir de
+front.par_personne: par personne
+front.a_partir_de: à partir de
+front.mini_groupes: Mini groupes
+front.mini_groupes_text: découvrez nos départs garantis 2017 - 2018
+front.voir_tous: voir tous les mini-groupes
+front.evenements: événements
+front.lies_a: liés à
+front.subscribe.placeholder: Saisissez votre email
+front.subscribe.error: Please enter correct Email
+front.destinations: J'ai envie de découvrir
+front.destinations.search: Recherchez une ville, région
+front.contacts.title1: Contactez nos
+front.contacts.title2: spécialistes
+front.contacts.h4: une information, un conseil?
+front.subscribe: S'inscrire au Télégramme
+front.reserver: Réserver
+
+front.booking.date_apart: DATE DE DÉPART
+front.booking.date_apart.error: DATE DE DÉPART
+front.booking.combien: COMBIEN SEREZ-VOUS ?
+front.booking.combien.error: COMBIEN SEREZ-VOUS ?
+front.booking.title1: Modifiez selon vos critères
+front.booking.title2: Saisissez vos coordonnées
+front.booking.title3: Envoyez votre demande
+front.booking.more: et +
+front.booking.supplement: SUPPLÉMENT SINGLE
+front.booking.supplement.error: SUPPLÉMENT SINGLE
+front.please.select: Please select
+front.booking.hebergement: HÉBERGEMENT
+front.booking.hebergement.error: HÉBERGEMENT
+front.booking.title_1_subtitle: Je souhaite que vous ajoutiez à cette offre
+front.booking.flight: VOL AU DÉPART DE
+front.booking.flight.error: VOL AU DÉPART DE
+front.booking.precisions: Précisions
+front.booking.precisions.error: Précisions
+front.booking.visa: Visa
+front.booking.visa.error: Visa
+front.booking.services: Services
+front.booking.services.error: Services
+front.booking.services.assurance: Assurance
+front.booking.services.multirisque: Multirisque
+front.search.error: Error
+front.booking.civility: Civilité
+front.booking.civility.error: Civilité
+front.booking.name: Nom
+front.booking.name.error: Nom
+front.booking.firstname: Prénom
+front.booking.firstname.error: Prénom
+front.booking.phone: Téléphone
+front.booking.phone.error: Téléphone
+front.booking.mail: Email
+front.booking.mail.error: Email
+front.booking.offer-rating: Diriez-vous que cette offre
+front.booking.offer-rating.error: Diriez-vous que cette offre
+front.booking.required: Champs Obligatoires
+front.booking.policy: Politique de confidentialité et traitement de données personnelles
+
+front.month.01: January
+front.month.02: February
+front.month.03: March
+front.month.04: April
+front.month.05: May
+front.month.06: June
+front.month.07: July
+front.month.08: August
+front.month.09: September
+front.month.10: October
+front.month.11: November
+front.month.12: December
+front.month.01.short: Jan
+front.month.02.short: Feb
+front.month.03.short: Mar
+front.month.04.short: Apr
+front.month.05.short: May
+front.month.06.short: Jun
+front.month.07.short: Jul
+front.month.08.short: Aug
+front.month.09.short: Sep
+front.month.10.short: Oct
+front.month.11.short: Nov
+front.month.12.short: Dec
+front.weekday.1: Monday
+front.weekday.2: Tuesday
+front.weekday.3: Wednesday
+front.weekday.4: Thursday
+front.weekday.5: Friday
+front.weekday.6: Saturday
+front.weekday.7: Sunday
+front.weekday.1.short: Mon
+front.weekday.2.short: Tue
+front.weekday.3.short: Wed
+front.weekday.4.short: Thu
+front.weekday.5.short: Fri
+front.weekday.6.short: Sat
+front.weekday.7.short: Sun
+front.weekday.prev: Prev
+front.weekday.next: Next
+
+url.international: international
+url.vivre-en-russie: vivre-en-russie
+url.hotel: hotel
+url.hotel.stars: stars
+url.hotel.destination: destination
+url.extension: extension
+url.extension.destination: destination
+url.extension.category: field_is_minigroup
+url.extension.recreation: field_escapade_type
+url.extension.season: season
+url.extension.days: days
+url.extension.from: city-from
+url.destination: destination
+url.voyage: voyage
+url.voyage.destination: destination
+url.voyage.category: field_is_minigroup
+url.voyage.recreation: field_escapade_type
+url.voyage.season: season
+url.voyage.days: days
+url.voyage.from: city-from
+url.voyage.type: trip
+url.visit: visite
+url.visit.destination: destination
+url.visit.type: type-visite
+url.visit.hours: hours
+url.visit.season: season
+url.agenda: agenda-tsar
+url.agenda_detail: evenement
+url.agenda.service: field_event_type
+url.agenda.month: month
+url.agenda.date: date
+url.agenda.calendar: calendar
+url.static: page
+url.search: search
+url.search.type: type
+url.search.type.visit: Visite
+url.search.type.voyage: Voyage
+url.search.type.hotel: Hebergement
+url.search.type.event: Event
+url.search.type.extension: Extension

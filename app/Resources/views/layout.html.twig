@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% if title|default('') %}
+            <title>{{ title|default('') }} | {{ settings.get('site_name').translate.value }}</title>
+            <meta property="og:title" content="{{ title|default('') }} | {{ settings.get('site_name').translate.value }}">
+        {% else %}
+            <title>{{ settings.get('site_name').translate.value }}</title>
+            <meta property="og:title" content="{{ settings.get('site_name').translate.value }}">
+        {% endif %}
+
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+
+        <meta property="og:description" content="{{ description|default('')|raw|striptags }}">
+        <meta property="og:url" content="{{ app.request.uri }}">
+        <meta property="og:type" content="Website">
+        <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() }}{{ image|default('') }}">
+
+        <meta name="description" content="{{ description|default('')|striptags }}" >
+        <meta name="keywords" content="{{ keywords|default('') }}" >
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+        {% block css %}
+            {#<link href="/css/lib/awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">#}
+            <link href="/css/lib/jquery-ui.min.css" rel="stylesheet" type="text/css">
+
+            <link href="/css/base.css" rel="stylesheet" type="text/css">
+            <link href="/css/base500.css" rel="stylesheet" type="text/css">
+            <link href="/css/base750.css" rel="stylesheet" type="text/css">
+            <link href="/css/popup.css" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+        {% block js %}
+            <script type="text/javascript">
+				var tsar = {
+					mapiFrameKey : '{{ mapiFrameKey }}'
+				};
+            </script>
+            <script src="/js/lib/jquery-3.2.1.min.js"></script>
+            <script src="/js/lib/jquery-ui.min.js"></script>
+            <script src="/js/tsar.js"></script>
+            <script src="/js/lib/carousel.js"></script>
+            <script src="/js/lib/mobile_events.js"></script>
+            <script src="/js/popup.js"></script>
+
+            <script type="text/javascript">
+		        function detectmob() {
+			        if( (navigator.userAgent.match(/Android/i)
+				        || navigator.userAgent.match(/webOS/i)
+				        || navigator.userAgent.match(/iPhone/i)
+				        || navigator.userAgent.match(/iPad/i)
+				        || navigator.userAgent.match(/iPod/i)
+				        || navigator.userAgent.match(/BlackBerry/i)
+				        || navigator.userAgent.match(/Windows Phone/i))
+
+				        && window.screen.width < 768
+			        ){
+				        return true;
+			        }
+			        else {
+				        return false;
+			        }
+		        }
+		        var $mobile = detectmob();
+
+		        if ( window.screen.width < 768 && $mobile) {
+			        document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+			        //document.write('<meta name="viewport" content="width=device-width, initial-scale=1">');
+		        } else {
+			        document.write('<meta id="viewport" name="viewport" content="width=1024">');
+		        }
+            </script>
+
+        {% endblock %}
+    </head>
+    <body class="tsar {{ addClass|default('') }} language_{{ app.request.locale }}" style=" {% if addBackgroundImage|default('') %}background-image: url('{{ asset(addBackgroundImage)|imagine_filter('thumb1920x1080') }}'){% endif %}">
+
+    {% block header %}
+
+	    {#<div class="username temp">
+            {% if app.user %}
+            {{ 'int.hi'|trans }}, {{ app.user.username }}!
+            {% else %}
+            Please log in!
+            {% endif %}
+	    </div>#}
+
+        {% include 'particials/menu_top.html.twig' %}
+
+        {# static block #}
+        <div class="tsarMenu menuBlockTitle">
+            <div class="wrapPage">
+                <a href="/{{ app.request.locale }}" class="logoTsar"><img src="{{ settings.get('site_logo').translate.value }}" alt="">
+                </a><div class="titlePage">
+                    <div class="titlePageText">{{ settings.get('site_slogan').translate.value }}
+                    </div><div class="hAlign"></div>
+                </div>{% if app.session.get(domain_variable_name) == domain_russian_id %}<a href="/{{ app.request.locale }}/international" class="logoInternational"><img src="/images/voyages-in-russia.png" alt=""><span class="fa-stack iconForMobile"><i class="fa fa-circle-thin fa-stack-2x"></i><i class="fa fa-angle-right fa-stack-1x">
+                        </i></span><span class="textForMobile">{{ 'front.venir_en_russie'|trans }}</span></a>{% else %}<a href="/{{ app.request.locale }}/vivre-en-russie" class="logoInternational"><img src="/images/live-in-moscow.png" alt=""><span class="fa-stack iconForMobile"><i class="fa fa-circle-thin fa-stack-2x"></i><i class="fa fa-angle-right fa-stack-1x">
+                    </i></span><span class="textForMobile">{{ 'front.vivre_en_russie'|trans }}</span></a>{% endif %}</div>
+        </div>
+
+    {% endblock %}
+
+    {% block navigation %}
+        {% include 'particials/menu_main.html.twig' %}
+    {% endblock %}
+
+
+
+    {#<div class="image">#}
+        {#<img src="{{ asset('/images/logo_new.png')|imagine_filter('default300') }} ">#}
+    {#</div>#}
+    {#<div class="image2">#}
+        {#<img src="{{ asset('/images/image1.jpg')|imagine_filter('default300') }} ">#}
+    {#</div>#}
+
+    {# GET ALL LOCALES #}
+
+    {% block body %}{% endblock %}
+
+    {% block footer %}
+        {% include 'particials/menu_bottom.html.twig' %}
+    {% endblock %}
+
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+		window.$zopim||(function(d,s){var z=$zopim=function(c){
+			z._.push(c)},$=z.s=
+			d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+		_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+			$.src='//v2.zopim.com/?3xiPzUgxSYPVSTbhw3GWSoMhOK3VJV18';z.t=+new Date;$.
+				type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+    </script>
+    <!--End of Zopim Live Chat Script-->
+
+    </body>
+</html>

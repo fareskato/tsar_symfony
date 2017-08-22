@@ -1,0 +1,24 @@
+<div class="item form-group">
+    <h4 class="col-md-12 col-sm-12 col-xs-12">
+        {{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </h4>
+
+    {% if field.value_zero|default(0) %}
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ 'adm.field.none'|trans }}">
+            {{ 'adm.field.none'|trans }}
+        </label>
+        <div class="col-md-10 col-sm-10 col-xs-12 radio">
+            <input type="radio" class="flat" id="{{ 'adm.field.none'|trans }}" name="{{ field.name }}" value="0" {% if not field.checked_value %}checked{% endif %}/>
+        </div>
+    {% endif %}
+    {% for key,value in field.values %}
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ value|trans }}">
+            {{ value|trans }}
+        </label>
+        <div class="col-md-10 col-sm-10 col-xs-12 radio">
+            <input type="radio" class="flat" id="{{ value|trans }}" name="{{ field.name }}" value="{{ key }}" {% if key == field.checked_value %}checked{% endif %}/>
+        </div>
+    {% endfor %}
+
+
+</div>

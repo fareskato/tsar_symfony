@@ -1,0 +1,32 @@
+{% if  heart_slider|length %}
+	<div class="heartSlider">
+		<div class="heartSliderItemLeft" style="display: block;"><div class="elem"></div></div>
+		<div class="heartSliderItemRight" style="display: block;"><div class="elem"></div></div>
+		<div class="heartSliderItems noSelect">
+			{% for item in heart_slider %}
+				<div class="heartSliderItem">
+					<a href="{{ path('home_voyage_detail_'~app.request.locale, {'slug':item.translate.slug}) }}">
+						<div class="heartSliderImg_h162">
+							<div class="heartSliderImg">
+								<img src="{{ asset(upload_web ~ item.getImageBackground.url|default())|imagine_filter('thumb485x252') }}" class="tsarZoom">
+							</div>
+							<div class="tsarHeartStamp"><img src="/images/tsar-heart-stamp.png" alt=""></div>
+						</div>
+						<div class="heartSliderItemContent">
+							<div class="iconHeart"><img src="/images/tsar-heart.png" alt=""></div>
+							<h3 class="heartSliderHead"><div class="lHead">{{ item.translate.name }}
+								</div>{% if item.getPrixEuro|default(0) %}<span class="rHead">
+									<div class="midHead">{{ 'front.a_partir_de'|trans }}</div>{{ section.getPrixEuro|default(0)|number_format(0, '.', ' ') }} <span class="euroH"><i class="fa fa-eur"></i></span>
+								</span>{% endif %}</h3>
+							<div class="heartSliderDesc">
+								{{ item.translate.body|striptags|slice(0, 300)|raw }}...
+							</div>
+						</div>
+						<div class="sliderItemReadmore red-1"><span>{{ 'front.readmore'|trans }}</span></div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="heartSliderPagination"></div>
+	</div>
+{% endif %}

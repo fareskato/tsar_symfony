@@ -1,0 +1,7 @@
+{% if field == 'image' %}
+    <img src="{{ asset(upload_web ~ entity.image.url)|imagine_filter('thumb100x50') }}" />
+{% elseif field == 'entity' %}
+    {{ entity.getClass() }}
+{% else %}
+    {{ translate(entity,field,app.request.locale) }}
+{% endif %}

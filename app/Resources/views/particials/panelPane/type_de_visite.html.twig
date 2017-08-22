@@ -1,0 +1,18 @@
+<div class="panelPane type_visite">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-type.png', 'paneTitle': 'front.type_de_visite'|trans, 'check': filtered_visit_types } %}
+    <div class="paneContent{% if filtered_visit_types %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for type in filter_visit_types %}
+                <div class="paneItem">
+	                <label>
+		                {% if type.entity.id in filtered_visit_types|keys %}
+			                <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,type.entity.id, section1 )}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ type.entity.translate.name }}</a>
+		                {% else %}
+			                <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{section1}}/{{  type.entity.id }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ type.entity.translate.name }}<span class="paneItemCount clear">{{ type.count }}</span></a>
+		                {% endif %}
+	                </label>
+                </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'mainPage' %}
+{#  {{ item.getTranslation('name',app.request.locale) }}  --  ONLY WHEN YOU NEED SPECIAL LANGUAGE #}
+{% block body %}
+
+default: {{ test.translate.name }} <br><br><br>
+{% for loc in locales.locales %}
+    with default loc - {{ test.translate(loc).name }}<br>
+    without default loc - {{ test.translate(loc,false).name }}<br><br><br>
+{% endfor %}
+
+
+{% endblock %}

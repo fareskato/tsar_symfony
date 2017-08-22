@@ -1,0 +1,6 @@
+<div class="blockTopBannerImg"><img src="{{ asset(upload_web ~ settings.get(option).getImage.url|default())|imagine_filter(''~size~'')  }}" class="tsarZoom">
+</div>
+<div class="blockTopBannerText">
+	<h3>{{ settings.get(option).translate.value }}</h3>
+	<p>{{ settings.get(option).translate.description }}</p>
+</div>

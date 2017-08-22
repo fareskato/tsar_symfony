@@ -1,0 +1,18 @@
+<div class="panelPane categorie">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-type.png', 'paneTitle': 'front.type'|trans, 'check': filtered_types } %}
+    <div class="paneContent{% if filtered_types %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for name,number in filter_types %}
+                <div class="paneItem">
+                    <label>
+	                        {% if name in filtered_types|keys %}
+                                <a href="{{ path('home_search_'~app.request.locale, currentFilters|merge({filters:exculde_path(current_path,name,'url.search.type'|trans)}) ) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ ('url.search.type.'~name)|trans }}</a>
+                            {% else %}
+                                <a href="{{ path('home_search_'~app.request.locale, currentFilters|merge({filters: current_path ~ (current_path ? '/' : '') ~ 'url.search.type'|trans ~'/' ~ name  })) }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ ('url.search.type.'~name)|trans }}<span class="paneItemCount clear">{{ number }}</span></a>
+                            {% endif %}
+                        </label>
+                </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

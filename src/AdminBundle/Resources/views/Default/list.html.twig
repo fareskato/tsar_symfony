@@ -1,0 +1,159 @@
+{% extends '@Admin/Default/index.html.twig' %}
+
+{% block data %}
+
+    {% if data_ajax_order|default('') %}
+        <script type="text/javascript">
+			$(document).ready(function(){
+				$( 'table.table tbody' ).sortable({
+					handle: ".handle",
+					stop: function(){
+						var $array = [];
+						$('table.table > tbody > tr').each(function(i,item){
+							$array.push( {
+									'id' : $(item).attr('data-id'),
+									'order' : i
+								}
+							)
+						});
+						$.ajax({
+							url : '{{ data_ajax_order|default() }}',
+							type: 'post',
+							dataType : 'json',
+							data : { 'order_by' : $array}
+
+						});
+                    }
+                }).disableSelection();
+			});
+
+        </script>
+    {% endif %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{ 'adm.content_type'|trans }}: {{ data_title|default('')|trans }}</h2>
+                {% if data_toolbox|default(0) %}
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {% if data_ajax_order|default('') %}
+                                <th></th>
+                            {% endif %}
+                            {% for item in data_fields %}
+                                <th>
+                                    {{ admin_sort_link(item,app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|default({}))|raw }}
+                                </th>
+                                {# ('adm.field.'~item)|trans #}
+                            {% endfor %}
+                            <th>{{ ('adm.action.actions')|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data_list %}
+                            <tr data-id="{{ item.id }}">
+                                    {% if data_ajax_order|default('') %}
+                                        <td class="handle"><i class="fa fa-arrows"></i></td>
+                                    {% endif %}
+                                    {% for field in data_fields %}
+                                    <td>
+                                        {% if field == 'image' %}
+                                            {% if item.image %}
+                                                <img src="{{ asset(upload_web ~ item.image.getUrl())|imagine_filter('thumb100x50') }}" width="100" height="50">
+                                            {% endif %}
+                                        {% elseif field == 'image_miniature' %}
+                                            {% if item.getImageThumbnail %}
+                                                <img src="{{ asset(upload_web ~ item.getImageThumbnail.getUrl())|imagine_filter('thumb100x50') }}" width="100" height="50">
+                                            {% endif %}
+                                        {% elseif field == 'file_url' %}
+                                            {% if preg_match('image',item.mime) %}
+                                                <img src="{{ asset(upload_web ~ item.getUrl())|imagine_filter('thumb100x50') }}" width="100" height="50">
+                                            {% endif %}
+                                        {% elseif field == 'country' %}
+                                            {% if item.getCountryName is defined %}
+                                                {{ item.getCountryName }}
+                                            {% else %}
+                                                {{ translate(item,field,app.request.locale) }}
+                                            {% endif %}
+                                        {% elseif field == 'type_destination' %}
+                                            {{ translate(item.getTypeDestination(),'name',app.request.locale) }}
+                                            {#{{ item.getTypeDestination().getTranslation('name', app.request.locale) }}#}
+                                        {% elseif field == 'master_destination' %}
+                                            {% if item.getMasterDestination %}{{ 'adm.yes'|trans }}{% else %}{{ 'adm.no'|trans }}{% endif %}
+                                        {% elseif field == 'active_lang' %}
+                                            <table class="active_lang"><tr>
+                                            {% for lng in locales.locales %}
+                                                <td>{{ lng|upper }}<br>
+                                                    {% if translate(item,'active',lng,false) %}
+                                                        <i class="fa fa-check-circle"></i>
+                                                    {% else %}
+                                                        <i class="fa fa-circle-o"></i>
+                                                    {% endif %}
+                                                    <td>
+                                            {% endfor %}
+                                                </tr></table>
+                                        {% elseif field == 'active_domain' %}
+                                            <table class="active_domain"><tr>
+                                                {% for dom in locales.domains %}
+                                                <td>{{ translate(dom,'name',app.request.locale)|slice(0,3) }}<br>
+                                                    {% set has = 0 %}
+                                                    {% for itemDomain in item.getTypeDomain %}
+                                                    {% if itemDomain.id == dom.id %}{% set has = 1 %}{% endif %}
+                                                    {% endfor %}
+                                                    {% if has %}
+                                                        <i class="fa fa-check-circle"></i>
+                                                    {% else %}
+                                                        <i class="fa fa-circle-o"></i>
+                                                    {% endif %}
+                                                <td>
+                                                    {% endfor %}
+                                            </tr></table>
+                                        {% else %}
+                                            {{ translate(item,field,app.request.locale)|raw }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                <td>
+                                    {% for action in data_actions %}
+                                        <a class="btn btn-{{ action.class|default('default') }} btn-xs {% if (item.active is defined and not item.active) and action.name == 'activate' %}btn-success{% endif %}" href="{{ path(action.link,
+                                        action.prefix|default({})|merge({'id' : item.id}) ) }}"
+                                        {%  if action.confirm|default('') %}
+                                        onclick=" if (confirm('{{ action.confirm|trans }}')) { return true } else { return false}"
+                                        {% endif %}
+                                        >
+                                            {% if action.name == 'activate' %}
+                                                {% if item.active %}
+                                                    {{ ('adm.action.de'~action.name)|trans }}
+                                                {% else %}
+                                                    {{ ('adm.action.'~action.name)|trans }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ ('adm.action.'~action.name)|trans }}
+                                            {% endif %}
+
+                                        </a>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% include '@Admin/Default/partials/action_buttons.html.twig' %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

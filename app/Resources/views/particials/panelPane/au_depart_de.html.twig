@@ -1,0 +1,18 @@
+<div class="panelPane au_depart_de">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-ville-zone.png', 'paneTitle': 'front.au_depart_de'|trans, 'check': filtered_destinations_from } %}
+    <div class="paneContent{% if filtered_destinations_from %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for from in filter_destinations_from %}
+                <div class="paneItem">
+	                <label>
+		                {% if from.entity.id in filtered_destinations_from|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,from.entity.id, section1 )}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ from.entity.translate.name }}</a>
+	                        {% else %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{section1}}/{{  from.entity.id }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ from.entity.translate.name }}<span class="paneItemCount clear">{{ from.count }}</span></a>
+		                {% endif %}
+	                </label>
+                </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

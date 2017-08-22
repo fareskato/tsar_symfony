@@ -1,0 +1,16 @@
+<div class="contentTab active"  data-tab="1">
+	<div class="tabImgs">{% for image in item.getImages %}
+			{% include 'particials/imgWithTip.html.twig' with { 'img' : asset(upload_web ~ image.url|default())|imagine_filter('thumb210x168'), 'classImg': 'tabImg','imageTitle': image.translate.name|default(title), 'imgPopup' : asset(upload_web ~ image.url|default())|imagine_filter('thumb800x450') } %}
+		{% endfor %}</div><div class="tabBody">
+		{{ item.translate.body|raw }}
+	</div>
+</div>
+{% if  item.getDestination|length %}
+	<div class="contentTab"  data-tab="2">
+		<ul class="hashList">
+			{% for destination in item.getDestination %}
+				<li><a href="{{ path('home_destination_detail_'~app.request.locale, {'slug':destination.translate.slug}) }}"># {{ destination.translate.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

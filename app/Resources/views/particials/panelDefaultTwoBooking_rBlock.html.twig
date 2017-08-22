@@ -1,0 +1,10 @@
+{% if section.translate.getConditionsSale %}
+	<div class="panel panelDefault">
+		<div class="panelDefaultTitle" id="{{ idText }}">{{ panelDefaultTitle }}<span class="panelDefaultExpandReduce"><i class="fa fa-angle-down"></i></span></div>
+		<div class="panelDefaultBody">
+			<div class="conditionsBooking">
+				{{ section.translate.getConditionsSale|default('')|raw }}
+			</div>
+		</div>
+	</div>
+{% endif %}

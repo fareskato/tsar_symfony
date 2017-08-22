@@ -1,0 +1,52 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'event' %}
+
+{% set title = 'front.event'|trans %}
+
+{% block body %}
+
+    <div class="wrapPage">
+        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+            {% include 'particials/front_admin_config_list.html.twig' with { 'type' : 'event' } %}
+        {% endif %}
+        <div class="mainLBlock">
+
+
+            {% if filters_active_count %}
+            <div class="panelPane filters">
+	            {% include 'particials/panelPane/filters/paneTitleFilters.html.twig' %}
+                <div class="paneContent">
+	                {% for key,date in filtered_dates %}
+                        <a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:exculde_path(current_path,key,'url.agenda.date'|trans),('url.agenda.calendar')|trans : app.request.get(('url.agenda.calendar')|trans)}) }}">{{ key|date('d/m/Y') }}</a><br>
+	                {% endfor %}
+	                {% for key,month in filtered_months %}
+                        <a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:exculde_path(current_path,key,'url.agenda.month'|trans),('url.agenda.calendar')|trans : app.request.get(('url.agenda.calendar')|trans)}) }}">{{ key|translateMonth }}</a><br>
+	                {% endfor %}
+	                {% for service in filtered_services %}
+                        <a href="{{ path('home_agenda_filter_'~app.request.locale, {filters:exculde_path(current_path,service.id,'url.agenda.service'|trans),('url.agenda.calendar')|trans : app.request.get(('url.agenda.calendar')|trans)}) }}">{{ service.translate.name }}</a><br>
+	                {% endfor %}
+
+                </div>
+	            {% include 'particials/panelPane/filters/btnClearFilter.html.twig' with { 'section': 'agenda'} %}
+            </div>
+            {% endif %}
+
+            {% include 'particials/panelPane/calendar.html.twig' %}
+	        {% include 'particials/panelPane/service.html.twig' with { 'section': 'agenda', 'section1': 'url.agenda.service'|trans, 'section2': 'url.agenda.calendar' }%}
+	        {% include 'particials/panelPane/a_venir.html.twig' with { 'section': 'agenda', 'section1': 'url.agenda.month'|trans, 'section2': 'url.agenda.calendar' }%}
+        </div><div class="mainRBlock">
+            <div class="blockTopEvent">
+                <div class="titleEventTop"><div class="iconTopEven"><img src="/images/search-filters/bg-agenda-title.png" alt=""></div><h1>{{ 'front.title_pageListEvent'|trans }} <span class="smallItalic">- {{ 'front.special_expatries'|trans }}</span></h1></div>
+                <div class="textEventTop">{{ 'front.textTop_pageListEvent'|trans }}</div>
+            </div>
+
+            <div class="blockList">
+	            {% for item in events %}
+		            {% include 'particials/list/itemEvent.html.twig' %}
+			    {% endfor %}
+            </div>
+            {% include '@Admin/Default/partials/paginator.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

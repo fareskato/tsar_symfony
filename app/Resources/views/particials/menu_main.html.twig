@@ -1,0 +1,11 @@
+<div class="tsarMenu menuMain">
+    <div class="wrapPage">
+        <ul class="ulMenuMain level_1">
+            {% for item in menu.menumain %}{% include 'particials/menu_item_top.html.twig' with { 'item' : item, 'level' : 2 } %}{% endfor %}
+        </ul>{# static block search #}<form method="get" action="{{ path('home_search_'~app.request.locale) }}" class="search" onsubmit="return tsar.Search.checkForm( $(this) )">
+            <input id="searchInput" class="searchInput" placeholder="{{ settings.get('site_search').translate.value }}" type="text" name="search" value="{{ searchString|default('') }}" size="30" maxlength="64" data-error="{{ 'front.search.error'|trans }}"
+            ><button class="searchButton">{{ 'front.search'|trans }}</button>
+        </form>
+    </div>
+</div>
+

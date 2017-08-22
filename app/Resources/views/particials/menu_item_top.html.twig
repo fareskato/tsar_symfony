@@ -1,0 +1,48 @@
+{% set has = 0 %}
+{% for itemDomain in item.getTypeDomain %}
+    {% if itemDomain.id == app.session.get(domain_variable_name) %}{% set has = 1 %}{% endif %}
+{% endfor %}
+
+{#{% if has and item.translate(app.request.locale,false).active %}#}
+{% if has and item.translate.active %}
+    {% if item.type == 'category' %}
+        <div class="menuBlockName">{{ item.translate.name }}</div>
+    {% elseif item.type == 'separator' %}
+        <li class="separator">{{ item.translate.name }}</li>
+    {% else %}
+        {% if item.external %}
+            <li><a href="{{ item.translate.slug }}" rel="nofollow" target="_blank">{{ item.translate.name }}</a></li>
+        {% else %}
+            {% set itemUrl = '/'~ app.request.locale ~ (item.translate.slug)|translateUrl %}
+            <li class="{% if item.type == 'column' %}column{% endif %} type_{{ item.type }} {% if level == 2 and (app.request.getPathInfo == itemUrl or preg_match(itemUrl,app.request.getPathInfo)) %}active{% endif %}">
+                {% if item.type != 'column' %}
+                    {% if item.type == 'event' and item.getRelatedProduct %}
+                        <a href="{{ path('home_'~item.getRelatedProduct.getClass|lower~'_detail_'~app.request.locale, {slug:item.getRelatedProduct.translate.slug} ) }}">
+                            <div class="menuItemRelatedImage"><img src="{{ asset(upload_web ~ item.getRelatedProduct.getImageThumbnail.url|default())|imagine_filter('thumb195x195') }}"></div>
+                            <div class="menuItemRelatedName">{{ item.getRelatedProduct.translate.name }}</div>
+                            <div class="menuItemRelatedDesc">
+                                {% if item.translate.description %}
+                                    {{ item.translate.description|slice(0, 205)|raw }}
+                                {% else %}
+                                    {{ item.getRelatedProduct.translate.getBodySummary|slice(0, 205)|raw }}
+                                {% endif %}
+                            </div>
+                            <div class="menuItemRelatedLink">{{ 'front.profite'|trans }}</div>
+                        </a>
+                    {% else %}
+                        <a href="{{ itemUrl }}">{{ item.translate.name }}</a>
+                    {% endif %}
+                {% endif %}
+                {% if item.children(true)|length > 0 %}
+                    <ul class="level_{{ level|default(0) }} clear">
+                        {% for i in item.children(true) %}
+                            {% include 'particials/menu_item_top.html.twig' with { 'item' : i, 'level' : level|default(0) + 1 } %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+
+    {% endif %}
+
+{% endif %}

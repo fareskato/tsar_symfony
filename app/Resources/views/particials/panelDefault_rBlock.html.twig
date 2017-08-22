@@ -1,0 +1,12 @@
+<div class="panel panelDefault" style="background: #FFF;">
+		<div class="panelDefaultTitle" id="{{ idText }}">{{ panelDefaultTitle }}<span class="panelDefaultExpandReduce"><i class="fa fa-angle-down"></i></span></div>
+		<div class="panelDefaultBody">
+				<div class="bookingForm">
+					{% if form|default({}) %}
+                        {% include 'form/form.html.twig' with { 'form' : form } %}
+					{% endif %}
+				</div>
+		</div>
+</div>
+
+

@@ -1,0 +1,18 @@
+<div class="panelPane saison">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-saison.png', 'paneTitle': 'front.saison'|trans, 'check': filtered_seasons } %}
+    <div class="paneContent{% if filtered_seasons %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for season in filter_seasons %}
+                <div class="paneItem">
+                        <label>
+	                        {% if season.entity.id in filtered_seasons|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,season.entity.id, section1 )}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ season.entity.translate.name }}</a>
+	                        {% else %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{section1}}/{{ season.entity.id }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ season.entity.translate.name }}<span class="paneItemCount clear">{{ season.count }}</span></a>
+	                        {% endif %}
+                        </label>
+                    </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

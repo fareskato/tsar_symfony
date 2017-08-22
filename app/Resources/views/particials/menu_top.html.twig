@@ -1,0 +1,31 @@
+<div class="tsarMenu menuTop">
+    <div class="wrapPage">
+        <ul class="ulMenuTop">
+		    {% for item in menu.menutop.children(true) %}
+			    {% include 'particials/menu_item.html.twig' with { 'item' : item } %}
+		    {% endfor %}
+            <li class="domainSwitcher">
+                    {% if app.session.get(domain_variable_name) == domain_international_id %}
+                        <a href="{{ path('switch_ru_'~app.request.locale) }}">> {{ 'front.switch_ru'|trans }}</a>
+                    {% else %}
+                        <a href="{{ path('switch_int_'~app.request.locale) }}">> {{ 'front.switch_int'|trans }}</a>
+                    {% endif %}
+            </li>
+            <li class="langSwitcher">
+                <div class="currentLocale">
+                    <div class="localeFlag locale_{{ app.request.locale }}">{{ ('int.'~app.request.locale)|trans }}</div>
+                    <div class="otherLocale">
+                        {% for item in locales.locales %}
+                            {% if item != app.request.locale %}
+                                <a href="{{ path(app.request.attributes.get('_route')|default('homepage'), app.request.attributes.get('_route_params')|default({})|merge({ '_locale': item }) ) }}">
+                                    <div class="localeFlag locale_{{ item }}">{{ ('int.'~item)|trans }}</div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+

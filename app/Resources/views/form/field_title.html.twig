@@ -1,0 +1,5 @@
+<div class="formItem isTitle {{ field.field_class|default('') }}">
+    <div class="formValue {{ field.class }}">
+        {% if field.prefix|default('') %}<span class="formPrefix">{{ field.prefix }}</span>{% endif %}<span>{{ field.name }}</span>
+    </div>
+</div>

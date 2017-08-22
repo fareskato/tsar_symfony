@@ -1,0 +1,18 @@
+<div class="panelPane type_descapade">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '/images/search-filters/title-type.png', 'paneTitle': 'front.type_descapade'|trans, 'check': filtered_recreations } %}
+    <div class="paneContent{% if filtered_recreations %} hidden{% endif %}">
+        <div class="paneList">
+	        {% for recreation in filter_recreations %}
+                <div class="paneItem">
+                        <label>
+	                        {% if recreation.entity.id in filtered_recreations|keys %}
+		                        <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:exculde_path(current_path,recreation.entity.id,section1 )}) }}" class="active"><div class="checkPic checked"></div><input type="checkbox" name="checkboxForPaneItem" checked="checked">{{ recreation.entity.translate.name }}</a>
+                            {% else %}
+	                            <a href="{{ path('home_'~section~'_filter_'~app.request.locale, {filters:current_path}) }}/{{section1}}/{{ recreation.entity.id }}"><div class="checkPic"></div><input type="checkbox" name="checkboxForPaneItem">{{ recreation.entity.translate.name }}<span class="paneItemCount clear">{{ recreation.count }}</span></a>
+                            {% endif %}
+                        </label>
+                    </div>
+			{% endfor %}
+        </div>
+    </div>
+</div>

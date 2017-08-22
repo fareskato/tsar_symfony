@@ -1,0 +1,80 @@
+###### ADMIN AREA
+admin:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/admin
+    requirements:
+      _locale: '%app.locales%'
+
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+app_extra:
+    resource: .
+    type: extra
+
+###### FOS user routing file
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+###### IMAGE RESIZE
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+##### Import Sonata admin route
+#admin_area:
+#    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+#    prefix: /{_locale}/admin
+#
+#_sonata_admin:
+#    resource: .
+#    type: sonata_admin
+#    prefix: /{_locale}/admin
+
+
+###### FOS user
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}
+    requirements:
+      _locale: '%app.locales%'
+
+fos_user_security_logout:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}
+    requirements:
+      _locale: '%app.locales%'
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /{_locale}/profile
+    requirements:
+      _locale: '%app.locales%'
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /{_locale}/register
+    requirements:
+      _locale: '%app.locales%'
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /{_locale}/
+    requirements:
+      _locale: '%app.locales%'
+######  Override reset password route
+fos_user_resetting_request:
+    path: /{_locale}/reset
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /{_locale}/profile
+    requirements:
+      _locale: '%app.locales%'
+###### login => login/
+fos_user_security_login:
+    path: /{_locale}/login/
+    defaults: { _controller: FOSUserBundle:Security:login }

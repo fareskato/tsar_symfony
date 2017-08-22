@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'extensionPage' %}
+
+{% set title = 'front.visit'|trans %}
+
+{% block body %}
+    <div class="wrapPage">
+        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+            {% include 'particials/front_admin_config_list.html.twig' with { 'type' : 'visit' } %}
+        {% endif %}
+        <div class="mainLBlock">
+
+
+            {% if filters_active_count %}
+                <div class="panelPane filters">
+		            {% include 'particials/panelPane/filters/paneTitleFilters.html.twig' %}
+                    <div class="paneContent">
+	                    {% for destination in filtered_destinations %}
+                            <a href="{{ path('home_visit_filter_'~app.request.locale, {filters:exculde_path(current_path,destination.id,'url.visit.destination'|trans)}) }}">{{ destination.translate.name }}</a><br>
+	                    {% endfor %}
+	                    {% for type in filtered_visit_types %}
+                            <a href="{{ path('home_visit_filter_'~app.request.locale, {filters:exculde_path(current_path,type.id,'url.visit.type'|trans)}) }}">{{ type.translate.name }}</a><br>
+	                    {% endfor %}
+	                    {% for key,hour in filtered_hours %}
+                            <a href="{{ path('home_visit_filter_'~app.request.locale, {filters:exculde_path(current_path,key,'url.visit.hours'|trans)}) }}">{{ key }} {{ 'front.heures'|trans }}</a><br>
+	                    {% endfor %}
+	                    {% for season in filtered_seasons %}
+                            <a href="{{ path('home_visit_filter_'~app.request.locale, {filters:exculde_path(current_path,season.id,'url.visit.season'|trans)}) }}">{{ season.translate.name }}</a><br>
+	                    {% endfor %}
+                    </div>
+		            {% include 'particials/panelPane/filters/btnClearFilter.html.twig' with { 'section': 'visit'} %}
+                </div>
+            {% endif %}
+
+	        {% include 'particials/panelPane/ville_zone.html.twig' with { 'section': 'visit', 'section1': 'url.visit.destination'|trans }%}
+	        {% include 'particials/panelPane/type_de_visite.html.twig' with { 'section': 'visit', 'section1': 'url.visit.type'|trans }%}
+	        {% include 'particials/panelPane/saison.html.twig' with { 'section': 'visit', 'section1': 'url.visit.season'|trans }%}
+	        {% include 'particials/panelPane/duree_visit.html.twig' with { 'section': 'visit', 'section1': 'url.visit.hours'|trans }%}
+        </div><div class="mainRBlock">
+		    {% include 'particials/list/block_totalCount.html.twig' with { 'count': visits_count_total }%}
+
+            <div class="blockList">
+		        {% for item in visits  %}
+			        {% include 'particials/list/itemVisit.html.twig' %}
+		        {% endfor %}
+            </div>
+            {% include '@Admin/Default/partials/paginator.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+
+
+
+{% endblock %}

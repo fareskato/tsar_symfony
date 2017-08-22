@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('input[name="{{ field.name }}"]').datetimepicker({
+			format: 'DD.MM.YYYY{% if field.showTime|default(1) %} HH:mm{% endif %}',
+			stepping: 15,
+			sideBySide: true,
+			toolbarPlacement: 'top'
+		});
+    });
+</script>
+<div class="item form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="{{ field.name|trans }}">{{ field.label|trans }} {% if field.required|default(0) %}<span class="required">*</span>{% endif %}
+    </label>
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        <div class="input-group date">
+            <input type="text" class="form-control col-md-12 col-xs-12 date_time" name="{{ field.name }}" value="{{ field.value }}" placeholder="{{ field.placeholder|default('') }}" {% if field.required %}required="required"{% endif %} {% if field.disabled|default(FALSE) %}disabled{% endif %} />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>

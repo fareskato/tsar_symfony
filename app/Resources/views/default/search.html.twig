@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'search event' %}
+
+{% set title = 'front.search'|trans %}
+
+{% block body %}
+
+    <div class="wrapPage">
+                <div class="mainLBlock">
+                    {% if filters_active_count %}
+                        <div class="panelPane filters">
+                        {% include 'particials/panelPane/filters/paneTitleFilters.html.twig' %}
+                        <div class="paneContent">
+                            {% for key,type in filtered_types %}
+                                <a href="{{ path('home_search_'~app.request.locale, currentFilters|merge({filters:exculde_path(current_path,key,'url.search.type'|trans)}) ) }}">{{ key }}</a><br>
+                            {% endfor %}
+                        </div>
+                        {% include 'particials/panelPane/filters/btnClearFilter.html.twig' with { 'section': 'search', 'currentFilters' : {'search': app.request.get('search')} }%}
+                    </div>
+                    {% endif %}
+
+	                {% include 'particials/panelPane/typeByFilters.html.twig' %}
+
+                </div><div class="mainRBlock">
+            {% include 'particials/list/block_totalCount.html.twig' with { 'count': search_count_total, 'search' : searchString|default('') }%}
+
+            <div class="blockList">
+                {% for found in search|default({}) %}
+	                {% set item = found.entity %}
+                    {% if found.type == 'visit' %}
+	                        {% include 'particials/list/itemVisit.html.twig' %}
+                        {% elseif found.type == 'voyage' %}
+	                        {% include 'particials/list/itemVoyage.html.twig' %}
+                        {% elseif found.type == 'event' %}
+	                        {% include 'particials/list/itemEvent.html.twig' %}
+                        {% elseif found.type == 'extension' %}
+                            {% include 'particials/list/itemExtension.html.twig' %}
+	                    {% elseif found.type == 'hotel' %}
+                            {% include 'particials/list/itemHotel.html.twig' %}
+	                {% endif %}
+                {% endfor %}
+            </div>
+            {% include '@Admin/Default/partials/paginator.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

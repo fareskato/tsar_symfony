@@ -1,0 +1,8 @@
+<div class="panelPane subscribe">
+	{% include 'particials/panelPane/paneTitle.html.twig' with { 'urlImg': '', 'paneTitle': 'front.subscribe'|trans, 'check': null } %}
+	<div class="paneContent">
+		<div class="paneList">
+			{% include 'form/form.html.twig' with { 'form' : subscribe_form } %}
+		</div>
+	</div>
+</div>

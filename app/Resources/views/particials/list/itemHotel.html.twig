@@ -1,0 +1,26 @@
+<div class="item">
+	<div class="itemContent">
+		<div class="itemPart1"><a href="{{ path('home_hebergement_detail_'~app.request.locale, {'slug':item.translate.slug}) }}"
+			>{% include 'particials/list/imgLeft_hebergement.html.twig' %}{% include 'particials/list/cityLeft_hebergement.html.twig' %}</a>
+		</div><div class="itemPart2">
+			<div class="hAlign_148">
+			</div><div class="itemPart2Info">
+				<a href="{{ path('home_hebergement_detail_'~app.request.locale, {'slug':item.translate.slug}) }}" class="itemName">{{ item.translate.name }}</a>
+				{% if item.getHotelStars %}
+					<div class="allStars">
+						{% for item1 in item.getHotelStars %}
+							<span class="itemStars" data-star="{{ item1.translate.name }}">{{ item1.translate.name }}</span><br>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if item.translate.getTypeOfHotel %}
+					<div class="itemType">{{ item.translate.getTypeOfHotel }}</div>
+				{% endif %}
+
+			</div>
+		</div>{% include 'particials/list/block_right.html.twig' with { 'section': item, 'section1': 'hebergement' } %}
+
+	</div>
+	{% include 'particials/list/block_bottom.html.twig' with { 'section': item,'section1': 'hebergement' } %}
+</div>

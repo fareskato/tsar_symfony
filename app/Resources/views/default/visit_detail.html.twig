@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+{% set addClass = 'visitPage detail' %}
+
+{% set title = visit.translate.name %}
+
+{% if visit.getImageBackground %}
+    {% set addBackgroundImage = (upload_web ~ visit.getImageBackground.url) %}
+{% endif %}
+
+{% if visit.getBodySummary %}
+    {% set description = visit.translate.getBodySummary %}
+{% else %}
+    {% set description = visit.translate.getBody %}
+{% endif %}
+
+{% if visit.keywords %}
+    {% set keywords = visit.translate.keywords %}
+{% endif %}
+
+{% if visit.image %}
+    {% set image = (upload_web ~ visit.image.url) %}
+{% endif %}
+
+
+{% block body %}
+    {# If the user logged in and authorized #}
+    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+        {% include 'particials/front_admin_config.html.twig' with { 'entity' : visit, 'type' : 'visit' } %}
+    {% endif %}
+
+	{% include 'particials/breadcrumbs.html.twig' %}
+
+    <div class="wrapPage">
+        <div class="lBlock">
+            <div class="mainDayContent">
+	            {% include 'particials/detailPage/numberContainer.html.twig' with { 'section': visit } %}<div class="dayContent">
+                    <h2 class="">{{ 'front.visite'|trans }}</h2>
+                    <h1>{{ visit.translate.name }}</h1>
+                    <ul class="dayList">
+	                    {% if visit.getTravelPoints|length %}
+                            <li><span class="dayListLabel">{{ 'front.ville'|trans }}:</span>{% for item in visit.getTravelPoints %}
+				                    {% if item.getMasterDestination %}
+					                    {{ item.translate.name }}
+				                    {% endif %}
+			                    {% endfor %}
+                            </li>
+	                    {% endif %}
+	                    {% if visit.getRecreation|length %}
+                            <li><span class="dayListLabel">{{ 'front.type'|trans }}:</span>{% for item in visit.getRecreation %}
+				                    {{ item.translate.name }}
+			                    {% endfor %}
+                            </li>
+	                    {% endif %}
+	                    {% if visit.getSeason|length %}
+                            <li><span class="dayListLabel">{{ 'front.saison'|trans }}:</span>{% for item in visit.getSeason %}
+		                            {{ item.translate.name }}
+	                            {% endfor %}
+                            </li>
+	                    {% endif %}
+	                    {% if  visit.getNumberHoursVisit %}
+                            <li><span class="dayListLabel">{{ 'front.duree'|trans }}: </span>{{ visit.getNumberHoursVisit }}
+                            </li>
+	                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="contentVisit">
+                <div class="contentVisitBody">
+	                {{ visit.translate.body|raw }}
+                </div>
+                <div class="aboutVisit">
+                    <span class="hotelLabel">{{ 'front.plus_dinformations_sur'|trans }}:</span>{% for item in visit.getTravelPoints %}
+                        <a href="{{ path('home_destination_detail_'~app.request.locale, {'slug':item.translate.slug}) }}"> #{{ item.translate.name }}</a>
+	                {% endfor %}
+                </div>
+
+	            {% include 'particials/detailPage/blockMap.html.twig' with { 'section': visit } %}
+
+            </div>
+        </div><div class="rBlock">
+            <div class="topRBlock">
+	            {% include 'particials/pricePanel_rBlock.html.twig' with { 'section': visit } %}
+                <div class="panelGroup">
+		            {% include 'particials/panelDefault_rBlock.html.twig' with { 'section': visit, 'idText': 'headingOneBooking', 'panelDefaultTitle': 'front.demander_un_devis'|trans, 'form' : visit_form    } %}
+		            {% include 'particials/panelDefaultTwoBooking_rBlock.html.twig' with { 'section': visit, 'idText': 'headingTwoBooking', 'panelDefaultTitle': 'front.conditions_de_vente'|trans } %}
+                </div>
+
+            </div>
+		    {% include 'particials/detailPage/blockImgs_rBlock.html.twig'  with { 'section': visit, 'size1': '390x277', 'size2': '191x153' } %}
+		    {% include 'particials/detailPage/bottomMap.html.twig'  with { 'section': visit } %}
+		    {% include 'particials/blockContacts.html.twig' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}
